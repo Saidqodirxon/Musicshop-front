@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -9,21 +9,28 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [contacts, setContacts] = useState(null);
+  const [currentLang, setCurrentLang] = useState("ru");
   const location = useLocation();
+  const dropdownRef = useRef(null);
 
-  // Get current language safely
-  const getCurrentLang = useCallback(() => {
-    const storedLang = localStorage.getItem("i18nextLng");
-    const currentLang = i18n.language || storedLang || "ru";
-    // Handle cases like "ru-RU" -> "ru"
-    return currentLang.split("-")[0].toLowerCase();
+  const languages = [
+    { code: "ru", name: "Ru", flag: "/icons/ru.svg" },
+    { code: "uz", name: "Uz", flag: "/icons/uz.svg" },
+    { code: "en", name: "En", flag: "/icons/en.svg" },
+  ];
+
+  // Initialize language
+  useEffect(() => {
+    const stored = localStorage.getItem("i18nextLng");
+    const browserLang = i18n.language;
+    const langToUse = (stored || browserLang || "ru")
+      .split("-")[0]
+      .toLowerCase();
+    setCurrentLang(langToUse);
   }, [i18n.language]);
 
-  const [currentLang, setCurrentLang] = useState(getCurrentLang());
-
-  useEffect(() => {
-    setCurrentLang(getCurrentLang());
-  }, [i18n.language, getCurrentLang]);
+  const currentLanguage =
+    languages.find((l) => l.code === currentLang) || languages[0];
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -39,40 +46,38 @@ const Navbar = () => {
     fetchContacts();
   }, []);
 
-  // Click outside to close dropdown - use ref approach
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsLangOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  const handleLanguageChange = async (langCode) => {
-    try {
-      await i18n.changeLanguage(langCode);
-      localStorage.setItem("i18nextLng", langCode);
-      setCurrentLang(langCode);
-      setIsLangOpen(false);
-      setIsMenuOpen(false);
-    } catch (error) {
-      console.error("Error changing language:", error);
-    }
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsLangOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutside, true);
+  }, []);
+
+  // Language change function - FIXED
+  const selectLanguage = (code) => {
+    console.log("Selected language:", code);
+    setCurrentLang(code);
+    localStorage.setItem("i18nextLng", code);
+    i18n.changeLanguage(code);
+    setIsLangOpen(false);
   };
 
-  const isActive = (path) => {
-    return location.pathname === path;
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsLangOpen((prev) => !prev);
   };
+
+  const isActive = (path) => location.pathname === path;
 
   const links = [
     {
@@ -131,29 +136,13 @@ const Navbar = () => {
     },
   ];
 
-  const languages = [
-    { code: "ru", label: "Ru", flag: "/icons/ru.svg" },
-    { code: "uz", label: "Uz", flag: "/icons/uz.svg" },
-    { code: "en", label: "En", flag: "/icons/en.svg" },
-  ];
-
-  const getCurrentFlag = () => {
-    const lang = languages.find((l) => l.code === currentLang);
-    return lang ? lang.flag : "/icons/ru.svg";
-  };
-
-  const getCurrentLabel = () => {
-    const lang = languages.find((l) => l.code === currentLang);
-    return lang ? lang.label : "Ru";
-  };
-
   return (
     <nav className="bg-[#E8DDD0] sticky top-0 z-50">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: "1400px" }}
       >
-        {/* Main Row - Logo, Menu, Contact Info */}
+        {/* Main Row */}
         <div className="flex items-center justify-between py-3 lg:py-4">
           {/* Logo */}
           <Link
@@ -174,7 +163,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-6">
             <a
               href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-              className="text-[15px] text-[#2D3748] font-medium hover:text-[#D4A574] transition-colors"
+              className="text-[16px] text-[#2D3748] font-bold hover:text-[#D4A574] transition-colors"
             >
               {contacts?.phones?.[0] || "+998 90 998 28 00"}
             </a>
@@ -185,84 +174,52 @@ const Navbar = () => {
               {contacts?.email || "Supersite.uz@gmail.com"}
             </a>
 
-            {/* Language Selector - Desktop */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-[#E2D5C8] hover:border-[#D4A574] transition-colors cursor-pointer"
+            {/* Custom Language Selector - Desktop */}
+            <div ref={dropdownRef} className="relative">
+              <div
+                onClick={toggleDropdown}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-[8px] cursor-pointer select-none border border-gray-100"
+                style={{ boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)" }}
               >
                 <img
-                  src={getCurrentFlag()}
-                  alt={getCurrentLabel()}
-                  className="w-[20px] h-[14px] object-cover rounded-sm"
+                  src={currentLanguage.flag}
+                  alt={currentLanguage.name}
+                  className="w-5 h-3.5 object-cover rounded-[2px]"
                 />
-                <span className="text-[14px] text-[#2D3748] font-medium">
-                  {getCurrentLabel()}
+                <span className="text-[14px] font-bold text-[#2D3748]">
+                  {currentLanguage.name}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-[#718096] transition-transform duration-200 ${
+                  className={`w-4 h-4 text-[#2D3748] transition-transform duration-200 ${
                     isLangOpen ? "rotate-180" : ""
                   }`}
                 />
-              </button>
+              </div>
 
+              {/* Dropdown Menu */}
               {isLangOpen && (
-                <div className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-lg border border-[#E2D5C8] overflow-hidden w-[100px] z-[100]">
-                  <div
-                    className={`px-4 py-2.5 text-[14px] hover:bg-[#F5EDE4] transition-colors flex items-center gap-3 cursor-pointer ${
-                      currentLang === "ru"
-                        ? "text-[#D4A574] font-medium bg-[#F5EDE4]"
-                        : "text-[#4A5568]"
-                    }`}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleLanguageChange("ru");
-                    }}
-                  >
-                    <img
-                      src="/icons/ru.svg"
-                      alt="Ru"
-                      className="w-[20px] h-[14px] object-cover rounded-sm"
-                    />
-                    <span>Ru</span>
-                  </div>
-                  <div
-                    className={`px-4 py-2.5 text-[14px] hover:bg-[#F5EDE4] transition-colors flex items-center gap-3 cursor-pointer ${
-                      currentLang === "uz"
-                        ? "text-[#D4A574] font-medium bg-[#F5EDE4]"
-                        : "text-[#4A5568]"
-                    }`}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleLanguageChange("uz");
-                    }}
-                  >
-                    <img
-                      src="/icons/uz.svg"
-                      alt="Uz"
-                      className="w-[20px] h-[14px] object-cover rounded-sm"
-                    />
-                    <span>Uz</span>
-                  </div>
-                  <div
-                    className={`px-4 py-2.5 text-[14px] hover:bg-[#F5EDE4] transition-colors flex items-center gap-3 cursor-pointer ${
-                      currentLang === "en"
-                        ? "text-[#D4A574] font-medium bg-[#F5EDE4]"
-                        : "text-[#4A5568]"
-                    }`}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleLanguageChange("en");
-                    }}
-                  >
-                    <img
-                      src="/icons/en.svg"
-                      alt="En"
-                      className="w-[20px] h-[14px] object-cover rounded-sm"
-                    />
-                    <span>En</span>
-                  </div>
+                <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden min-w-[100px] z-[9999]">
+                  {languages.map((language) => (
+                    <div
+                      key={language.code}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        selectLanguage(language.code);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2.5 cursor-pointer hover:bg-gray-100 transition-colors ${
+                        currentLang === language.code ? "bg-gray-50" : ""
+                      }`}
+                    >
+                      <img
+                        src={language.flag}
+                        alt={language.name}
+                        className="w-5 h-3.5 object-cover rounded-[2px]"
+                      />
+                      <span className="text-[14px] font-bold text-[#2D3748]">
+                        {language.name}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
@@ -293,9 +250,7 @@ const Navbar = () => {
                   ? "bg-white text-[#2E2E2E]"
                   : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] border border-[#F3F7FA]"
               }`}
-              style={{
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              }}
+              style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
             >
               {link.name}
             </Link>
@@ -308,9 +263,7 @@ const Navbar = () => {
                 ? "bg-white text-[#2E2E2E]"
                 : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] border border-[#F3F7FA]"
             }`}
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            }}
+            style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
           >
             {currentLang === "ru"
               ? "Рассчитать проект"
@@ -323,14 +276,14 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-[600px] opacity-100 pb-6" : "max-h-0 opacity-0"
+            isMenuOpen ? "max-h-[700px] opacity-100 pb-6" : "max-h-0 opacity-0"
           }`}
         >
           {/* Contact Info - Mobile */}
           <div className="flex flex-col gap-2 pb-4 border-b border-[#D4C4B5]">
             <a
               href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-              className="text-[15px] text-[#2D3748] font-medium"
+              className="text-[16px] text-[#2D3748] font-bold"
             >
               {contacts?.phones?.[0] || "+998 90 998 28 00"}
             </a>
@@ -354,9 +307,7 @@ const Navbar = () => {
                     ? "bg-white text-[#2E2E2E] shadow-sm"
                     : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E]"
                 }`}
-                style={{
-                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)",
-                }}
+                style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)" }}
               >
                 {link.name}
               </Link>
@@ -370,9 +321,7 @@ const Navbar = () => {
                   ? "bg-white text-[#2E2E2E] shadow-sm"
                   : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E]"
               }`}
-              style={{
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)",
-              }}
+              style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)" }}
             >
               {currentLang === "ru"
                 ? "Рассчитать проект"
@@ -382,28 +331,30 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Language Selector - Mobile */}
-          <div className="flex items-center gap-3 pt-4 border-t border-[#D4C4B5]">
-            {languages.map((langItem) => (
-              <button
-                key={langItem.code}
-                onClick={() => handleLanguageChange(langItem.code)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-colors flex-1 justify-center ${
-                  currentLang === langItem.code
-                    ? "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] border-[#E89B64]"
-                    : "bg-white text-[#4A5568] border-[#E2D5C8]"
-                }`}
-              >
-                <img
-                  src={langItem.flag}
-                  alt={langItem.label}
-                  className="w-[20px] h-[14px] object-cover rounded-sm"
-                />
-                <span className="text-[14px] font-medium">
-                  {langItem.label}
-                </span>
-              </button>
-            ))}
+          {/* Language Selector - Mobile (3 buttons) */}
+          <div className="pt-4 border-t border-[#D4C4B5]">
+            <div className="flex gap-2">
+              {languages.map((language) => (
+                <div
+                  key={language.code}
+                  onClick={() => selectLanguage(language.code)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg cursor-pointer transition-colors ${
+                    currentLang === language.code
+                      ? "bg-white shadow-sm"
+                      : "bg-[#D4C4B5] hover:bg-[#C4B4A5]"
+                  }`}
+                >
+                  <img
+                    src={language.flag}
+                    alt={language.name}
+                    className="w-5 h-3.5 object-cover rounded-sm"
+                  />
+                  <span className="text-[14px] font-medium text-[#2D3748]">
+                    {language.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
