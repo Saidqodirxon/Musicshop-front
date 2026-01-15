@@ -1,30 +1,30 @@
 import React from "react";
 import Navbar from "../../components/navbar/navbar";
 import Hero from "../../components/home/Hero";
-import HowWeWork from "../../components/home/HowWeWork";
-import Solutions from "../../components/home/Solutions";
-import Services from "../../components/home/Services";
+import WhatWeDo from "../../components/home/WhatWeDo";
+import ObjectTypes from "../../components/home/ObjectTypes";
 import ConsultationForm from "../../components/home/ConsultationForm";
+import ProjectExamples from "../../components/home/ProjectExamples";
+import CalculateForm from "../../components/home/CalculateForm";
+import HowWeWork from "../../components/home/HowWeWork";
 import Cases from "../../components/home/Cases";
 import FAQ from "../../components/home/FAQ";
 import Footer from "../../components/home/Footer";
-import SolutionDetails from "../../components/home/SolutionDetails";
-import ContactForm from "../../components/home/ContactForm";
+
 function Main() {
   return (
     <>
       <Navbar />
       <Hero />
-      <Services />
-      <Solutions />
+      <WhatWeDo />
+      <ObjectTypes />
       <ConsultationForm />
-      <SolutionDetails />
-      <ContactForm />
+      <ProjectExamples />
+      <CalculateForm />
       <HowWeWork />
       <Cases />
       <FAQ />
       <Footer />
-
     </>
   );
 }

@@ -27,23 +27,24 @@ const ConsultationForm = () => {
   };
 
   return (
-    <section className="py-16 lg:py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="bg-[#E5D5C3] rounded-3xl p-8 lg:p-12">
-          <div className="max-w-3xl mx-auto text-center">
+    <section className="py-16 bg-[#ECDFD2]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="bg-[#D7C1AF] rounded-[8px] p-8 lg:p-12">
+          <div className="mx-auto">
             {/* Header */}
-            <p className="text-xs uppercase tracking-widest text-[#8B4513] mb-3 font-bold">
-              ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ
-            </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#1A1A1A] mb-3 leading-tight">
-              Оставьте заявку и получите бесплатную консультацию
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2E2E2E] mb-2 leading-tight">
+              Заказать консультацию прямо сейчас
             </h2>
-            <p className="text-base text-[#5C5C5C] mb-10">
-              Наши специалисты свяжутся с вами в течение 15 минут
+            <p className="text-base text-[#616060] mb-8  max-w-lg">
+              Заполните форму и мы перезвоним вам в течение 15 минут, чтобы
+              расчитать стоимость.
             </p>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-4 items-stretch"
+            >
               <input
                 type="text"
                 placeholder="Введите имя"
@@ -52,7 +53,7 @@ const ConsultationForm = () => {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 required
-                className="w-full sm:w-64 px-6 py-3.5 rounded-xl outline-none bg-white text-[#1A1A1A] placeholder:text-gray-400 text-[15px] border border-transparent focus:border-[#FFB380] transition-all"
+                className="w-[33%] h-[85px] rounded-lg bg-white text-[#333333] text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-[20px]"
               />
               <input
                 type="tel"
@@ -62,15 +63,15 @@ const ConsultationForm = () => {
                   setFormData({ ...formData, phone: e.target.value })
                 }
                 required
-                className="w-full sm:w-64 px-6 py-3.5 rounded-xl outline-none bg-white text-[#1A1A1A] placeholder:text-gray-400 text-[15px] border border-transparent focus:border-[#FFB380] transition-all"
+                className="w-[33%] h-[85px] rounded-lg bg-white text-[#333333] text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-[20px]"
               />
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full sm:w-auto px-8 py-3.5 bg-[#FFB380] hover:bg-[#FF9F66] disabled:bg-gray-400 text-[#5C4033] font-bold text-[15px] rounded-xl transition-all shadow-md disabled:cursor-not-allowed whitespace-nowrap"
+                className="w-[33%] h-[85px] bg-gradient-to-l to-[#B97D55] from-[#8F491A] text-white font-semibold rounded-lg transition-all disabled:cursor-not-allowed text-[20px]"
               >
-                {loading ? "Отправка..." : "Получить консультацию"}
+                {loading ? "Отправка..." : "Заказать звонок"}
               </button>
             </form>
           </div>

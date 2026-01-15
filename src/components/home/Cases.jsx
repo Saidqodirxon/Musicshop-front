@@ -1,17 +1,27 @@
 import { useState, useEffect } from "react";
-import { getCases } from "../../services/api";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { Check } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 const Cases = () => {
+  const { i18n } = useTranslation();
   const [cases, setCases] = useState([]);
+  const [selectedCase, setSelectedCase] = useState(null);
   const [loading, setLoading] = useState(true);
+  const lang = i18n.language;
 
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const data = await getCases();
-        setCases(data);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/cases`
+        );
+        setCases(response.data);
+        if (response.data.length > 0) {
+          setSelectedCase(response.data[0]);
+        }
       } catch (error) {
         console.error("Error fetching cases:", error);
       } finally {
@@ -27,92 +37,144 @@ const Cases = () => {
     return `${API_URL}${image}`;
   };
 
-  const getDocumentSrc = (document) => {
-    if (!document) return "";
-    if (document.startsWith("http")) return document;
-    return `${API_URL}${document}`;
-  };
-
   if (loading) {
     return (
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-80 bg-gray-100 rounded-3xl animate-pulse"></div>
-            ))}
-          </div>
+      <section className="py-16 bg-[#E8DDD0]">
+        <div className="container mx-auto px-4 max-w-[1400px]">
+          <div className="text-center">Загрузка...</div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <section className="py-24 bg-[#E8DDD0]">
+      <div className="mx-auto px-8" style={{ maxWidth: "1400px" }}>
         {/* Section Header */}
-        <div className="mb-10 lg:mb-12">
-          <p className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-3 font-bold">
-            НАШИ КЕЙСЫ
+        <div className="mb-12">
+          <p className="text-[15px] text-[#B8936D] uppercase tracking-[0.15em] mb-4 font-semibold">
+            {lang === "ru" ? "КЕЙСЫ" : lang === "uz" ? "KEYSLAR" : "CASES"}
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight max-w-4xl">
-            Реализованные проекты и готовые решения
+          <h2 className="text-[42px] font-bold text-[#2D3748] mb-4 leading-[1.2]">
+            {lang === "ru"
+              ? "Готовые AV- решения под разные задачи и бюджеты"
+              : lang === "uz"
+              ? "Turli vazifalar va byudjetlar uchun tayyor AV yechimlari"
+              : "Ready AV solutions for different tasks and budgets"}
           </h2>
+          <p className="text-[18px] text-[#718096] font-normal leading-[1.6]">
+            {lang === "ru"
+              ? "Выберите подходящий пакет или закажите индивидуальный расчет под"
+              : lang === "uz"
+              ? "Mos to'plamni tanlang yoki ob'ektingiz uchun individual"
+              : "Choose a suitable package or order an individual calculation"}
+            <br />
+            {lang === "ru"
+              ? "ваш объект"
+              : lang === "uz"
+              ? "hisob-kitob buyurtma qiling"
+              : "for your facility"}
+          </p>
         </div>
 
-        {/* Cases Grid - 2 columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-          {cases.map((caseItem) => (
-            <div
-              key={caseItem._id}
-              className="group bg-[#F5EDE4] rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300"
-            >
-              {/* Image */}
-              {caseItem.image && (
-                <div className="h-64 lg:h-80 overflow-hidden bg-[#D7C1AF]">
-                  <img
-                    src={getImageSrc(caseItem.image)}
-                    alt={caseItem.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        {/* Cases Layout - justify-between */}
+        <div className="flex flex-col md:flex-row justify-between">
+          {/* Left Side - Cases List */}
+          <div className="md:w-[360px] flex-shrink-0">
+            {cases.map((caseItem, index) => (
+              <button
+                key={caseItem._id}
+                onClick={() => setSelectedCase(caseItem)}
+                className={`w-full text-left py-5 border-b border-[#D4C4B5] transition-all flex items-center gap-5 ${
+                  selectedCase?._id === caseItem._id ? "" : "opacity-50"
+                }`}
+              >
+                <div
+                  className={`w-[40px] h-[40px] rounded-full flex items-center justify-center flex-shrink-0 ${
+                    selectedCase?._id === caseItem._id
+                      ? "bg-[#D4A574]"
+                      : "bg-[#C4B5A5]"
+                  }`}
+                >
+                  <Check
+                    className="w-[20px] h-[20px] text-white"
+                    strokeWidth={2.5}
                   />
                 </div>
-              )}
+                <span className="text-[18px] text-[#2D3748] font-normal">
+                  {caseItem.title?.[lang] || caseItem.title?.ru || ""}
+                </span>
+              </button>
+            ))}
+          </div>
 
-              {/* Content */}
-              <div className="p-8 lg:p-10">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#1A1A1A] mb-4 leading-tight">
-                  {caseItem.title}
-                </h3>
-                <p className="text-base text-[#5C5C5C] leading-relaxed mb-6">
-                  {caseItem.description}
-                </p>
+          {/* Right Side - Selected Case Details */}
+          {selectedCase && (
+            <div className="flex-1 md:ml-16 max-w-[750px]">
+              {/* Title */}
+              <p className="text-[17px] text-[#2D3748] mb-5 font-normal italic">
+                {selectedCase.title?.[lang] || selectedCase.title?.ru || ""}
+              </p>
 
-                {/* Download Button */}
-                {caseItem.document && (
-                  <a
-                    href={getDocumentSrc(caseItem.document)}
-                    download
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-[#8F4E24] hover:bg-[#7a411e] text-white font-bold rounded-2xl transition-all hover:scale-[1.02] shadow-md"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                    Скачать кейс
-                  </a>
-                )}
+              {/* Image + Description Row */}
+              <div className="flex flex-col md:flex-row justify-between gap-8">
+                {/* Image */}
+                <div className="md:w-[300px] flex-shrink-0">
+                  {selectedCase.image ? (
+                    <img
+                      src={getImageSrc(selectedCase.image)}
+                      alt={selectedCase.title?.[lang] || selectedCase.title?.ru}
+                      className="w-full h-[280px] object-cover rounded-xl"
+                    />
+                  ) : (
+                    <div className="w-full h-[280px] bg-gray-200 flex items-center justify-center rounded-xl">
+                      <span className="text-gray-400">No image</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Description Texts + Buttons */}
+                <div className="flex-1 flex flex-col justify-between">
+                  <div className="space-y-5">
+                    <p className="text-[16px] text-[#4A5568] leading-[1.7] font-normal">
+                      {lang === "ru"
+                        ? "Плохая слышимость и сложности с онлайн-встречами—"
+                        : lang === "uz"
+                        ? "Yomon eshitish va onlayn uchrashuvlarda qiyinchiliklar—"
+                        : "Poor hearing and difficulties with online meetings—"}
+                    </p>
+                    <p className="text-[16px] text-[#4A5568] leading-[1.7] font-normal">
+                      {selectedCase.description?.[lang] ||
+                        selectedCase.description?.ru ||
+                        (lang === "ru"
+                          ? "Спроектирована и установлена AV- система с микрофонами и видеосвязью Zoom."
+                          : lang === "uz"
+                          ? "Mikrofonlar va Zoom video aloqasi bilan AV tizimi loyihalangan va o'rnatilgan."
+                          : "Designed and installed AV system with microphones and Zoom video communication.")}
+                    </p>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-5 mt-8">
+                    <button className="px-8 py-4 bg-[#6B6B6B] hover:bg-[#555555] text-white text-[15px] font-medium rounded-lg transition-all">
+                      {lang === "ru"
+                        ? "Рассчитать проект"
+                        : lang === "uz"
+                        ? "Loyihani hisoblash"
+                        : "Calculate project"}
+                    </button>
+                    <button className="px-8 py-4 bg-[#D4A574] hover:bg-[#C49564] text-white text-[15px] font-medium rounded-lg transition-all">
+                      {lang === "ru"
+                        ? "Получить консультацию"
+                        : lang === "uz"
+                        ? "Konsultatsiya olish"
+                        : "Get consultation"}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </section>
