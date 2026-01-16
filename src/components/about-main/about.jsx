@@ -5,7 +5,7 @@ const AboutMain = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16 ">
+    <div className="max-w-[1400px] mx-auto px-4 py-16 ">
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
         {t("about.title_1")}{" "}
         <span className="text-[#71914B]">{t("about.title_2")}</span>

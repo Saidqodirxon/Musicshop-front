@@ -24,7 +24,7 @@ const Solutions = () => {
   if (loading) {
     return (
       <section className="py-16 lg:py-20 bg-[#F5E6D3]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[...Array(4)].map((_, i) => (
               <div
@@ -40,13 +40,13 @@ const Solutions = () => {
 
   return (
     <section className="py-16 lg:py-20 bg-[#F5E6D3]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         {/* Section Header */}
         <div className="mb-12">
           <p className="text-xs uppercase tracking-widest text-[#8B4513] mb-3 font-bold">
             {t("solutions.sectionTitle")}
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] leading-tight max-w-4xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] leading-tight max-w-[1400px]">
             {t("solutions.sectionSubtitle")}
           </h2>
         </div>

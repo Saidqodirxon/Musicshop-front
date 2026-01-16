@@ -78,7 +78,7 @@ function ProductsPage() {
     <div className="bg-[#ECDFD2] min-h-screen font-sans">
       <Navbar />
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12 lg:py-20">
         {/* Top Products Carousel Section */}
         <section className="mb-24 lg:mb-32">
           <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12">

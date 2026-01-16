@@ -38,7 +38,7 @@ export default function ContactForm() {
 
   return (
     <div className="w-full bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col lg:flex-row gap-10">
+      <div className="max-w-[1400px] mx-auto px-4 py-12 flex flex-col lg:flex-row gap-10">
         <div className="w-full lg:w-1/2">
           <h2 className="text-[#71914B] text-2xl font-bold mb-4">
             {t("contact_form.short_about")}

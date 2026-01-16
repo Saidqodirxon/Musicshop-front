@@ -56,7 +56,7 @@ function Main() {
 
       {/* Top Products Carousel */}
       <section className="py-8 sm:py-12 lg:py-20 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <h2 className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-6 sm:mb-8 lg:mb-10">
             {t("pages.products.top_products")}
           </h2>

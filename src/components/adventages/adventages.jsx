@@ -7,7 +7,7 @@ const Advantages = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    <div className="max-w-[1400px] mx-auto px-4 pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
       <div>
         <h2 className="text-2xl md:text-3xl font-semibold text-center md:text-left">
           {t("advantages.title_1")}{" "}

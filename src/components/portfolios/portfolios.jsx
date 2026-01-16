@@ -18,7 +18,7 @@ const Portfolios = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-[1400px] mx-auto px-4 py-16">
       <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10">
         {t("portfolio.title_1")}{" "}
         <span className="text-[#71914B]">{t("portfolio.title_2")}</span>

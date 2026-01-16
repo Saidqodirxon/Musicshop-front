@@ -37,7 +37,7 @@ const Contacts = () => {
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
       {/* Kontent */}
-      <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-10">
+      <div className="relative z-10 max-w-[1400px] mx-auto grid md:grid-cols-2 items-center gap-10">
         <div>
           <h2 className="text-2xl md:text-3xl font-semibold leading-relaxed">
             {t("contacts.title")}

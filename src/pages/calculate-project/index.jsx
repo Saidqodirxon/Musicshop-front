@@ -99,7 +99,7 @@ function CalculateProjectPage() {
     <div className="bg-[#EDD9CD] min-h-screen">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 max-w-7xl">
+      <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 max-w-[1400px]">
         {/* CALCULATOR CARD */}
         <div className="bg-[#D7C1AF] rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] p-4 sm:p-6 md:p-8 lg:p-16 shadow-xl mb-12 sm:mb-16 md:mb-20 lg:mb-32">
           {/* 1. Object Type */}

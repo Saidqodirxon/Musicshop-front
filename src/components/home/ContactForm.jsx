@@ -32,9 +32,9 @@ const ContactForm = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-[#ECDFD2]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="bg-white rounded-[2.5rem] p-8 lg:p-16 shadow-xl">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-[1400px] mx-auto">
             {/* Header */}
             <div className="text-center mb-10">
               <p className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-3 font-bold">

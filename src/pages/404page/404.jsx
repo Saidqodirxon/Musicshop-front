@@ -12,7 +12,7 @@ const NotFound = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-[#ECDFD2] to-[#E8DDD0] flex flex-col items-center justify-center px-4 text-center py-20">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-12 shadow-2xl max-w-2xl">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-12 shadow-2xl max-w-[1400px]">
           <div className="mb-8">
             <h1 className="text-[120px] sm:text-[180px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#B8956A] to-[#8F491A] leading-none">
               404

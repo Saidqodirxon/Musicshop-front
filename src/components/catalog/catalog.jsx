@@ -25,7 +25,7 @@ const Catalog = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 mt-12">
+    <div className="max-w-[1400px] mx-auto px-4 py-16 mt-12">
       <h2 className="text-2xl md:text-3xl font-semibold text-center mb-10">
         {t("catalog.title_1")}{" "}
         <span className="text-[#71914B]">{t("catalog.title_2")}</span>

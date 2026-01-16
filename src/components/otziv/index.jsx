@@ -28,7 +28,7 @@ const Testimonials = () => {
         <span className="text-[#71914B]">{t("otziv.title_2")}</span>
       </h2>
 
-      <div className="max-w-7xl mx-auto grid gap-12 md:grid-cols-3">
+      <div className="max-w-[1400px] mx-auto grid gap-12 md:grid-cols-3">
         {testimonials.map((item, idx) => (
           <div
             key={idx}

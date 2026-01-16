@@ -20,13 +20,13 @@ const SolutionDetails = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-[#ECDFD2]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <p className="text-[#8F491A] font-bold uppercase tracking-wider mb-2 text-sm sm:text-base">
             НАШИ РЕШЕНИЯ
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] max-w-4xl leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] max-w-[1400px] leading-tight">
             Каждая карточка ведет на свою страницу решения
           </h2>
         </div>
