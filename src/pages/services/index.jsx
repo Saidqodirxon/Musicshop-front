@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Services from "../../components/home/Services";
 import ConsultationForm from "../../components/home/ConsultationForm";
@@ -9,6 +10,7 @@ import WhatWeDo from "../../components/home/WhatWeDo";
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 function Main() {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +40,7 @@ function Main() {
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 sm:py-12 lg:py-20">
         <h1 className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-8 sm:mb-12 lg:mb-16">
-          Наши услуги
+          {t("pages.services.title")}
         </h1>
 
         {loading ? (

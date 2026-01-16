@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import { getContacts, submitApplication } from "../../services/api";
@@ -14,6 +15,7 @@ import {
 } from "react-icons/fa";
 
 const ContactsPage = () => {
+  const { t } = useTranslation();
   const [contacts, setContacts] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -42,7 +44,7 @@ const ContactsPage = () => {
     if (e) e.preventDefault();
     try {
       await submitApplication({ ...formData, type });
-      alert("Сообщение отправлено!");
+      alert(t("pages.contacts.success_message"));
       setFormData({ name: "", phone: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -62,7 +64,7 @@ const ContactsPage = () => {
               <FaMapMarkerAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
-              Адрес
+              {t("pages.contacts.address")}
             </h3>
             <p className="text-gray-700 max-w-[200px]">
               {contacts?.address ||
@@ -76,7 +78,7 @@ const ContactsPage = () => {
               <FaEnvelope className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
-              E-mail
+              {t("pages.contacts.email")}
             </h3>
             <p className="text-gray-700">
               {contacts?.email || "Supersite.uz@gmail.com"}
@@ -89,7 +91,7 @@ const ContactsPage = () => {
               <FaPhoneAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
-              Телефон
+              {t("pages.contacts.phone")}
             </h3>
             <p className="text-lg sm:text-xl font-bold text-gray-800">
               {contacts?.phone || "+998909982800"}
@@ -102,7 +104,7 @@ const ContactsPage = () => {
               <FaClock className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
-              Время
+              {t("pages.contacts.work_time")}
             </h3>
             <p className="text-gray-700">
               {contacts?.workingHours || "9.00 19.00 Пн-Вс"}
@@ -115,7 +117,7 @@ const ContactsPage = () => {
           {/* Left: Feedback Form */}
           <div className="flex-1">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
-              Контакты и обратное связь
+              {t("pages.contacts.contact_form_title")}
             </h2>
 
             <form className="space-y-4 sm:space-y-6">
@@ -126,7 +128,7 @@ const ContactsPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="Введите имя"
+                  placeholder={t("pages.contacts.name_placeholder")}
                   className="flex-1 bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400"
                 />
                 <input
@@ -134,7 +136,7 @@ const ContactsPage = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder="+998 (00) 000-00-00"
+                  placeholder={t("pages.contacts.phone_placeholder")}
                   className="flex-1 bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400"
                 />
                 <button
@@ -142,7 +144,7 @@ const ContactsPage = () => {
                   onClick={(e) => handleSubmit(e, "call_order")}
                   className="bg-[#8F4E24] hover:bg-[#7a411e] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all whitespace-nowrap touch-manipulation active:scale-95"
                 >
-                  Заказать звонок
+                  {t("pages.contacts.send_button")}
                 </button>
               </div>
 
@@ -153,7 +155,7 @@ const ContactsPage = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
-                  placeholder="Опишите суть вашего вопроса или обращения"
+                  placeholder={t("pages.contacts.message_placeholder")}
                   className="w-full bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-4 sm:py-5 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400 resize-none"
                 />
               </div>
@@ -192,7 +194,7 @@ const ContactsPage = () => {
                   onClick={(e) => handleSubmit(e, "feedback")}
                   className="bg-[#5C5C5C] hover:bg-[#4d4d4d] text-white w-full sm:w-64 py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all shadow-lg touch-manipulation active:scale-95"
                 >
-                  Отправить
+                  {t("pages.contacts.send_button")}
                 </button>
               </div>
             </form>

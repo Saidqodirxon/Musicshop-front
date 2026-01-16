@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { submitApplication } from "../../services/api";
 
 const ConsultationForm = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,11 +18,11 @@ const ConsultationForm = () => {
         ...formData,
         type: "consultation",
       });
-      alert("Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
+      alert(t("consultationForm.successMessage"));
       setFormData({ name: "", phone: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Ошибка при отправке заявки. Попробуйте еще раз.");
+      alert(t("consultationForm.errorMessage"));
     } finally {
       setLoading(false);
     }
@@ -33,11 +35,10 @@ const ConsultationForm = () => {
           <div className="mx-auto">
             {/* Header */}
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#2E2E2E] mb-2 sm:mb-3 leading-tight">
-              Заказать консультацию прямо сейчас
+              {t("consultationForm.title")}
             </h2>
             <p className="text-sm sm:text-base text-[#616060] mb-6 sm:mb-8 max-w-lg">
-              Заполните форму и мы перезвоним вам в течение 15 минут, чтобы
-              расчитать стоимость.
+              {t("consultationForm.description")}
             </p>
 
             {/* Form */}
@@ -47,7 +48,7 @@ const ConsultationForm = () => {
             >
               <input
                 type="text"
-                placeholder="Введите имя"
+                placeholder={t("consultationForm.namePlaceholder")}
                 value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
@@ -57,7 +58,7 @@ const ConsultationForm = () => {
               />
               <input
                 type="tel"
-                placeholder="+998 (00) 000-00-00"
+                placeholder={t("consultationForm.phonePlaceholder")}
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
@@ -71,7 +72,7 @@ const ConsultationForm = () => {
                 disabled={loading}
                 className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] bg-gradient-to-l to-[#B97D55] from-[#8F491A] hover:shadow-lg text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base sm:text-lg lg:text-[20px] active:scale-95 touch-manipulation"
               >
-                {loading ? "Отправка..." : "Заказать звонок"}
+                {loading ? t("consultationForm.sending") : t("consultationForm.callButton")}
               </button>
             </form>
           </div>

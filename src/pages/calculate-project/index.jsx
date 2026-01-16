@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import FAQ from "../../components/home/FAQ";
@@ -6,6 +7,7 @@ import { getReviews, submitApplication } from "../../services/api";
 import { Star } from "lucide-react";
 
 function CalculateProjectPage() {
+  const { t } = useTranslation();
   const [reviews, setReviews] = useState([]);
   const [formData, setFormData] = useState({
     objectType: "",
@@ -30,29 +32,35 @@ function CalculateProjectPage() {
   }, []);
 
   const objectTypes = [
-    "Конференц-зал",
-    "Учебная аудитория",
-    "Переговорная",
-    "Государственный зал",
-    "Концертный/актовый зал",
-    "Другое",
+    { key: "conference", label: t("pages.calculate.object_types.conference") },
+    { key: "classroom", label: t("pages.calculate.object_types.classroom") },
+    { key: "meeting", label: t("pages.calculate.object_types.meeting") },
+    { key: "government", label: t("pages.calculate.object_types.government") },
+    { key: "concert", label: t("pages.calculate.object_types.concert") },
+    { key: "other", label: t("pages.calculate.object_types.other") },
   ];
 
   const equipmentTypes = [
-    "Аудиосистема",
-    "Видео / экран / проектор",
-    "Микрофоны",
-    "Управление и автоматизация",
-    "Конференц-система",
-    "Другое",
+    { key: "audio", label: t("pages.calculate.equipment_types.audio") },
+    { key: "video", label: t("pages.calculate.equipment_types.video") },
+    {
+      key: "microphones",
+      label: t("pages.calculate.equipment_types.microphones"),
+    },
+    { key: "control", label: t("pages.calculate.equipment_types.control") },
+    {
+      key: "conference",
+      label: t("pages.calculate.equipment_types.conference"),
+    },
+    { key: "other", label: t("pages.calculate.equipment_types.other") },
   ];
 
-  const toggleEquipment = (type) => {
+  const toggleEquipment = (equipmentLabel) => {
     setFormData((prev) => ({
       ...prev,
-      equipment: prev.equipment.includes(type)
-        ? prev.equipment.filter((e) => e !== type)
-        : [...prev.equipment, type],
+      equipment: prev.equipment.includes(equipmentLabel)
+        ? prev.equipment.filter((e) => e !== equipmentLabel)
+        : [...prev.equipment, equipmentLabel],
     }));
   };
 
@@ -72,7 +80,7 @@ function CalculateProjectPage() {
         message: message,
         type: "calculate_project",
       });
-      alert("Заявка успешно отправлена!");
+      alert(t("pages.calculate.success_message"));
       setFormData({
         objectType: "",
         area: "",
@@ -97,20 +105,22 @@ function CalculateProjectPage() {
           {/* 1. Object Type */}
           <div className="mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
-              Для какого объекта нужен проект?
+              {t("pages.calculate.object_type_title")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {objectTypes.map((type) => (
                 <button
-                  key={type}
-                  onClick={() => setFormData({ ...formData, objectType: type })}
+                  key={type.key}
+                  onClick={() =>
+                    setFormData({ ...formData, objectType: type.label })
+                  }
                   className={`py-3 sm:py-4 md:py-5 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all text-center border-2 touch-manipulation active:scale-95 ${
-                    formData.objectType === type
+                    formData.objectType === type.label
                       ? "bg-[#8F4E24] text-white border-[#8F4E24]"
                       : "bg-white text-[#8F4E24] border-transparent hover:border-[#8F4E24]"
                   }`}
                 >
-                  {type}
+                  {type.label}
                 </button>
               ))}
             </div>
@@ -119,12 +129,12 @@ function CalculateProjectPage() {
           {/* 2. Room Parameters */}
           <div className="mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
-              Параметры помещения
+              {t("pages.calculate.contact_title")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <input
                 type="text"
-                placeholder="Площадь помещения (м2)"
+                placeholder={t("pages.calculate.area_title")}
                 value={formData.area}
                 onChange={(e) =>
                   setFormData({ ...formData, area: e.target.value })
@@ -133,7 +143,7 @@ function CalculateProjectPage() {
               />
               <input
                 type="text"
-                placeholder="Высота потолков (опционально)"
+                placeholder={t("pages.calculate.height_title")}
                 value={formData.height}
                 onChange={(e) =>
                   setFormData({ ...formData, height: e.target.value })
@@ -142,7 +152,7 @@ function CalculateProjectPage() {
               />
               <input
                 type="text"
-                placeholder="Площадь помещения (м2)"
+                placeholder={t("pages.calculate.other_area_title")}
                 value={formData.otherArea}
                 onChange={(e) =>
                   setFormData({ ...formData, otherArea: e.target.value })
@@ -155,20 +165,20 @@ function CalculateProjectPage() {
           {/* 3. Equipment Selection */}
           <div className="mb-10 sm:mb-12 md:mb-16">
             <h2 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
-              Какое оборудование необходимо?
+              {t("pages.calculate.equipment_title")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {equipmentTypes.map((type) => (
                 <button
-                  key={type}
-                  onClick={() => toggleEquipment(type)}
+                  key={type.key}
+                  onClick={() => toggleEquipment(type.label)}
                   className={`py-3 sm:py-4 md:py-5 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all text-center border-2 touch-manipulation active:scale-95 ${
-                    formData.equipment.includes(type)
+                    formData.equipment.includes(type.label)
                       ? "bg-[#8F4E24] text-white border-[#8F4E24]"
                       : "bg-white text-[#8F4E24] border-transparent hover:border-[#8F4E24]"
                   }`}
                 >
-                  {type}
+                  {type.label}
                 </button>
               ))}
             </div>
@@ -177,7 +187,7 @@ function CalculateProjectPage() {
           {/* 4. Final Contact Step */}
           <div className="text-center md:text-left">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1A1A1A] mb-2">
-              Отлично! Остался последний шаг
+              {t("pages.calculate.contact_title")}
             </h2>
             <p className="text-sm sm:text-base text-[#5C5C5C] mb-6 sm:mb-8 md:mb-10">
               Мы свяжемся с вами и подготовим предварительный расчет проекта
@@ -187,7 +197,7 @@ function CalculateProjectPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <input
                   type="text"
-                  placeholder="Введите имя"
+                  placeholder={t("pages.calculate.name_placeholder")}
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
@@ -197,7 +207,7 @@ function CalculateProjectPage() {
                 />
                 <input
                   type="tel"
-                  placeholder="+998 (00) 000-00-00"
+                  placeholder={t("pages.calculate.phone_placeholder")}
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
@@ -211,7 +221,7 @@ function CalculateProjectPage() {
                   type="submit"
                   className="w-full sm:w-auto sm:min-w-[400px] md:min-w-[550px] bg-[#8F4E24] hover:bg-[#7a411e] text-white px-8 sm:px-10 md:px-12 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all shadow-xl hover:scale-[1.02] touch-manipulation active:scale-95"
                 >
-                  Отправить на расчет
+                  {t("pages.calculate.calculate_button")}
                 </button>
               </div>
             </form>
@@ -225,7 +235,7 @@ function CalculateProjectPage() {
               ОТЗЫВЫ
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight">
-              Что о нас говорят наши <br className="hidden md:block" /> клиенты
+              {t("pages.calculate.reviews_title")}
             </h2>
           </div>
 

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getBanners } from "../../services/api";
 
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 const Hero = () => {
+  const { t } = useTranslation();
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -73,13 +75,12 @@ const Hero = () => {
         <div className="max-w-full lg:max-w-[700px] py-12 sm:py-16 lg:py-0">
           {/* Main Heading */}
           <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-bold text-[#8F491A] mb-4 sm:mb-5 leading-[1.2]">
-            Профессиональные AV- решение под ключ для бизнеса и организаций
+            {t("hero.title")}
           </h1>
 
           {/* Description */}
           <p className="text-[14px] sm:text-[15px] lg:text-[16px] text-[#384258] mb-6 sm:mb-8 leading-[1.6] max-w-full sm:max-w-[500px]">
-            Проектирование установка и интеграция аудио- и видео систем для
-            конференц залов аудиторий и больших пространств
+            {t("hero.description")}
           </p>
 
           {/* Buttons */}
@@ -88,10 +89,10 @@ const Hero = () => {
               to="/calculate-project"
               className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#5D5D5D] hover:bg-[#5a5a5a] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation"
             >
-              Рассчитать проект
+              {t("hero.calculateBtn")}
             </Link>
             <button className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#B8956A] hover:bg-[#A8855A] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation">
-              Получить консультацию
+              {t("hero.consultBtn")}
             </button>
           </div>
         </div>

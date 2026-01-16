@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import Solutions from "../../components/home/Solutions";
@@ -11,10 +12,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 function ProductsPage() {
+  const { t } = useTranslation();
   const [topProducts, setTopProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,16 +37,34 @@ function ProductsPage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (window.innerWidth < 768) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+    };
+
+    updateItemsPerView();
+    window.addEventListener('resize', updateItemsPerView);
+    return () => window.removeEventListener('resize', updateItemsPerView);
+  }, []);
+
   const nextSlide = () => {
-    if (topProducts.length <= 3) return;
+    if (topProducts.length <= itemsPerView) return;
     setCurrentIdx((prev) =>
-      prev + 1 >= topProducts.length - 2 ? 0 : prev + 1
+      prev >= topProducts.length - itemsPerView ? 0 : prev + 1
     );
   };
 
   const prevSlide = () => {
-    if (topProducts.length <= 3) return;
-    setCurrentIdx((prev) => (prev <= 0 ? topProducts.length - 3 : prev - 1));
+    if (topProducts.length <= itemsPerView) return;
+    setCurrentIdx((prev) =>
+      prev <= 0 ? topProducts.length - itemsPerView : prev - 1
+    );
   };
 
   const getImageSrc = (images) => {
@@ -61,12 +82,12 @@ function ProductsPage() {
         {/* Top Products Carousel Section */}
         <section className="mb-24 lg:mb-32">
           <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12">
-            Топ товары
+            {t("pages.products.top_products")}
           </h2>
 
           <div className="relative">
             {/* Navigation Arrows */}
-            {topProducts.length > 3 && (
+            {topProducts.length > itemsPerView && (
               <>
                 <button
                   onClick={prevSlide}
@@ -89,12 +110,7 @@ function ProductsPage() {
                 className="flex transition-transform duration-500 ease-in-out gap-4 md:gap-6"
                 style={{
                   transform: `translateX(-${
-                    currentIdx *
-                    (window.innerWidth < 768
-                      ? 100
-                      : window.innerWidth < 1024
-                      ? 50
-                      : 33.333)
+                    currentIdx * (100 / itemsPerView)
                   }%)`,
                 }}
               >
@@ -102,19 +118,16 @@ function ProductsPage() {
                   [1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="basis-1/3 flex-shrink-0 bg-white rounded-[2rem] h-[500px] animate-pulse"
+                      className="flex-shrink-0 bg-white rounded-[2rem] h-[500px] animate-pulse"
+                      style={{ width: `calc(${100 / itemsPerView}% - ${itemsPerView === 1 ? 0 : 16}px)` }}
                     ></div>
                   ))
                 ) : topProducts.length > 0 ? (
                   topProducts.map((product) => (
                     <div
                       key={product._id}
-                      style={{
-                        width: `calc(${
-                          100 / (topProducts.length || 1)
-                        }% - 16px)`,
-                      }}
-                      className="flex-shrink-0 bg-white rounded-[2rem] overflow-hidden flex flex-col group/card shadow-sm hover:shadow-xl transition-all border border-[#EDD9CD]"
+                      className="flex-shrink-0 bg-white rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden flex flex-col group/card shadow-sm hover:shadow-xl transition-all border border-[#EDD9CD]"
+                      style={{ width: `calc(${100 / itemsPerView}% - ${itemsPerView === 1 ? 0 : 16}px)` }}
                     >
                       {/* Grey image container matching Figma */}
                       <div className="aspect-[4/3] bg-[#F4F4F4] overflow-hidden p-4 sm:p-6 md:p-8 flex items-center justify-center">
@@ -141,10 +154,10 @@ function ProductsPage() {
                                 : "text-[#8F491A]"
                             }`}
                           >
-                            {product.inStock ? "В наличии" : "Нет в наличии"}
+                            {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
                           </p>
                           <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation">
-                            Написать
+                            {t("pages.products.contact")}
                           </button>
                         </div>
                       </div>
@@ -152,7 +165,7 @@ function ProductsPage() {
                   ))
                 ) : (
                   <div className="w-full text-center py-20 text-[#5C5C5C] italic">
-                    Топ товары не найдены
+                    {t("pages.products.no_products")}
                   </div>
                 )}
               </div>
@@ -167,7 +180,7 @@ function ProductsPage() {
 
         <section className="mb-24 lg:mb-32">
           <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12">
-            Рекомендуем
+            {t("pages.products.recommended")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {allProducts.map((product) => (
@@ -195,10 +208,10 @@ function ProductsPage() {
                         product.inStock ? "text-green-600" : "text-[#8F491A]"
                       }`}
                     >
-                      {product.inStock ? "В наличии" : "Нет в наличии"}
+                      {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
                     </p>
                     <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all touch-manipulation active:scale-95">
-                      Написать
+                      {t("pages.products.contact")}
                     </button>
                   </div>
                 </div>

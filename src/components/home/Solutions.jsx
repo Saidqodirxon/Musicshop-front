@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { getWhoWeWorkFor } from "../../services/api";
 
 const Solutions = () => {
+  const { t } = useTranslation();
   const [solutions, setSolutions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +27,10 @@ const Solutions = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-32 bg-white/50 rounded-2xl animate-pulse"></div>
+              <div
+                key={i}
+                className="h-32 bg-white/50 rounded-2xl animate-pulse"
+              ></div>
             ))}
           </div>
         </div>
@@ -39,10 +44,10 @@ const Solutions = () => {
         {/* Section Header */}
         <div className="mb-12">
           <p className="text-xs uppercase tracking-widest text-[#8B4513] mb-3 font-bold">
-            ДЛЯ КОГО МЫ РАБОТАЕМ
+            {t("solutions.sectionTitle")}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] leading-tight max-w-4xl">
-            Мы понимаем задачи каждого типа объектов и предлагаем готовые решения под ключ
+            {t("solutions.sectionSubtitle")}
           </h2>
         </div>
 

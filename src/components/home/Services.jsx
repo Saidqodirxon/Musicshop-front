@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { getWhatWeDo } from "../../services/api";
 
 const Services = () => {
+  const { t } = useTranslation();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +27,10 @@ const Services = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="h-40 bg-gray-100 rounded-2xl animate-pulse"></div>
+              <div
+                key={i}
+                className="h-40 bg-gray-100 rounded-2xl animate-pulse"
+              ></div>
             ))}
           </div>
         </div>
@@ -39,10 +44,10 @@ const Services = () => {
         {/* Section Header */}
         <div className="mb-12">
           <p className="text-xs uppercase tracking-widest text-[#8B4513] mb-3 font-bold">
-            ЧТО МЫ ДЕЛАЕМ
+            {t("services.sectionTitle")}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] leading-tight max-w-4xl">
-            Проектируем, поставляем и монтируем профессиональное аудио, видео и мультимедийное оборудование
+            {t("services.sectionSubtitle")}
           </h2>
         </div>
 
@@ -56,7 +61,7 @@ const Services = () => {
               {/* Number Badge */}
               <div className="absolute -top-3 -left-3 w-9 h-9 bg-[#8B4513] rounded-full flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-base">
-                  {String(index + 1).padStart(2, '0')}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
 

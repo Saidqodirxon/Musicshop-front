@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import HowWeWork from "../../components/home/HowWeWork";
@@ -9,6 +10,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 function Main() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -56,7 +58,7 @@ function Main() {
       <section className="py-8 sm:py-12 lg:py-20 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <h2 className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-6 sm:mb-8 lg:mb-10">
-            Топ товары
+            {t("pages.products.top_products")}
           </h2>
 
           <div className="relative group">
@@ -126,10 +128,10 @@ function Main() {
                                   : "text-[#8F491A]"
                               }`}
                             >
-                              {product.inStock ? "В наличии" : "Нет в наличии"}
+                              {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
                             </p>
                             <button className="w-full py-3 sm:py-4 bg-[#8F491A] text-white rounded-xl sm:rounded-[12px] font-bold text-[15px] sm:text-base hover:bg-[#723A15] transition-all hover:scale-[1.02] active:scale-95 shadow-lg touch-manipulation">
-                              Написать
+                              {t("pages.products.contact")}
                             </button>
                           </div>
                         </div>

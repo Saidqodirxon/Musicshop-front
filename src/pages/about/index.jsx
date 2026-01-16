@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import { getAbout, getNews } from "../../services/api";
 import { Eye } from "lucide-react";
 
 const AboutPage = () => {
+  const { t } = useTranslation();
   const [aboutData, setAboutData] = useState(null);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +39,7 @@ const AboutPage = () => {
     return (
       <div className="min-h-screen bg-[#ECDFD2] flex items-center justify-center">
         <div className="animate-pulse text-lg sm:text-xl font-bold">
-          Загрузка...
+          {t("pages.about.loading")}
         </div>
       </div>
     );

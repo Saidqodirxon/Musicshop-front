@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { submitApplication } from "../../services/api";
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -18,11 +20,11 @@ const ContactForm = () => {
         ...formData,
         type: "contact",
       });
-      alert("Сообщение успешно отправлено! Мы ответим вам в ближайшее время.");
+      alert(t("contactForm.successMessage"));
       setFormData({ name: "", phone: "", email: "", message: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Ошибка при отправке сообщения. Попробуйте еще раз.");
+      alert(t("contactForm.errorMessage"));
     } finally {
       setLoading(false);
     }
@@ -36,13 +38,13 @@ const ContactForm = () => {
             {/* Header */}
             <div className="text-center mb-10">
               <p className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-3 font-bold">
-                СВЯЖИТЕСЬ С НАМИ
+                {t("contactForm.title")}
               </p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A1A1A] mb-4 leading-tight">
-                Есть вопросы? Напишите нам
+                {t("contactForm.subtitle")}
               </h2>
               <p className="text-base lg:text-lg text-[#5C5C5C]">
-                Заполните форму и мы ответим вам в течение 24 часов
+                {t("contactForm.description")}
               </p>
             </div>
 
@@ -51,7 +53,7 @@ const ContactForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <input
                   type="text"
-                  placeholder="Ваше имя *"
+                  placeholder={t("contactForm.namePlaceholder")}
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
@@ -61,7 +63,7 @@ const ContactForm = () => {
                 />
                 <input
                   type="tel"
-                  placeholder="Телефон *"
+                  placeholder={t("contactForm.phonePlaceholder")}
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
@@ -73,7 +75,7 @@ const ContactForm = () => {
 
               <input
                 type="email"
-                placeholder="Email (необязательно)"
+                placeholder={t("contactForm.emailPlaceholder")}
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -82,7 +84,7 @@ const ContactForm = () => {
               />
 
               <textarea
-                placeholder="Ваше сообщение *"
+                placeholder={t("contactForm.messagePlaceholder")}
                 value={formData.message}
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
@@ -98,7 +100,9 @@ const ContactForm = () => {
                   disabled={loading}
                   className="px-12 lg:px-16 py-4 lg:py-5 bg-[#8F4E24] hover:bg-[#7a411e] disabled:bg-gray-400 text-white font-bold text-base lg:text-lg rounded-2xl transition-all hover:scale-[1.02] active:scale-95 shadow-lg disabled:cursor-not-allowed"
                 >
-                  {loading ? "Отправка..." : "Отправить сообщение"}
+                  {loading
+                    ? t("contactForm.sending")
+                    : t("contactForm.sendButton")}
                 </button>
               </div>
             </form>
