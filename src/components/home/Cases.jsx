@@ -48,21 +48,24 @@ const Cases = () => {
   }
 
   return (
-    <section className="py-24 bg-[#E8DDD0]">
-      <div className="mx-auto px-8" style={{ maxWidth: "1400px" }}>
+    <section className="py-12 sm:py-16 lg:py-24 bg-[#E8DDD0]">
+      <div
+        className="mx-auto px-4 sm:px-6 lg:px-8"
+        style={{ maxWidth: "1400px" }}
+      >
         {/* Section Header */}
-        <div className="mb-12">
-          <p className="text-[15px] text-[#B8936D] uppercase tracking-[0.15em] mb-4 font-semibold">
+        <div className="mb-8 sm:mb-12">
+          <p className="text-xs sm:text-sm lg:text-[15px] text-[#B8936D] uppercase tracking-[0.1em] sm:tracking-[0.15em] mb-3 sm:mb-4 font-semibold">
             {lang === "ru" ? "КЕЙСЫ" : lang === "uz" ? "KEYSLAR" : "CASES"}
           </p>
-          <h2 className="text-[42px] font-bold text-[#2D3748] mb-4 leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-[#2D3748] mb-3 sm:mb-4 leading-[1.2]">
             {lang === "ru"
               ? "Готовые AV- решения под разные задачи и бюджеты"
               : lang === "uz"
               ? "Turli vazifalar va byudjetlar uchun tayyor AV yechimlari"
               : "Ready AV solutions for different tasks and budgets"}
           </h2>
-          <p className="text-[18px] text-[#718096] font-normal leading-[1.6]">
+          <p className="text-sm sm:text-base lg:text-[18px] text-[#718096] font-normal leading-[1.6]">
             {lang === "ru"
               ? "Выберите подходящий пакет или закажите индивидуальный расчет под"
               : lang === "uz"
@@ -77,31 +80,31 @@ const Cases = () => {
           </p>
         </div>
 
-        {/* Cases Layout - justify-between */}
-        <div className="flex flex-col md:flex-row justify-between">
+        {/* Cases Layout */}
+        <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-0">
           {/* Left Side - Cases List */}
-          <div className="md:w-[360px] flex-shrink-0">
+          <div className="lg:w-[360px] flex-shrink-0">
             {cases.map((caseItem, index) => (
               <button
                 key={caseItem._id}
                 onClick={() => setSelectedCase(caseItem)}
-                className={`w-full text-left py-5 border-b border-[#D4C4B5] transition-all flex items-center gap-5 ${
+                className={`w-full text-left py-4 sm:py-5 border-b border-[#D4C4B5] transition-all flex items-center gap-3 sm:gap-5 touch-manipulation active:scale-95 ${
                   selectedCase?._id === caseItem._id ? "" : "opacity-50"
                 }`}
               >
                 <div
-                  className={`w-[40px] h-[40px] rounded-full flex items-center justify-center flex-shrink-0 ${
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     selectedCase?._id === caseItem._id
                       ? "bg-[#D4A574]"
                       : "bg-[#C4B5A5]"
                   }`}
                 >
                   <Check
-                    className="w-[20px] h-[20px] text-white"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                     strokeWidth={2.5}
                   />
                 </div>
-                <span className="text-[18px] text-[#2D3748] font-normal">
+                <span className="text-base sm:text-lg text-[#2D3748] font-normal">
                   {caseItem.title?.[lang] || caseItem.title?.ru || ""}
                 </span>
               </button>
@@ -110,24 +113,24 @@ const Cases = () => {
 
           {/* Right Side - Selected Case Details */}
           {selectedCase && (
-            <div className="flex-1 md:ml-16 max-w-[750px]">
+            <div className="flex-1 lg:ml-16 max-w-full lg:max-w-[750px]">
               {/* Title */}
-              <p className="text-[17px] text-[#2D3748] mb-5 font-normal italic">
+              <p className="text-base sm:text-[17px] text-[#2D3748] mb-4 sm:mb-5 font-normal italic">
                 {selectedCase.title?.[lang] || selectedCase.title?.ru || ""}
               </p>
 
               {/* Image + Description Row */}
-              <div className="flex flex-col md:flex-row justify-between gap-8">
+              <div className="flex flex-col md:flex-row justify-between gap-6 sm:gap-8">
                 {/* Image */}
-                <div className="md:w-[300px] flex-shrink-0">
+                <div className="w-full md:w-[300px] flex-shrink-0">
                   {selectedCase.image ? (
                     <img
                       src={getImageSrc(selectedCase.image)}
                       alt={selectedCase.title?.[lang] || selectedCase.title?.ru}
-                      className="w-full h-[280px] object-cover rounded-xl"
+                      className="w-full h-[220px] sm:h-[250px] md:h-[280px] object-cover rounded-xl"
                     />
                   ) : (
-                    <div className="w-full h-[280px] bg-gray-200 flex items-center justify-center rounded-xl">
+                    <div className="w-full h-[220px] sm:h-[250px] md:h-[280px] bg-gray-200 flex items-center justify-center rounded-xl">
                       <span className="text-gray-400">No image</span>
                     </div>
                   )}
@@ -135,15 +138,15 @@ const Cases = () => {
 
                 {/* Description Texts + Buttons */}
                 <div className="flex-1 flex flex-col justify-between">
-                  <div className="space-y-5">
-                    <p className="text-[16px] text-[#4A5568] leading-[1.7] font-normal">
+                  <div className="space-y-4 sm:space-y-5">
+                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.7] font-normal">
                       {lang === "ru"
                         ? "Плохая слышимость и сложности с онлайн-встречами—"
                         : lang === "uz"
                         ? "Yomon eshitish va onlayn uchrashuvlarda qiyinchiliklar—"
                         : "Poor hearing and difficulties with online meetings—"}
                     </p>
-                    <p className="text-[16px] text-[#4A5568] leading-[1.7] font-normal">
+                    <p className="text-sm sm:text-base text-[#4A5568] leading-[1.7] font-normal">
                       {selectedCase.description?.[lang] ||
                         selectedCase.description?.ru ||
                         (lang === "ru"
@@ -155,15 +158,15 @@ const Cases = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-5 mt-8">
-                    <button className="px-8 py-4 bg-[#6B6B6B] hover:bg-[#555555] text-white text-[15px] font-medium rounded-lg transition-all">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 mt-6 sm:mt-8">
+                    <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#6B6B6B] hover:bg-[#555555] text-white text-sm sm:text-[15px] font-medium rounded-lg transition-all active:scale-95 touch-manipulation">
                       {lang === "ru"
                         ? "Рассчитать проект"
                         : lang === "uz"
                         ? "Loyihani hisoblash"
                         : "Calculate project"}
                     </button>
-                    <button className="px-8 py-4 bg-[#D4A574] hover:bg-[#C49564] text-white text-[15px] font-medium rounded-lg transition-all">
+                    <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#D4A574] hover:bg-[#C49564] text-white text-sm sm:text-[15px] font-medium rounded-lg transition-all active:scale-95 touch-manipulation">
                       {lang === "ru"
                         ? "Получить консультацию"
                         : lang === "uz"

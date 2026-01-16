@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { X, Phone } from "lucide-react";
 
 const Navbar = () => {
   const { i18n } = useTranslation();
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [currentLang, setCurrentLang] = useState("ru");
   const location = useLocation();
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   const languages = [
     { code: "ru", name: "Ru", flag: "/icons/ru.svg" },
@@ -32,6 +33,7 @@ const Navbar = () => {
   const currentLanguage =
     languages.find((l) => l.code === currentLang) || languages[0];
 
+  // Fetch contacts
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -46,35 +48,46 @@ const Navbar = () => {
     fetchContacts();
   }, []);
 
+  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Click outside handler
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
+  }, [isMenuOpen]);
+
+  // Click outside handler for language dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsLangOpen(false);
       }
     };
-
-    document.addEventListener("click", handleClickOutside, true);
-    return () =>
-      document.removeEventListener("click", handleClickOutside, true);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Language change function - FIXED
+  // Language change function
   const selectLanguage = (code) => {
-    console.log("Selected language:", code);
     setCurrentLang(code);
     localStorage.setItem("i18nextLng", code);
     i18n.changeLanguage(code);
     setIsLangOpen(false);
-  };
-
-  const toggleDropdown = (e) => {
-    e.stopPropagation();
-    setIsLangOpen((prev) => !prev);
   };
 
   const isActive = (path) => location.pathname === path;
@@ -105,7 +118,7 @@ const Navbar = () => {
           : currentLang === "uz"
           ? "Keyslar"
           : "Cases",
-      path: "/projects",
+      path: "/cases",
     },
     {
       name:
@@ -137,191 +150,200 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-[#E8DDD0] sticky top-0 z-50">
-      <div
-        className="mx-auto px-4 sm:px-6 lg:px-8"
-        style={{ maxWidth: "1400px" }}
-      >
-        {/* Main Row */}
-        <div className="flex items-center justify-between py-3 lg:py-4">
+    <>
+      {/* Desktop Navigation */}
+      <nav className="hidden lg:block bg-[#E8DDD0] sticky top-0 z-50 shadow-sm">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Top Bar */}
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <Link
+              to="/"
+              className="flex items-center gap-3 flex-shrink-0 group"
+            >
+              <img
+                src="/logo.png"
+                alt="Music shop.uz"
+                className="w-14 h-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <span className="text-lg font-bold text-[#2D3748] group-hover:text-[#D4A574] transition-colors">
+                Music shop.uz
+              </span>
+            </Link>
+
+            {/* Contact + Language */}
+            <div className="flex items-center gap-6">
+              <a
+                href={`tel:${contacts?.phones?.[0] || "+998909982800"}`}
+                className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+              >
+                <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-semibold">
+                  {contacts?.phones?.[0] || "+998 90 998 28 00"}
+                </span>
+              </a>
+
+              <div className="flex items-center gap-2">
+                {languages.map((language) => (
+                  <button
+                    key={language.code}
+                    onClick={() => selectLanguage(language.code)}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
+                      currentLang === language.code
+                        ? "ring-2 ring-[#D4A574] scale-110"
+                        : "opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={language.flag}
+                      alt={language.name}
+                      className="w-6 h-6 rounded-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="pb-5 border-t border-[#D4C4B5]/30">
+            <div className="flex items-center justify-center gap-3 pt-4">
+              {links.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all hover:shadow-md ${
+                    isActive(link.path)
+                      ? "bg-white text-[#2D3748] shadow-sm"
+                      : "bg-gradient-to-br from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+
+              {/* Calculate Project Link */}
+              <Link
+                to="/calculate-project"
+                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all hover:shadow-md ${
+                  isActive("/calculate-project")
+                    ? "bg-white text-[#2D3748] shadow-sm"
+                    : "bg-gradient-to-br from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                }`}
+              >
+                {currentLang === "ru"
+                  ? "Рассчитать проект"
+                  : currentLang === "uz"
+                  ? "Loyihani hisoblash"
+                  : "Calculate project"}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile: Top Bar with Logo and Menu Button */}
+      <div className="lg:hidden bg-[#E8DDD0] sticky top-0 z-50 shadow-sm">
+        <div className="flex items-center justify-between px-4 h-16">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2 sm:gap-3 flex-shrink-0"
-          >
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img
               src="/logo.png"
               alt="Music shop.uz"
-              className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover"
             />
-            <span className="text-[16px] sm:text-[18px] font-semibold text-[#2D3748] hidden sm:block">
+            <span className="text-base font-bold text-[#2D3748]">
               Music shop.uz
             </span>
           </Link>
 
-          {/* Contact Info + Language - Desktop */}
-          <div className="hidden lg:flex items-center gap-6">
-            <a
-              href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-              className="text-[16px] text-[#2D3748] font-bold hover:text-[#D4A574] transition-colors"
-            >
-              {contacts?.phones?.[0] || "+998 90 998 28 00"}
-            </a>
-            <a
-              href={`mailto:${contacts?.email || "Supersite.uz@gmail.com"}`}
-              className="text-[15px] text-[#718096] hover:text-[#D4A574] transition-colors"
-            >
-              {contacts?.email || "Supersite.uz@gmail.com"}
-            </a>
-
-            {/* Custom Language Selector - Desktop */}
-            <div ref={dropdownRef} className="relative">
-              <div
-                onClick={toggleDropdown}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-[8px] cursor-pointer select-none border border-gray-100"
-                style={{ boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)" }}
-              >
-                <img
-                  src={currentLanguage.flag}
-                  alt={currentLanguage.name}
-                  className="w-5 h-3.5 object-cover rounded-[2px]"
-                />
-                <span className="text-[14px] font-bold text-[#2D3748]">
-                  {currentLanguage.name}
-                </span>
-                <ChevronDown
-                  className={`w-4 h-4 text-[#2D3748] transition-transform duration-200 ${
-                    isLangOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-
-              {/* Dropdown Menu */}
-              {isLangOpen && (
-                <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden min-w-[100px] z-[9999]">
-                  {languages.map((language) => (
-                    <div
-                      key={language.code}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        selectLanguage(language.code);
-                      }}
-                      className={`flex items-center gap-2 px-4 py-2.5 cursor-pointer hover:bg-gray-100 transition-colors ${
-                        currentLang === language.code ? "bg-gray-50" : ""
-                      }`}
-                    >
-                      <img
-                        src={language.flag}
-                        alt={language.name}
-                        className="w-5 h-3.5 object-cover rounded-[2px]"
-                      />
-                      <span className="text-[14px] font-bold text-[#2D3748]">
-                        {language.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Hamburger Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 text-[#2D3748] hover:bg-[#D4C4B5] rounded-lg transition-colors"
-            aria-label="Toggle menu"
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-all active:scale-95"
+            aria-label="Menu"
           >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            <div className="w-6 h-5 flex flex-col justify-between">
+              <span
+                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                  isMenuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                  isMenuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                  isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              />
+            </div>
           </button>
         </div>
+      </div>
 
-        {/* Navigation Links Row - Desktop */}
-        <div className="hidden lg:flex items-center justify-center gap-[10px] pb-5">
-          {links.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`h-[40px] px-[24px] xl:px-[32px] rounded-[12px] text-[14px] xl:text-[16px] font-medium transition-all flex items-center justify-center whitespace-nowrap ${
-                isActive(link.path)
-                  ? "bg-white text-[#2E2E2E]"
-                  : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] border border-[#F3F7FA]"
-              }`}
-              style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
-            >
-              {link.name}
-            </Link>
-          ))}
-
-          <Link
-            to="/calculate-project"
-            className={`h-[40px] px-[24px] xl:px-[32px] rounded-[12px] text-[14px] xl:text-[16px] font-medium transition-all flex items-center justify-center whitespace-nowrap ${
-              isActive("/calculate-project")
-                ? "bg-white text-[#2E2E2E]"
-                : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] border border-[#F3F7FA]"
-            }`}
-            style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
+      {/* Mobile: Full Screen Menu */}
+      <div
+        className={`lg:hidden fixed inset-0 bg-white z-50 transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="h-full flex flex-col">
+          {/* Close Button */}
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors z-10"
+            aria-label="Close menu"
           >
-            {currentLang === "ru"
-              ? "Рассчитать проект"
-              : currentLang === "uz"
-              ? "Loyihani hisoblash"
-              : "Calculate project"}
-          </Link>
-        </div>
+            <X className="w-6 h-6 text-[#2D3748]" />
+          </button>
 
-        {/* Mobile Menu */}
-        <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-[700px] opacity-100 pb-6" : "max-h-0 opacity-0"
-          }`}
-        >
-          {/* Contact Info - Mobile */}
-          <div className="flex flex-col gap-2 pb-4 border-b border-[#D4C4B5]">
-            <a
-              href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-              className="text-[16px] text-[#2D3748] font-bold"
+          {/* Logo */}
+          <div className="pt-6 pb-8 text-center border-b border-gray-100">
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="inline-block"
             >
-              {contacts?.phones?.[0] || "+998 90 998 28 00"}
-            </a>
-            <a
-              href={`mailto:${contacts?.email || "Supersite.uz@gmail.com"}`}
-              className="text-[14px] text-[#718096]"
-            >
-              {contacts?.email || "Supersite.uz@gmail.com"}
-            </a>
+              <img
+                src="/logo.png"
+                alt="Music shop.uz"
+                className="w-20 h-20 mx-auto rounded-full object-cover"
+              />
+              <p className="mt-3 text-xl font-bold text-[#2D3748]">
+                Music shop.uz
+              </p>
+            </Link>
           </div>
 
-          {/* Navigation Links - Mobile */}
-          <div className="space-y-2 py-4">
+          {/* Navigation Links */}
+          <nav className="flex-1 flex flex-col items-center justify-center py-8 space-y-1">
             {links.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-[15px] font-medium transition-colors ${
+                className={`text-xl font-medium py-4 px-8 transition-colors ${
                   isActive(link.path)
-                    ? "bg-white text-[#2E2E2E] shadow-sm"
-                    : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E]"
+                    ? "text-[#D4A574] font-bold"
+                    : "text-[#2D3748] hover:text-[#D4A574]"
                 }`}
-                style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)" }}
               >
                 {link.name}
               </Link>
             ))}
 
+            {/* Calculate Project Link */}
             <Link
               to="/calculate-project"
               onClick={() => setIsMenuOpen(false)}
-              className={`block px-4 py-3 rounded-xl text-[15px] font-medium text-center transition-colors ${
+              className={`text-xl font-medium py-4 px-8 transition-colors ${
                 isActive("/calculate-project")
-                  ? "bg-white text-[#2E2E2E] shadow-sm"
-                  : "bg-gradient-to-b from-[#FFC79E] to-[#E89B64] text-[#2E2E2E]"
+                  ? "text-[#D4A574] font-bold"
+                  : "text-[#2D3748] hover:text-[#D4A574]"
               }`}
-              style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)" }}
             >
               {currentLang === "ru"
                 ? "Рассчитать проект"
@@ -329,36 +351,46 @@ const Navbar = () => {
                 ? "Loyihani hisoblash"
                 : "Calculate project"}
             </Link>
-          </div>
+          </nav>
 
-          {/* Language Selector - Mobile (3 buttons) */}
-          <div className="pt-4 border-t border-[#D4C4B5]">
-            <div className="flex gap-2">
+          {/* Contact Info */}
+          <div className="pb-8 space-y-4 border-t border-gray-100 pt-6">
+            <a
+              href={`tel:${contacts?.phones?.[0] || "+998909982800"}`}
+              className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+            >
+              <Phone className="w-5 h-5" />
+              <span className="text-lg font-semibold">
+                {contacts?.phones?.[0] || "+998 90 998 28 00"}
+              </span>
+            </a>
+
+            {/* Language Flags */}
+            <div className="flex items-center justify-center gap-4">
               {languages.map((language) => (
-                <div
+                <button
                   key={language.code}
-                  onClick={() => selectLanguage(language.code)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg cursor-pointer transition-colors ${
+                  onClick={() => {
+                    selectLanguage(language.code);
+                  }}
+                  className={`transition-all ${
                     currentLang === language.code
-                      ? "bg-white shadow-sm"
-                      : "bg-[#D4C4B5] hover:bg-[#C4B4A5]"
+                      ? "scale-125 ring-2 ring-[#D4A574] rounded-full"
+                      : "opacity-50 hover:opacity-100 hover:scale-110"
                   }`}
                 >
                   <img
                     src={language.flag}
                     alt={language.name}
-                    className="w-5 h-3.5 object-cover rounded-sm"
+                    className="w-10 h-10 rounded-full object-cover"
                   />
-                  <span className="text-[14px] font-medium text-[#2D3748]">
-                    {language.name}
-                  </span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 

@@ -53,28 +53,29 @@ const ContactsPage = () => {
     <div className="min-h-screen bg-[#EDD9CD]">
       <Navbar />
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 sm:py-12 lg:py-20">
         {/* TOP CONTACT INFO GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 lg:mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-24">
           {/* Address */}
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
-              <FaMapMarkerAlt className="w-8 h-8 text-[#A16D40]" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
+              <FaMapMarkerAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
-            <h3 className="text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
+            <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
               Адрес
             </h3>
             <p className="text-gray-700 max-w-[200px]">
-              {contacts?.address || "Узбекистан, г. Ташкент, Чиланзарский р-н дублер 18А"}
+              {contacts?.address ||
+                "Узбекистан, г. Ташкент, Чиланзарский р-н дублер 18А"}
             </p>
           </div>
 
           {/* E-mail */}
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
-              <FaEnvelope className="w-8 h-8 text-[#A16D40]" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
+              <FaEnvelope className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
-            <h3 className="text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
+            <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
               E-mail
             </h3>
             <p className="text-gray-700">
@@ -84,23 +85,23 @@ const ContactsPage = () => {
 
           {/* Телефон */}
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
-              <FaPhoneAlt className="w-8 h-8 text-[#A16D40]" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
+              <FaPhoneAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
-            <h3 className="text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
+            <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
               Телефон
             </h3>
-            <p className="text-xl font-bold-gray-800">
+            <p className="text-lg sm:text-xl font-bold text-gray-800">
               {contacts?.phone || "+998909982800"}
             </p>
           </div>
 
           {/* Время */}
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
-              <FaClock className="w-8 h-8 text-[#A16D40]" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
+              <FaClock className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
-            <h3 className="text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
+            <h3 className="text-lg sm:text-xl font-bold text-[#A16D40] mb-2 uppercase tracking-wide">
               Время
             </h3>
             <p className="text-gray-700">
@@ -110,23 +111,23 @@ const ContactsPage = () => {
         </div>
 
         {/* COMBINED CONTACT CARD */}
-        <div className="bg-[#D7C1AF] rounded-[2rem] p-6 lg:p-12 shadow-xl flex flex-col lg:flex-row gap-10 lg:gap-12">
+        <div className="bg-[#D7C1AF] rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 lg:p-12 shadow-xl flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12">
           {/* Left: Feedback Form */}
           <div className="flex-1">
-            <h2 className="text-2xl lg:text-3xl font-bold text-[#1A1A1A] mb-8">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
               Контакты и обратное связь
             </h2>
 
-            <form className="space-y-6">
+            <form className="space-y-4 sm:space-y-6">
               {/* Row 1: Name, Phone, and Order Button */}
-              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Введите имя"
-                  className="flex-1 bg-white rounded-xl px-6 py-4 outline-none text-[#1A1A1A] placeholder:text-gray-400"
+                  className="flex-1 bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400"
                 />
                 <input
                   type="tel"
@@ -134,12 +135,12 @@ const ContactsPage = () => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   placeholder="+998 (00) 000-00-00"
-                  className="flex-1 bg-white rounded-xl px-6 py-4 outline-none text-[#1A1A1A] placeholder:text-gray-400"
+                  className="flex-1 bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400"
                 />
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, "call_order")}
-                  className="bg-[#8F4E24] hover:bg-[#7a411e] text-white px-8 py-4 rounded-xl font-bold transition-all whitespace-nowrap"
+                  className="bg-[#8F4E24] hover:bg-[#7a411e] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all whitespace-nowrap touch-manipulation active:scale-95"
                 >
                   Заказать звонок
                 </button>
@@ -153,31 +154,43 @@ const ContactsPage = () => {
                   onChange={handleInputChange}
                   rows={4}
                   placeholder="Опишите суть вашего вопроса или обращения"
-                  className="w-full bg-white rounded-xl px-6 py-5 outline-none text-[#1A1A1A] placeholder:text-gray-400 resize-none"
+                  className="w-full bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-4 sm:py-5 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400 resize-none"
                 />
               </div>
 
               {/* Footer: Socials and Send Button */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4">
-                <div className="flex items-center gap-8">
-                  <a href="#" className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors">
-                    <FaTelegramPlane className="w-7 h-7" />
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 pt-2 sm:pt-4">
+                <div className="flex items-center gap-6 sm:gap-8">
+                  <a
+                    href="#"
+                    className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors touch-manipulation active:scale-95"
+                  >
+                    <FaTelegramPlane className="w-6 h-6 sm:w-7 sm:h-7" />
                   </a>
-                  <a href="#" className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors">
-                    <FaInstagram className="w-7 h-7" />
+                  <a
+                    href="#"
+                    className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors touch-manipulation active:scale-95"
+                  >
+                    <FaInstagram className="w-6 h-6 sm:w-7 sm:h-7" />
                   </a>
-                  <a href="#" className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors">
-                    <FaFacebookF className="w-7 h-7" />
+                  <a
+                    href="#"
+                    className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors touch-manipulation active:scale-95"
+                  >
+                    <FaFacebookF className="w-6 h-6 sm:w-7 sm:h-7" />
                   </a>
-                  <a href="#" className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors">
-                    <FaYoutube className="w-7 h-7" />
+                  <a
+                    href="#"
+                    className="text-[#1A1A1A] hover:text-[#8F4E24] transition-colors touch-manipulation active:scale-95"
+                  >
+                    <FaYoutube className="w-6 h-6 sm:w-7 sm:h-7" />
                   </a>
                 </div>
 
                 <button
                   type="button"
                   onClick={(e) => handleSubmit(e, "feedback")}
-                  className="bg-[#5C5C5C] hover:bg-[#4d4d4d] text-white w-full sm:w-64 py-4 rounded-xl font-bold transition-all shadow-lg"
+                  className="bg-[#5C5C5C] hover:bg-[#4d4d4d] text-white w-full sm:w-64 py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-base font-bold transition-all shadow-lg touch-manipulation active:scale-95"
                 >
                   Отправить
                 </button>
@@ -186,8 +199,8 @@ const ContactsPage = () => {
           </div>
 
           {/* Right: Map */}
-          <div className="lg:w-1/2 min-h-[300px] lg:min-h-full">
-            <div className="h-full rounded-[2rem] overflow-hidden shadow-inner bg-gray-200">
+          <div className="lg:w-1/2 h-[400px] sm:h-[450px] md:h-[500px] lg:min-h-full">
+            <div className="w-full h-full rounded-xl sm:rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-inner bg-gray-200">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.8504774068387!2d69.24893431541844!3d41.31147697927024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b534feaa0fb%3A0x4e21d2d30c15e428!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1640000000000!5m2!1sen!2s"
                 width="100%"

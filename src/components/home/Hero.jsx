@@ -45,7 +45,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[700px] overflow-hidden bg-[#B8A89C]">
+    <section className="relative min-h-[500px] sm:min-h-[600px] lg:h-[700px] overflow-hidden bg-[#B8A89C]">
       {/* Background with banners */}
       {banners.length > 0 ? (
         banners.map((banner, index) => (
@@ -60,8 +60,8 @@ const Hero = () => {
               alt="Banner"
               className="w-full h-full object-cover"
             />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0" />
+            {/* Gradient overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
           </div>
         ))
       ) : (
@@ -69,28 +69,28 @@ const Hero = () => {
       )}
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] h-full flex items-center relative z-10">
-        <div className="max-w-[700px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] h-full min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center relative z-10">
+        <div className="max-w-full lg:max-w-[700px] py-12 sm:py-16 lg:py-0">
           {/* Main Heading */}
-          <h1 className=" text-[40px] sm:text-[44px] lg:text-[50px] font-bold text-[#8F491A] mb-5 leading-[1.2]">
+          <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-bold text-[#8F491A] mb-4 sm:mb-5 leading-[1.2]">
             Профессиональные AV- решение под ключ для бизнеса и организаций
           </h1>
 
           {/* Description */}
-          <p className="text-[16px] lg:text-[16px] text-[#384258] mb-8 leading-[1.6] max-w-[500px]">
+          <p className="text-[14px] sm:text-[15px] lg:text-[16px] text-[#384258] mb-6 sm:mb-8 leading-[1.6] max-w-full sm:max-w-[500px]">
             Проектирование установка и интеграция аудио- и видео систем для
             конференц залов аудиторий и больших пространств
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               to="/calculate-project"
-              className="inline-flex items-center justify-center border-[2px] px-[32px] py-[18px] text-[18px] bg-[#5D5D5D] hover:bg-[#5a5a5a] text-white font-semibold rounded-full transition-all shadow-md "
+              className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#5D5D5D] hover:bg-[#5a5a5a] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation"
             >
               Рассчитать проект
             </Link>
-            <button className="inline-flex items-center justify-center border-[2px] px-[32px] py-[18px] text-[18px] bg-[#B8956A] hover:bg-[#A8855A] text-white font-semibold rounded-full transition-all shadow-md ">
+            <button className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#B8956A] hover:bg-[#A8855A] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation">
               Получить консультацию
             </button>
           </div>
@@ -104,17 +104,17 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Dots Navigation - EXACT: active #FFB380 */}
+      {/* Dots Navigation */}
       {banners.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-2 rounded-full transition-all touch-manipulation ${
                 index === currentIndex
                   ? "bg-[#FFB380] w-8"
-                  : "bg-white/40 w-2 hover:bg-white/60"
+                  : "bg-white/40 w-2 hover:bg-white/60 active:bg-white/80"
               }`}
               aria-label={`Slide ${index + 1}`}
             />

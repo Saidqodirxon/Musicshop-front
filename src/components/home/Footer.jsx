@@ -25,17 +25,20 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#D0B298]">
-      <div className="mx-auto px-8 py-16" style={{ maxWidth: "1400px" }}>
-        <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
+      <div
+        className="mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16"
+        style={{ maxWidth: "1400px" }}
+      >
+        <div className="flex flex-col md:flex-row justify-between gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12 lg:mb-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src="/logo.png"
                 alt="Music Shop"
-                className="w-[50px] h-[50px] rounded-full object-cover"
+                className="w-10 h-10 sm:w-[50px] sm:h-[50px] rounded-full object-cover"
               />
-              <span className="text-[18px] font-semibold text-[#2D3748]">
+              <span className="text-[16px] sm:text-[18px] font-semibold text-[#2D3748]">
                 Music shop.uz
               </span>
             </div>
@@ -43,18 +46,18 @@ const Footer = () => {
 
           {/* Navigation Links */}
           <div className="flex-shrink-0">
-            <h3 className="text-[16px] font-semibold text-[#2D3748] mb-5">
+            <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#2D3748] mb-4 sm:mb-5">
               {lang === "ru"
                 ? "Главная"
                 : lang === "uz"
                 ? "Bosh sahifa"
                 : "Home"}
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               <li>
                 <Link
                   to="/products"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {lang === "ru"
                     ? "Каталог"
@@ -66,7 +69,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/projects"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {lang === "ru"
                     ? "Проекты"
@@ -78,7 +81,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/services"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {lang === "ru"
                     ? "Услуги"
@@ -90,7 +93,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/products?category=piano"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {lang === "ru"
                     ? "Пианино"
@@ -102,7 +105,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/news"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {lang === "ru"
                     ? "Новости"
@@ -116,36 +119,36 @@ const Footer = () => {
 
           {/* Contacts */}
           <div className="flex-shrink-0">
-            <h3 className="text-[16px] font-semibold text-[#2D3748] mb-5">
+            <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#2D3748] mb-4 sm:mb-5">
               {lang === "ru"
                 ? "Контакты"
                 : lang === "uz"
                 ? "Kontaktlar"
                 : "Contacts"}
             </h3>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <Phone className="w-[18px] h-[18px] text-[#4A5568]" />
+            <ul className="space-y-3 sm:space-y-4">
+              <li className="flex items-center gap-2 sm:gap-3">
+                <Phone className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
                 <a
                   href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {contacts?.phones?.[0] || "+998 90 998 28 00"}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Send className="w-[18px] h-[18px] text-[#4A5568]" />
+              <li className="flex items-center gap-2 sm:gap-3">
+                <Send className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
                 <a
                   href="#"
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   musicshop_uzb
                 </a>
               </li>
-              <li className="pl-[30px]">
+              <li className="pl-6 sm:pl-[30px]">
                 <a
                   href={`mailto:${contacts?.email || "musicshop@gmail.uz"}`}
-                  className="text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors"
+                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
                 >
                   {contacts?.email || "musicshop@gmail.uz"}
                 </a>
@@ -154,11 +157,11 @@ const Footer = () => {
           </div>
 
           {/* Address */}
-          <div className="flex-shrink-0 max-w-[220px]">
-            <h3 className="text-[16px] font-semibold text-[#2D3748] mb-5">
+          <div className="flex-shrink-0 max-w-full md:max-w-[220px]">
+            <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#2D3748] mb-4 sm:mb-5">
               {lang === "ru" ? "Адрес" : lang === "uz" ? "Manzil" : "Address"}
             </h3>
-            <p className="text-[15px] text-[#4A5568] leading-[1.7]">
+            <p className="text-[14px] sm:text-[15px] text-[#4A5568] leading-[1.7]">
               {contacts?.address?.[lang] ||
                 contacts?.address?.ru ||
                 (lang === "ru"
@@ -171,8 +174,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-[#D4C4B5] pt-8">
-          <p className="text-[14px] text-[#718096] text-right">
+        <div className="border-t border-[#D4C4B5] pt-6 sm:pt-8">
+          <p className="text-[13px] sm:text-[14px] text-[#718096] text-center sm:text-right">
             Music_shop @ 2025.{" "}
             {lang === "ru"
               ? "Все права защищены."

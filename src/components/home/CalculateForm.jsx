@@ -42,10 +42,10 @@ const CalculateForm = () => {
   };
 
   return (
-    <section className="py-16 bg-[#ECDFD2]">
-      <div className="container mx-auto px-4 max-w-[1400px]">
-        <div className="bg-[#D7C1AF] rounded-2xl p-10">
-          <h2 className="text-2xl font-bold text-[#8B5A3C] mb-8">
+    <section className="py-12 sm:py-16 bg-[#ECDFD2]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="bg-[#D7C1AF] rounded-lg sm:rounded-xl lg:rounded-2xl p-6 sm:p-8 lg:p-10">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#8B5A3C] mb-6 sm:mb-8 leading-tight">
             {lang === "ru"
               ? "Рассчитаем решение под ваш объект"
               : lang === "uz"
@@ -55,7 +55,7 @@ const CalculateForm = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
           >
             <input
               type="text"
@@ -71,7 +71,7 @@ const CalculateForm = () => {
                 setFormData({ ...formData, name: e.target.value })
               }
               required
-              className="w-[33%] h-[85px] rounded-lg bg-white text-[#333333] text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-[20px]"
+              className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] rounded-lg bg-white text-[#333333] px-4 text-left sm:text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-base sm:text-lg lg:text-[20px] touch-manipulation"
             />
             <input
               type="tel"
@@ -81,13 +81,13 @@ const CalculateForm = () => {
                 setFormData({ ...formData, phone: e.target.value })
               }
               required
-              className="w-[33%] h-[85px] rounded-lg bg-white text-[#333333] text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-[20px]"
+              className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] rounded-lg bg-white text-[#333333] px-4 text-left sm:text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-base sm:text-lg lg:text-[20px] touch-manipulation"
             />
 
             <button
               type="submit"
               disabled={loading}
-              className="w-[33%] h-[85px] bg-gradient-to-l to-[#B97D55] from-[#8F491A] text-white font-semibold rounded-lg transition-all disabled:cursor-not-allowed text-[20px]"
+              className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] bg-gradient-to-l to-[#B97D55] from-[#8F491A] hover:shadow-lg text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base sm:text-lg lg:text-[20px] active:scale-95 touch-manipulation"
             >
               {loading
                 ? lang === "ru"
