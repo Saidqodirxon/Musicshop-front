@@ -5,7 +5,7 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 const HowWeWork = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang = i18n.language;
   const [steps, setSteps] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,9 @@ const HowWeWork = () => {
     return (
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center">Загрузка...</div>
+          <div className="text-center text-[#8F491A] font-medium">
+            {t("loading")}
+          </div>
         </div>
       </section>
     );

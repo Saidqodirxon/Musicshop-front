@@ -17,6 +17,7 @@ i18n.use(initReactI18next).init({
     uz: {
       translation: {
         Boglanish: "Bog'lanish",
+        loading: "Yuklanmoqda...",
         links: {
           home: "Bosh sahifa",
           services: "Xizmatlar",
@@ -288,6 +289,7 @@ i18n.use(initReactI18next).init({
     ru: {
       translation: {
         Boglanish: "Связаться",
+        loading: "Загрузка...",
         navbar: {
           logoAlt: "Логотип",
           phoneNumber: "+998 99 306 20 20",
@@ -556,6 +558,7 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         Boglanish: "Contact Us",
+        loading: "Loading...",
         navbar: {
           logoAlt: "Logo",
           phoneNumber: "+998 99 306 20 20",

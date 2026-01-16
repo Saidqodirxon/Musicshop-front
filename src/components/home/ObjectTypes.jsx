@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 const ObjectTypes = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const lang = i18n.language;
@@ -30,7 +30,9 @@ const ObjectTypes = () => {
     return (
       <div className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center text-sm sm:text-base">Загрузка...</div>
+          <div className="text-center text-sm sm:text-base text-[#8F491A] font-medium">
+            {t("loading")}
+          </div>
         </div>
       </div>
     );

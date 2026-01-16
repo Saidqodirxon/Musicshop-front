@@ -6,7 +6,7 @@ import { Check } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 const Cases = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [cases, setCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,9 @@ const Cases = () => {
     return (
       <section className="py-16 bg-[#E8DDD0]">
         <div className="container mx-auto px-4 max-w-[1400px]">
-          <div className="text-center">Загрузка...</div>
+          <div className="text-center text-[#8F491A] font-medium">
+            {t("loading")}
+          </div>
         </div>
       </section>
     );

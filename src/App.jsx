@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import HomePage from "./pages/main";
 import AboutPage from "./pages/about";
 import ServicesPage from "./pages/services";
@@ -12,6 +13,7 @@ import ScrollToTopButton from "./components/scrollTopBtn";
 import CallButton from "./components/callBtn";
 
 function App() {
+  const { t } = useTranslation();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,10 +29,15 @@ function App() {
   return (
     <main>
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-screen bg-[#F5EDE4]">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#F5EDE4] to-[#E8DDD0]">
           <div className="text-center">
-            <div className="w-16 h-16 border-t-4 border-[#C08552] border-solid rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-700 font-medium">Загрузка...</p>
+            <div className="relative w-20 h-20 mx-auto mb-6">
+              <div className="absolute inset-0 border-4 border-[#E8DDD0] rounded-full"></div>
+              <div className="absolute inset-0 border-t-4 border-[#B8956A] border-solid rounded-full animate-spin"></div>
+            </div>
+            <p className="text-[#8F491A] font-semibold text-lg">
+              {t("loading")}
+            </p>
           </div>
         </div>
       ) : (
