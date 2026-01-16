@@ -1,8 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+const savedLanguage = localStorage.getItem("i18nextLng") || "ru";
+
 i18n.use(initReactI18next).init({
-  lng: localStorage.getItem("i18nextLng") || "ru",
+  lng: savedLanguage,
+  fallbackLng: "ru",
+  debug: true,
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
   resources: {
     uz: {
       translation: {

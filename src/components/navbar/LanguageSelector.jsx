@@ -13,17 +13,15 @@ const LanguageSelector = ({ isMobile = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
-  // Get current language
-  const getCurrentLang = () => {
-    const lang = i18n.language || localStorage.getItem("i18nextLng") || "ru";
-    return lang.split("-")[0].toLowerCase();
-  };
+  const [currentLang, setCurrentLang] = useState(() => {
+    const stored = localStorage.getItem("i18nextLng");
+    return stored || "ru";
+  });
 
-  const [currentLang, setCurrentLang] = useState(getCurrentLang());
-
-  // Update when i18n changes
+  // Sync with i18n
   useEffect(() => {
-    setCurrentLang(getCurrentLang());
+    const syncLang = i18n.language || "ru";
+    setCurrentLang(syncLang);
   }, [i18n.language]);
 
   // Close on click outside
@@ -38,10 +36,25 @@ const LanguageSelector = ({ isMobile = false }) => {
   }, []);
 
   const selectLanguage = (langCode) => {
-    i18n.changeLanguage(langCode);
-    localStorage.setItem("i18nextLng", langCode);
+    console.log("🌐 Language change initiated:", langCode);
+
+    // Update state
     setCurrentLang(langCode);
     setIsOpen(false);
+
+    // Save to localStorage
+    localStorage.setItem("i18nextLng", langCode);
+
+    // Change i18n language
+    i18n
+      .changeLanguage(langCode)
+      .then(() => {
+        console.log("✅ i18n language changed to:", langCode);
+        console.log("Current i18n language:", i18n.language);
+      })
+      .catch((error) => {
+        console.error("❌ Error changing language:", error);
+      });
   };
 
   const currentLanguage =

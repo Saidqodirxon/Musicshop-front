@@ -3,35 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { X, Phone } from "lucide-react";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
   const [contacts, setContacts] = useState(null);
-  const [currentLang, setCurrentLang] = useState("ru");
   const location = useLocation();
-  const dropdownRef = useRef(null);
-  const mobileMenuRef = useRef(null);
-
-  const languages = [
-    { code: "ru", name: "Ru", flag: "/icons/ru.svg" },
-    { code: "uz", name: "Uz", flag: "/icons/uz.svg" },
-    { code: "en", name: "En", flag: "/icons/en.svg" },
-  ];
-
-  // Initialize language
-  useEffect(() => {
-    const stored = localStorage.getItem("i18nextLng");
-    const browserLang = i18n.language;
-    const langToUse = (stored || browserLang || "ru")
-      .split("-")[0]
-      .toLowerCase();
-    setCurrentLang(langToUse);
-  }, [i18n.language]);
-
-  const currentLanguage =
-    languages.find((l) => l.code === currentLang) || languages[0];
 
   // Fetch contacts
   useEffect(() => {
@@ -71,82 +49,15 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
-  // Click outside handler for language dropdown
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsLangOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Language change function
-  const selectLanguage = (code) => {
-    setCurrentLang(code);
-    localStorage.setItem("i18nextLng", code);
-    i18n.changeLanguage(code);
-    setIsLangOpen(false);
-  };
-
   const isActive = (path) => location.pathname === path;
 
   const links = [
-    {
-      name:
-        currentLang === "ru"
-          ? "Главная"
-          : currentLang === "uz"
-          ? "Bosh sahifa"
-          : "Home",
-      path: "/",
-    },
-    {
-      name:
-        currentLang === "ru"
-          ? "Услуги"
-          : currentLang === "uz"
-          ? "Xizmatlar"
-          : "Services",
-      path: "/services",
-    },
-    {
-      name:
-        currentLang === "ru"
-          ? "Кейсы"
-          : currentLang === "uz"
-          ? "Keyslar"
-          : "Cases",
-      path: "/cases",
-    },
-    {
-      name:
-        currentLang === "ru"
-          ? "О компании"
-          : currentLang === "uz"
-          ? "Kompaniya haqida"
-          : "About",
-      path: "/about",
-    },
-    {
-      name:
-        currentLang === "ru"
-          ? "Товары"
-          : currentLang === "uz"
-          ? "Mahsulotlar"
-          : "Products",
-      path: "/products",
-    },
-    {
-      name:
-        currentLang === "ru"
-          ? "Контакты"
-          : currentLang === "uz"
-          ? "Aloqa"
-          : "Contacts",
-      path: "/contacts",
-    },
+    { name: t("links.home"), path: "/" },
+    { name: t("links.services"), path: "/services" },
+    { name: t("links.cases"), path: "/cases" },
+    { name: t("links.about_us"), path: "/about" },
+    { name: t("links.products"), path: "/products" },
+    { name: t("links.contacts"), path: "/contacts" },
   ];
 
   return (
@@ -183,25 +94,7 @@ const Navbar = () => {
                 </span>
               </a>
 
-              <div className="flex items-center gap-2">
-                {languages.map((language) => (
-                  <button
-                    key={language.code}
-                    onClick={() => selectLanguage(language.code)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
-                      currentLang === language.code
-                        ? "ring-2 ring-[#D4A574] scale-110"
-                        : "opacity-60 hover:opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={language.flag}
-                      alt={language.name}
-                      className="w-6 h-6 rounded-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
+              <LanguageSelector />
             </div>
           </div>
 
@@ -231,11 +124,7 @@ const Navbar = () => {
                     : "bg-gradient-to-br from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
                 }`}
               >
-                {currentLang === "ru"
-                  ? "Рассчитать проект"
-                  : currentLang === "uz"
-                  ? "Loyihani hisoblash"
-                  : "Calculate project"}
+                {t("links.calculate")}
               </Link>
             </div>
           </div>
@@ -345,11 +234,7 @@ const Navbar = () => {
                   : "text-[#2D3748] hover:text-[#D4A574]"
               }`}
             >
-              {currentLang === "ru"
-                ? "Рассчитать проект"
-                : currentLang === "uz"
-                ? "Loyihani hisoblash"
-                : "Calculate project"}
+              {t("links.calculate")}
             </Link>
           </nav>
 
@@ -365,27 +250,9 @@ const Navbar = () => {
               </span>
             </a>
 
-            {/* Language Flags */}
-            <div className="flex items-center justify-center gap-4">
-              {languages.map((language) => (
-                <button
-                  key={language.code}
-                  onClick={() => {
-                    selectLanguage(language.code);
-                  }}
-                  className={`transition-all ${
-                    currentLang === language.code
-                      ? "scale-125 ring-2 ring-[#D4A574] rounded-full"
-                      : "opacity-50 hover:opacity-100 hover:scale-110"
-                  }`}
-                >
-                  <img
-                    src={language.flag}
-                    alt={language.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                </button>
-              ))}
+            {/* Language Selector */}
+            <div className="px-4">
+              <LanguageSelector isMobile={true} />
             </div>
           </div>
         </div>
