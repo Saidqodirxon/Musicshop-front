@@ -59,7 +59,11 @@ const ContactsPage = () => {
         {/* TOP CONTACT INFO GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-24">
           {/* Address */}
-          <div className="flex flex-col items-center text-center">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="0"
+            className="flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
               <FaMapMarkerAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
@@ -73,7 +77,11 @@ const ContactsPage = () => {
           </div>
 
           {/* E-mail */}
-          <div className="flex flex-col items-center text-center">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
               <FaEnvelope className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
@@ -86,7 +94,11 @@ const ContactsPage = () => {
           </div>
 
           {/* Телефон */}
-          <div className="flex flex-col items-center text-center">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
               <FaPhoneAlt className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>
@@ -99,7 +111,11 @@ const ContactsPage = () => {
           </div>
 
           {/* Время */}
-          <div className="flex flex-col items-center text-center">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-3 sm:mb-4">
               <FaClock className="w-6 h-6 sm:w-8 sm:h-8 text-[#A16D40]" />
             </div>

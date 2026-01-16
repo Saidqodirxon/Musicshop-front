@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import AOS from "aos";
 import HomePage from "./pages/main";
 import AboutPage from "./pages/about";
 import ServicesPage from "./pages/services";
@@ -23,7 +24,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out",
+      offset: 50,
+    });
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
+    AOS.refresh();
   }, [location]);
 
   return (

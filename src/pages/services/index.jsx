@@ -39,7 +39,10 @@ function Main() {
       <Navbar />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
-        <h1 className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-8 sm:mb-12 lg:mb-16">
+        <h1
+          data-aos="fade-up"
+          className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-8 sm:mb-12 lg:mb-16"
+        >
           {t("pages.services.title")}
         </h1>
 
@@ -64,6 +67,8 @@ function Main() {
             {data.map((item, index) => (
               <div
                 key={item._id}
+                data-aos="fade-up"
+                data-aos-delay={index * 80}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-20 items-center"
               >
                 {/* Image Section */}

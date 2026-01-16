@@ -48,7 +48,7 @@ const HowWeWork = () => {
     <section className="py-16 bg-[#ECDFD2]">
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* Section Header */}
-        <div className="mb-12">
+        <div data-aos="fade-up" className="mb-12">
           <p className="text-xs text-[#B8936D] uppercase tracking-wider mb-3 font-semibold">
             {lang === "ru"
               ? "КАК МЫ РАБОТАЕМ"
@@ -71,6 +71,8 @@ const HowWeWork = () => {
         {steps.map((step, index) => (
           <div
             key={step._id}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
             className={`py-12 ${
               index % 2 === 0 ? "bg-[#D7C1AF]" : "bg-[#ECDFD2"
             }`}

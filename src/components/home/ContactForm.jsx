@@ -33,7 +33,10 @@ const ContactForm = () => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-[#ECDFD2]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-        <div className="bg-white rounded-[2.5rem] p-8 lg:p-16 shadow-xl">
+        <div
+          data-aos="fade-up"
+          className="bg-white rounded-[2.5rem] p-8 lg:p-16 shadow-xl"
+        >
           <div className="max-w-[1400px] mx-auto">
             {/* Header */}
             <div className="text-center mb-10">

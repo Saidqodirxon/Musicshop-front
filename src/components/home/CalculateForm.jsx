@@ -44,7 +44,10 @@ const CalculateForm = () => {
   return (
     <section className="py-12 sm:py-16 bg-[#ECDFD2]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-        <div className="bg-[#D7C1AF] rounded-lg sm:rounded-xl lg:rounded-2xl p-6 sm:p-8 lg:p-10">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D7C1AF] rounded-lg sm:rounded-xl lg:rounded-2xl p-6 sm:p-8 lg:p-10"
+        >
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#8B5A3C] mb-6 sm:mb-8 leading-tight">
             {lang === "ru"
               ? "Рассчитаем решение под ваш объект"

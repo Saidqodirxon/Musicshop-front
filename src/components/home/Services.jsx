@@ -42,7 +42,7 @@ const Services = () => {
     <section className="py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         {/* Section Header */}
-        <div className="mb-12">
+        <div data-aos="fade-up" className="mb-12">
           <p className="text-xs uppercase tracking-widest text-[#8B4513] mb-3 font-bold">
             {t("services.sectionTitle")}
           </p>
@@ -56,6 +56,8 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={service._id}
+              data-aos="fade-up"
+              data-aos-delay={index * 50}
               className="group relative bg-white border-2 border-[#E5D5C3] rounded-2xl p-6 hover:border-[#FFB380] hover:shadow-lg transition-all duration-300"
             >
               {/* Number Badge */}

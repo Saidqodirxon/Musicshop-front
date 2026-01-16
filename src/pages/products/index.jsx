@@ -81,11 +81,14 @@ function ProductsPage() {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12 lg:py-20">
         {/* Top Products Carousel Section */}
         <section className="mb-24 lg:mb-32">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12">
+          <h2
+            data-aos="fade-up"
+            className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12"
+          >
             {t("pages.products.top_products")}
           </h2>
 
-          <div className="relative">
+          <div data-aos="fade-up" data-aos-delay="100" className="relative">
             {/* Navigation Arrows */}
             {topProducts.length > itemsPerView && (
               <>
@@ -192,13 +195,18 @@ function ProductsPage() {
         </section>
 
         <section className="mb-24 lg:mb-32">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12">
+          <h2
+            data-aos="fade-up"
+            className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12"
+          >
             {t("pages.products.recommended")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {allProducts.map((product) => (
+            {allProducts.map((product, index) => (
               <div
                 key={product._id}
+                data-aos="fade-up"
+                data-aos-delay={index * 50}
                 className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all flex flex-col group/rec border border-[#EDD9CD]"
               >
                 <div className="aspect-[4/3] bg-[#F4F4F4] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-8">
@@ -241,9 +249,7 @@ function ProductsPage() {
         <HowWeWork />
         <ConsultationForm />
 
-        <div className="mt-24">
-          <FAQ />
-        </div>
+        <FAQ />
       </main>
 
       <Footer />

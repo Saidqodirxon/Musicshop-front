@@ -31,7 +31,10 @@ const ConsultationForm = () => {
   return (
     <section id="consultation-form" className="py-12 sm:py-16 bg-[#ECDFD2]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-        <div className="bg-[#D7C1AF] rounded-lg sm:rounded-xl p-6 sm:p-8 lg:p-12">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D7C1AF] rounded-lg sm:rounded-xl p-6 sm:p-8 lg:p-12"
+        >
           <div className="mx-auto">
             {/* Header */}
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#2E2E2E] mb-2 sm:mb-3 leading-tight">

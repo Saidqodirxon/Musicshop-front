@@ -36,8 +36,13 @@ const FAQ = () => {
         }
         className="w-full px-4 sm:px-6 py-4 sm:py-5 text-left flex items-center justify-between gap-3 sm:gap-4 touch-manipulation active:scale-[0.99] transition-transform"
       >
-        <span className="text-[15px] sm:text-[17px] text-[#2D3748] font-normal leading-[1.5]">
-          {faq.question?.[lang] || faq.question?.ru || faq.question}
+        <span className="text-[15px] sm:text-[17px] text-[#2D3748] font-semibold leading-[1.5]">
+          {faq.title?.[lang] ||
+            faq.title?.ru ||
+            faq.title ||
+            faq.question?.[lang] ||
+            faq.question?.ru ||
+            faq.question}
         </span>
         <div className="flex-shrink-0">
           {openIndex === actualIndex ? (
@@ -55,8 +60,22 @@ const FAQ = () => {
       </button>
 
       {openIndex === actualIndex && (
-        <div className="px-4 sm:px-6 pb-4 sm:pb-5 text-[14px] sm:text-[15px] text-[#718096] leading-[1.7]">
-          {faq.answer?.[lang] || faq.answer?.ru || faq.answer}
+        <div className="px-4 sm:px-6 pb-4 sm:pb-5">
+          {faq.description?.[lang] ||
+          faq.description?.ru ||
+          faq.description ||
+          faq.answer?.[lang] ||
+          faq.answer?.ru ||
+          faq.answer ? (
+            <p className="text-[14px] sm:text-[15px] text-[#718096] leading-[1.7] mb-3">
+              {faq.description?.[lang] ||
+                faq.description?.ru ||
+                faq.description ||
+                faq.answer?.[lang] ||
+                faq.answer?.ru ||
+                faq.answer}
+            </p>
+          ) : null}
         </div>
       )}
     </div>
@@ -83,32 +102,26 @@ const FAQ = () => {
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-[#E8DDD0]">
+    <section className="pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-24 bg-[#E8DDD0]">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: "1400px" }}
       >
         {/* Section Header */}
         <div className="mb-8 sm:mb-10 lg:mb-12">
-          <p className="text-[12px] sm:text-[13px] lg:text-[14px] text-[#B8936D] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-3 sm:mb-4 font-semibold">
+          <p className="text-[13px] sm:text-[14px] lg:text-[15px] text-[#8F4E24] uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-3 sm:mb-4 font-bold">
             {lang === "ru"
               ? "ОТВЕТЫ НА ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ"
               : lang === "uz"
-              ? "KO'P SO'RALADIGAN SAVOLLARGA JAVOBLAR"
-              : "ANSWERS TO FREQUENTLY ASKED QUESTIONS"}
+                ? "KO'P SO'RALADIGAN SAVOLLARGA JAVOBLAR"
+                : "ANSWERS TO FREQUENTLY ASKED QUESTIONS"}
           </p>
-          <h2 className="text-[26px] sm:text-[32px] lg:text-[40px] font-bold text-[#2D3748] leading-[1.2]">
+          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-bold text-[#1A1A1A] leading-[1.2]">
             {lang === "ru"
-              ? "Нажмите по вопросу, чтобы получить на"
+              ? "Нажмите по вопросу, чтобы получить ответ"
               : lang === "uz"
-              ? "Javob olish uchun savolni"
-              : "Click on a question to get"}
-            <br />
-            {lang === "ru"
-              ? "него ответ"
-              : lang === "uz"
-              ? "bosing"
-              : "an answer"}
+                ? "Javob olish uchun savolni bosing"
+                : "Click on a question to get an answer"}
           </h2>
         </div>
 

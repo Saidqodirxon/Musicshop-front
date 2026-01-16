@@ -52,14 +52,20 @@ const AboutPage = () => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
         {/* SIDE-BY-SIDE HERO IMAGES */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-10 sm:mb-16 lg:mb-24">
-          <div className="rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-lg sm:shadow-xl aspect-[4/3] md:aspect-auto md:h-[400px] lg:h-[500px] touch-manipulation active:scale-[0.99] transition-transform">
+          <div
+            data-aos="fade-right"
+            className="rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-lg sm:shadow-xl aspect-[4/3] md:aspect-auto md:h-[400px] lg:h-[500px] touch-manipulation active:scale-[0.99] transition-transform"
+          >
             <img
               src={getImageSrc(aboutData?.banner)}
               alt="О компании - баннер"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />
           </div>
-          <div className="rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-lg sm:shadow-xl aspect-[4/3] md:aspect-auto md:h-[400px] lg:h-[500px] touch-manipulation active:scale-[0.99] transition-transform">
+          <div
+            data-aos="fade-left"
+            className="rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-lg sm:shadow-xl aspect-[4/3] md:aspect-auto md:h-[400px] lg:h-[500px] touch-manipulation active:scale-[0.99] transition-transform"
+          >
             <img
               src={getImageSrc(aboutData?.image)}
               alt="О компании - основное"
@@ -69,7 +75,10 @@ const AboutPage = () => {
         </div>
 
         {/* COMPANY INFO & DESCRIPTION */}
-        <div className="max-w-[1400px] mb-12 sm:mb-20 lg:mb-32">
+        <div
+          data-aos="fade-up"
+          className="max-w-[1400px] mb-12 sm:mb-20 lg:mb-32"
+        >
           <h1 className="text-[24px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] leading-tight mb-6 sm:mb-8 lg:mb-10 transition-colors hover:text-[#B1530A]">
             {aboutData?.mainText}
           </h1>

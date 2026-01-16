@@ -74,17 +74,28 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] h-full min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center relative z-10">
         <div className="max-w-full lg:max-w-[700px] py-12 sm:py-16 lg:py-0">
           {/* Main Heading */}
-          <h1 className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-bold text-[#8F491A] mb-4 sm:mb-5 leading-[1.2]">
+          <h1
+            data-aos="fade-up"
+            className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[50px] font-bold text-[#8F491A] mb-4 sm:mb-5 leading-[1.2]"
+          >
             {t("hero.title")}
           </h1>
 
           {/* Description */}
-          <p className="text-[14px] sm:text-[15px] lg:text-[16px] text-[#384258] mb-6 sm:mb-8 leading-[1.6] max-w-full sm:max-w-[500px]">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-[14px] sm:text-[15px] lg:text-[16px] text-[#384258] mb-6 sm:mb-8 leading-[1.6] max-w-full sm:max-w-[500px]"
+          >
             {t("hero.description")}
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+          >
             <Link
               to="/calculate-project"
               className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#5D5D5D] hover:bg-[#5a5a5a] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation"

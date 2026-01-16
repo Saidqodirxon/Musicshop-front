@@ -101,7 +101,10 @@ function CalculateProjectPage() {
 
       <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 max-w-[1400px]">
         {/* CALCULATOR CARD */}
-        <div className="bg-[#D7C1AF] rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] p-4 sm:p-6 md:p-8 lg:p-16 shadow-xl mb-12 sm:mb-16 md:mb-20 lg:mb-32">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D7C1AF] rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] p-4 sm:p-6 md:p-8 lg:p-16 shadow-xl mb-12 sm:mb-16 md:mb-20 lg:mb-32"
+        >
           {/* 1. Object Type */}
           <div className="mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-6 sm:mb-8">
@@ -231,10 +234,16 @@ function CalculateProjectPage() {
         {/* REVIEWS SECTION */}
         <section className="mb-12 sm:mb-16 md:mb-20 lg:mb-32">
           <div className="mb-8 sm:mb-10 md:mb-12">
-            <p className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-2 sm:mb-3 font-bold">
+            <p
+              data-aos="fade-up"
+              className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-2 sm:mb-3 font-bold"
+            >
               {t("pages.calculate.reviews_label")}
             </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight">
+            <h2
+              data-aos="fade-up"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight"
+            >
               {t("pages.calculate.reviews_title")}
             </h2>
           </div>

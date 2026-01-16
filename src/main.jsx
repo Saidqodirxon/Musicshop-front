@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "./i18n/i18n"; // Initialize i18n
+import "aos/dist/aos.css"; // AOS animations
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

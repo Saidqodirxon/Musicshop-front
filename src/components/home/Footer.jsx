@@ -31,7 +31,7 @@ const Footer = () => {
       >
         <div className="flex flex-col md:flex-row justify-between gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12 lg:mb-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div data-aos="fade-up" className="flex-shrink-0">
             <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src="/logo.png"
@@ -45,7 +45,11 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex-shrink-0">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="flex-shrink-0"
+          >
             <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#2D3748] mb-4 sm:mb-5">
               {lang === "ru"
                 ? "Главная"

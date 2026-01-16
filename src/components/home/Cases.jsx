@@ -50,13 +50,13 @@ const Cases = () => {
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-[#E8DDD0]">
+    <section className="pt-12 sm:pt-16 lg:pt-24 pb-0 bg-[#E8DDD0]">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: "1400px" }}
       >
         {/* Section Header */}
-        <div className="mb-8 sm:mb-12">
+        <div data-aos="fade-up" className="mb-8 sm:mb-12">
           <p className="text-xs sm:text-sm lg:text-[15px] text-[#B8936D] uppercase tracking-[0.1em] sm:tracking-[0.15em] mb-3 sm:mb-4 font-semibold">
             {lang === "ru" ? "КЕЙСЫ" : lang === "uz" ? "KEYSLAR" : "CASES"}
           </p>
@@ -64,21 +64,21 @@ const Cases = () => {
             {lang === "ru"
               ? "Готовые AV- решения под разные задачи и бюджеты"
               : lang === "uz"
-              ? "Turli vazifalar va byudjetlar uchun tayyor AV yechimlari"
-              : "Ready AV solutions for different tasks and budgets"}
+                ? "Turli vazifalar va byudjetlar uchun tayyor AV yechimlari"
+                : "Ready AV solutions for different tasks and budgets"}
           </h2>
           <p className="text-sm sm:text-base lg:text-[18px] text-[#718096] font-normal leading-[1.6]">
             {lang === "ru"
               ? "Выберите подходящий пакет или закажите индивидуальный расчет под"
               : lang === "uz"
-              ? "Mos to'plamni tanlang yoki ob'ektingiz uchun individual"
-              : "Choose a suitable package or order an individual calculation"}
+                ? "Mos to'plamni tanlang yoki ob'ektingiz uchun individual"
+                : "Choose a suitable package or order an individual calculation"}
             <br />
             {lang === "ru"
               ? "ваш объект"
               : lang === "uz"
-              ? "hisob-kitob buyurtma qiling"
-              : "for your facility"}
+                ? "hisob-kitob buyurtma qiling"
+                : "for your facility"}
           </p>
         </div>
 
@@ -145,8 +145,8 @@ const Cases = () => {
                       {lang === "ru"
                         ? "Плохая слышимость и сложности с онлайн-встречами—"
                         : lang === "uz"
-                        ? "Yomon eshitish va onlayn uchrashuvlarda qiyinchiliklar—"
-                        : "Poor hearing and difficulties with online meetings—"}
+                          ? "Yomon eshitish va onlayn uchrashuvlarda qiyinchiliklar—"
+                          : "Poor hearing and difficulties with online meetings—"}
                     </p>
                     <p className="text-sm sm:text-base text-[#4A5568] leading-[1.7] font-normal">
                       {selectedCase.description?.[lang] ||
@@ -154,8 +154,8 @@ const Cases = () => {
                         (lang === "ru"
                           ? "Спроектирована и установлена AV- система с микрофонами и видеосвязью Zoom."
                           : lang === "uz"
-                          ? "Mikrofonlar va Zoom video aloqasi bilan AV tizimi loyihalangan va o'rnatilgan."
-                          : "Designed and installed AV system with microphones and Zoom video communication.")}
+                            ? "Mikrofonlar va Zoom video aloqasi bilan AV tizimi loyihalangan va o'rnatilgan."
+                            : "Designed and installed AV system with microphones and Zoom video communication.")}
                     </p>
                   </div>
 
@@ -165,15 +165,15 @@ const Cases = () => {
                       {lang === "ru"
                         ? "Рассчитать проект"
                         : lang === "uz"
-                        ? "Loyihani hisoblash"
-                        : "Calculate project"}
+                          ? "Loyihani hisoblash"
+                          : "Calculate project"}
                     </button>
                     <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#D4A574] hover:bg-[#C49564] text-white text-sm sm:text-[15px] font-medium rounded-lg transition-all active:scale-95 touch-manipulation">
                       {lang === "ru"
                         ? "Получить консультацию"
                         : lang === "uz"
-                        ? "Konsultatsiya olish"
-                        : "Get consultation"}
+                          ? "Konsultatsiya olish"
+                          : "Get consultation"}
                     </button>
                   </div>
                 </div>

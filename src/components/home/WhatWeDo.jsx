@@ -61,7 +61,10 @@ const WhatWeDo = () => {
 
   return (
     <section className="py-12 sm:py-14 lg:py-16 bg-[#ECDFD2]">
-      <div className="container mx-auto px-4 sm:px-6 max-w-[1400px] bg-gradient-to-t to-[#FFFFFF] from-[#E89B64] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16">
+      <div
+        data-aos="fade-up"
+        className="container mx-auto px-4 sm:px-6 max-w-[1400px] bg-gradient-to-t to-[#FFFFFF] from-[#E89B64] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16"
+      >
         <div className="text-[12px] sm:text-[13px] lg:text-sm text-[#D4A574] uppercase tracking-wide mb-2 font-semibold">
           {lang === "ru"
             ? "ЧЕМ МЫ ЗАНИМАЕМСЯ"
@@ -83,6 +86,8 @@ const WhatWeDo = () => {
             return (
               <div
                 key={item._id || index}
+                data-aos="zoom-in"
+                data-aos-delay={index * 50}
                 className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition-all duration-300 touch-manipulation active:scale-[0.99]"
               >
                 <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#E8A572] to-[#D4A574] rounded-full flex items-center justify-center mb-3 sm:mb-4">
