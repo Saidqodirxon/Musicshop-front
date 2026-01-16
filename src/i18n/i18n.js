@@ -207,13 +207,16 @@ i18n.use(initReactI18next).init({
         },
         consultationForm: {
           title: "Hoziroq konsultatsiya buyurtma qiling",
-          description: "Formani to'ldiring va biz sizga 15 daqiqa ichida qo'ng'iroq qilamiz, narxni hisoblaymiz.",
+          description:
+            "Formani to'ldiring va biz sizga 15 daqiqa ichida qo'ng'iroq qilamiz, narxni hisoblaymiz.",
           namePlaceholder: "Ismingizni kiriting",
           phonePlaceholder: "+998 (00) 000-00-00",
           callButton: "Qo'ng'iroqni buyurtma qiling",
           sending: "Yuborilmoqda...",
-          successMessage: "Ariza muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.",
-          errorMessage: "Arizani yuborishda xatolik yuz berdi. Qaytadan urinib ko'ring.",
+          successMessage:
+            "Ariza muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.",
+          errorMessage:
+            "Arizani yuborishda xatolik yuz berdi. Qaytadan urinib ko'ring.",
         },
         narxi: "Narxi",
         summ2: "so'm/m²",
@@ -721,12 +724,14 @@ i18n.use(initReactI18next).init({
           },
           consultationForm: {
             title: "Order consultation right now",
-            description: "Fill out the form and we will call you back within 15 minutes to calculate the cost.",
+            description:
+              "Fill out the form and we will call you back within 15 minutes to calculate the cost.",
             namePlaceholder: "Enter name",
             phonePlaceholder: "+998 (00) 000-00-00",
             callButton: "Order a call",
             sending: "Sending...",
-            successMessage: "Request sent successfully! We will contact you soon.",
+            successMessage:
+              "Request sent successfully! We will contact you soon.",
             errorMessage: "Error submitting request. Please try again.",
           },
           title_1: "OUR",

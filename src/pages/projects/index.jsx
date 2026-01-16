@@ -128,7 +128,9 @@ function Main() {
                                   : "text-[#8F491A]"
                               }`}
                             >
-                              {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
+                              {product.inStock
+                                ? t("pages.products.in_stock")
+                                : t("pages.products.out_of_stock")}
                             </p>
                             <button className="w-full py-3 sm:py-4 bg-[#8F491A] text-white rounded-xl sm:rounded-[12px] font-bold text-[15px] sm:text-base hover:bg-[#723A15] transition-all hover:scale-[1.02] active:scale-95 shadow-lg touch-manipulation">
                               {t("pages.products.contact")}

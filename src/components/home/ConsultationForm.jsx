@@ -72,7 +72,9 @@ const ConsultationForm = () => {
                 disabled={loading}
                 className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] bg-gradient-to-l to-[#B97D55] from-[#8F491A] hover:shadow-lg text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base sm:text-lg lg:text-[20px] active:scale-95 touch-manipulation"
               >
-                {loading ? t("consultationForm.sending") : t("consultationForm.callButton")}
+                {loading
+                  ? t("consultationForm.sending")
+                  : t("consultationForm.callButton")}
               </button>
             </form>
           </div>

@@ -49,8 +49,8 @@ function ProductsPage() {
     };
 
     updateItemsPerView();
-    window.addEventListener('resize', updateItemsPerView);
-    return () => window.removeEventListener('resize', updateItemsPerView);
+    window.addEventListener("resize", updateItemsPerView);
+    return () => window.removeEventListener("resize", updateItemsPerView);
   }, []);
 
   const nextSlide = () => {
@@ -119,7 +119,11 @@ function ProductsPage() {
                     <div
                       key={i}
                       className="flex-shrink-0 bg-white rounded-[2rem] h-[500px] animate-pulse"
-                      style={{ width: `calc(${100 / itemsPerView}% - ${itemsPerView === 1 ? 0 : 16}px)` }}
+                      style={{
+                        width: `calc(${100 / itemsPerView}% - ${
+                          itemsPerView === 1 ? 0 : 16
+                        }px)`,
+                      }}
                     ></div>
                   ))
                 ) : topProducts.length > 0 ? (
@@ -127,7 +131,11 @@ function ProductsPage() {
                     <div
                       key={product._id}
                       className="flex-shrink-0 bg-white rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden flex flex-col group/card shadow-sm hover:shadow-xl transition-all border border-[#EDD9CD]"
-                      style={{ width: `calc(${100 / itemsPerView}% - ${itemsPerView === 1 ? 0 : 16}px)` }}
+                      style={{
+                        width: `calc(${100 / itemsPerView}% - ${
+                          itemsPerView === 1 ? 0 : 16
+                        }px)`,
+                      }}
                     >
                       {/* Grey image container matching Figma */}
                       <div className="aspect-[4/3] bg-[#F4F4F4] overflow-hidden p-4 sm:p-6 md:p-8 flex items-center justify-center">
@@ -154,7 +162,9 @@ function ProductsPage() {
                                 : "text-[#8F491A]"
                             }`}
                           >
-                            {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
+                            {product.inStock
+                              ? t("pages.products.in_stock")
+                              : t("pages.products.out_of_stock")}
                           </p>
                           <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation">
                             {t("pages.products.contact")}
@@ -208,7 +218,9 @@ function ProductsPage() {
                         product.inStock ? "text-green-600" : "text-[#8F491A]"
                       }`}
                     >
-                      {product.inStock ? t("pages.products.in_stock") : t("pages.products.out_of_stock")}
+                      {product.inStock
+                        ? t("pages.products.in_stock")
+                        : t("pages.products.out_of_stock")}
                     </p>
                     <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all touch-manipulation active:scale-95">
                       {t("pages.products.contact")}
