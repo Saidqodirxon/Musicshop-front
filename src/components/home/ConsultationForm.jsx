@@ -29,7 +29,7 @@ const ConsultationForm = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-[#ECDFD2]">
+    <section id="consultation-form" className="py-12 sm:py-16 bg-[#ECDFD2]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="bg-[#D7C1AF] rounded-lg sm:rounded-xl p-6 sm:p-8 lg:p-12">
           <div className="mx-auto">

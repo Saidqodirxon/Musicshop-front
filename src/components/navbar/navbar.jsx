@@ -85,18 +85,15 @@ const Navbar = () => {
             {/* Contact + Language */}
             <div className="flex items-center gap-6">
               {contacts?.phones && contacts.phones.length > 0 ? (
-                <div className="flex items-center gap-4">
-                  {contacts.phones.slice(0, 3).map((phone, index) => (
-                    <a
-                      key={index}
-                      href={`tel:${phone.replace(/[\s()\-]/g, "")}`}
-                      className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
-                    >
-                      <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-semibold">{phone}</span>
-                    </a>
-                  ))}
-                </div>
+                <a
+                  href={`tel:${contacts.phones[0].replace(/[\s()\-]/g, "")}`}
+                  className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+                >
+                  <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold">
+                    {contacts.phones[0]}
+                  </span>
+                </a>
               ) : (
                 <a
                   href="tel:+998909982800"
@@ -256,16 +253,15 @@ const Navbar = () => {
           {/* Contact Info */}
           <div className="pb-8 space-y-4 border-t border-gray-100 pt-6">
             {contacts?.phones && contacts.phones.length > 0 ? (
-              contacts.phones.slice(0, 3).map((phone, index) => (
-                <a
-                  key={index}
-                  href={`tel:${phone.replace(/[\s()\-]/g, "")}`}
-                  className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
-                >
-                  <Phone className="w-5 h-5" />
-                  <span className="text-lg font-semibold">{phone}</span>
-                </a>
-              ))
+              <a
+                href={`tel:${contacts.phones[0].replace(/[\s()\-]/g, "")}`}
+                className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+              >
+                <Phone className="w-5 h-5" />
+                <span className="text-lg font-semibold">
+                  {contacts.phones[0]}
+                </span>
+              </a>
             ) : (
               <a
                 href="tel:+998909982800"

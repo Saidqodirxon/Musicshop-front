@@ -91,7 +91,19 @@ const Hero = () => {
             >
               {t("hero.calculateBtn")}
             </Link>
-            <button className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#B8956A] hover:bg-[#A8855A] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation">
+            <button
+              onClick={() => {
+                const consultationForm =
+                  document.querySelector("#consultation-form");
+                if (consultationForm) {
+                  consultationForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }
+              }}
+              className="inline-flex items-center justify-center border-[2px] px-6 sm:px-8 lg:px-[32px] py-3 sm:py-4 lg:py-[18px] text-[15px] sm:text-[16px] lg:text-[18px] bg-[#B8956A] hover:bg-[#A8855A] text-white font-semibold rounded-full transition-all shadow-md active:scale-95 touch-manipulation"
+            >
               {t("hero.consultBtn")}
             </button>
           </div>
