@@ -87,8 +87,6 @@ export default function ContactForm() {
           </form>
         </div>
       </div>
-
- 
     </div>
   );
 }

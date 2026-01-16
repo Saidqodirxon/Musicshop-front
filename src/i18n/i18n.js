@@ -273,11 +273,14 @@ i18n.use(initReactI18next).init({
               other: "Boshqa",
             },
             contact_title: "Bog'lanish uchun",
+            contact_description:
+              "Biz siz bilan bog'lanamiz va loyihaning dastlabki hisob-kitobini tayyorlaymiz",
             name_placeholder: "Ismingiz",
             phone_placeholder: "Telefoningiz",
             calculate_button: "Hisoblash",
             success_message: "Ariza muvaffaqiyatli yuborildi!",
             reviews_title: "Mijozlar fikrlari",
+            reviews_label: "FIKRLAR",
           },
           services: {
             title: "Bizning xizmatlarimiz",
@@ -542,11 +545,14 @@ i18n.use(initReactI18next).init({
               other: "Другое",
             },
             contact_title: "Контактные данные",
+            contact_description:
+              "Мы свяжемся с вами и подготовим предварительный расчет проекта",
             name_placeholder: "Ваше имя",
             phone_placeholder: "Ваш телефон",
             calculate_button: "Рассчитать",
             success_message: "Заявка успешно отправлена!",
             reviews_title: "Отзывы клиентов",
+            reviews_label: "ОТЗЫВЫ",
           },
           services: {
             title: "Наши услуги",

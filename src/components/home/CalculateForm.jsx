@@ -17,7 +17,7 @@ const CalculateForm = () => {
     try {
       await submitApplication({
         ...formData,
-        type: "calculation",
+        type: "consultation",
       });
       alert(
         lang === "ru"

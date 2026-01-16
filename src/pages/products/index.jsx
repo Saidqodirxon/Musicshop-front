@@ -166,9 +166,12 @@ function ProductsPage() {
                               ? t("pages.products.in_stock")
                               : t("pages.products.out_of_stock")}
                           </p>
-                          <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation">
+                          <a
+                            href="/contacts"
+                            className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation text-center"
+                          >
                             {t("pages.products.contact")}
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -222,9 +225,12 @@ function ProductsPage() {
                         ? t("pages.products.in_stock")
                         : t("pages.products.out_of_stock")}
                     </p>
-                    <button className="w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all touch-manipulation active:scale-95">
+                    <a
+                      href="/contacts"
+                      className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all touch-manipulation active:scale-95 text-center"
+                    >
                       {t("pages.products.contact")}
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

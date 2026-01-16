@@ -75,24 +75,39 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="Music shop.uz"
-                className="w-14 h-14 rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-16 h-16 rounded-full object-cover transition-transform duration-300 group-hover:scale-105 shadow-md"
               />
-              <span className="text-lg font-bold text-[#2D3748] group-hover:text-[#D4A574] transition-colors">
+              <span className="text-xl font-bold text-[#2D3748] group-hover:text-[#D4A574] transition-colors">
                 Music shop.uz
               </span>
             </Link>
 
             {/* Contact + Language */}
             <div className="flex items-center gap-6">
-              <a
-                href={`tel:${contacts?.phones?.[0] || "+998909982800"}`}
-                className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
-              >
-                <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-semibold">
-                  {contacts?.phones?.[0] || "+998 90 998 28 00"}
-                </span>
-              </a>
+              {contacts?.phones && contacts.phones.length > 0 ? (
+                <div className="flex items-center gap-4">
+                  {contacts.phones.slice(0, 3).map((phone, index) => (
+                    <a
+                      key={index}
+                      href={`tel:${phone.replace(/[\s()\-]/g, "")}`}
+                      className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+                    >
+                      <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-semibold">{phone}</span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <a
+                  href="tel:+998909982800"
+                  className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+                >
+                  <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold">
+                    +998 90 998 28 00
+                  </span>
+                </a>
+              )}
 
               <LanguageSelector />
             </div>
@@ -139,9 +154,9 @@ const Navbar = () => {
             <img
               src="/logo.png"
               alt="Music shop.uz"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover shadow-md"
             />
-            <span className="text-base font-bold text-[#2D3748]">
+            <span className="text-lg font-bold text-[#2D3748]">
               Music shop.uz
             </span>
           </Link>
@@ -240,15 +255,26 @@ const Navbar = () => {
 
           {/* Contact Info */}
           <div className="pb-8 space-y-4 border-t border-gray-100 pt-6">
-            <a
-              href={`tel:${contacts?.phones?.[0] || "+998909982800"}`}
-              className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              <span className="text-lg font-semibold">
-                {contacts?.phones?.[0] || "+998 90 998 28 00"}
-              </span>
-            </a>
+            {contacts?.phones && contacts.phones.length > 0 ? (
+              contacts.phones.slice(0, 3).map((phone, index) => (
+                <a
+                  key={index}
+                  href={`tel:${phone.replace(/[\s()\-]/g, "")}`}
+                  className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                  <span className="text-lg font-semibold">{phone}</span>
+                </a>
+              ))
+            ) : (
+              <a
+                href="tel:+998909982800"
+                className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+              >
+                <Phone className="w-5 h-5" />
+                <span className="text-lg font-semibold">+998 90 998 28 00</span>
+              </a>
+            )}
 
             {/* Language Selector */}
             <div className="px-4">

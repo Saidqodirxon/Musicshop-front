@@ -190,7 +190,7 @@ function CalculateProjectPage() {
               {t("pages.calculate.contact_title")}
             </h2>
             <p className="text-sm sm:text-base text-[#5C5C5C] mb-6 sm:mb-8 md:mb-10">
-              Мы свяжемся с вами и подготовим предварительный расчет проекта
+              {t("pages.calculate.contact_description")}
             </p>
 
             <form onSubmit={handleSubmit} className="w-full">
@@ -232,7 +232,7 @@ function CalculateProjectPage() {
         <section className="mb-12 sm:mb-16 md:mb-20 lg:mb-32">
           <div className="mb-8 sm:mb-10 md:mb-12">
             <p className="text-xs sm:text-sm uppercase tracking-widest text-[#8F4E24] mb-2 sm:mb-3 font-bold">
-              ОТЗЫВЫ
+              {t("pages.calculate.reviews_label")}
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] leading-tight">
               {t("pages.calculate.reviews_title")}

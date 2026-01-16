@@ -127,32 +127,56 @@ const Footer = () => {
                 : "Contacts"}
             </h3>
             <ul className="space-y-3 sm:space-y-4">
-              <li className="flex items-center gap-2 sm:gap-3">
-                <Phone className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
-                <a
-                  href={`tel:${contacts?.phones?.[0] || "+998 90 998 28 00"}`}
-                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
-                >
-                  {contacts?.phones?.[0] || "+998 90 998 28 00"}
-                </a>
-              </li>
-              <li className="flex items-center gap-2 sm:gap-3">
-                <Send className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
-                <a
-                  href="#"
-                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
-                >
-                  musicshop_uzb
-                </a>
-              </li>
-              <li className="pl-6 sm:pl-[30px]">
-                <a
-                  href={`mailto:${contacts?.email || "musicshop@gmail.uz"}`}
-                  className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
-                >
-                  {contacts?.email || "musicshop@gmail.uz"}
-                </a>
-              </li>
+              {contacts?.phones && contacts.phones.length > 0 ? (
+                contacts.phones.slice(0, 3).map((phone, index) => (
+                  <li key={index} className="flex items-center gap-2 sm:gap-3">
+                    <Phone className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
+                    <a
+                      href={`tel:${phone.replace(/[\s()\-]/g, "")}`}
+                      className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
+                    >
+                      {phone}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <Phone className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
+                  <a
+                    href="tel:+998909982800"
+                    className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
+                  >
+                    +998 90 998 28 00
+                  </a>
+                </li>
+              )}
+              {contacts?.telegram && (
+                <li className="flex items-center gap-2 sm:gap-3">
+                  <Send className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#4A5568] flex-shrink-0" />
+                  <a
+                    href={
+                      contacts.telegram.startsWith("http")
+                        ? contacts.telegram
+                        : `https://t.me/${contacts.telegram.replace("@", "")}`
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
+                  >
+                    {contacts.telegram}
+                  </a>
+                </li>
+              )}
+              {contacts?.email && (
+                <li className="pl-6 sm:pl-[30px]">
+                  <a
+                    href={`mailto:${contacts.email}`}
+                    className="text-[14px] sm:text-[15px] text-[#4A5568] hover:text-[#2D3748] transition-colors touch-manipulation"
+                  >
+                    {contacts.email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 
