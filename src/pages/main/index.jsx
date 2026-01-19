@@ -15,16 +15,18 @@ function Main() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <WhatWeDo />
-      <ObjectTypes />
-      <ConsultationForm />
-      <ProjectExamples />
-      <CalculateForm />
-      <HowWeWork />
-      <Cases />
-      <FAQ />
-      <Footer />
+      <div className="pt-[64px] sm:pt-[90px]">
+        <Hero />
+        <WhatWeDo />
+        <ObjectTypes />
+        <ConsultationForm />
+        <ProjectExamples />
+        <CalculateForm />
+        <HowWeWork />
+        <Cases />
+        <FAQ />
+        <Footer />
+      </div>
     </>
   );
 }

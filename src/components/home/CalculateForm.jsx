@@ -15,16 +15,22 @@ const CalculateForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      // normalize phone to +998XXXXXXXXX before sending
+      const digits = (formData.phone || "").replace(/\D/g, "");
+      const local = digits.startsWith("998") ? digits.slice(3) : digits;
+      const normalizedPhone = `+998${local}`;
+
       await submitApplication({
         ...formData,
+        phone: normalizedPhone,
         type: "consultation",
       });
       alert(
         lang === "ru"
           ? "Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время."
           : lang === "uz"
-          ? "Ariza muvaffaqiyatli yuborildi! Biz tez orada siz bilan bog'lanamiz."
-          : "Application sent successfully! We will contact you soon."
+            ? "Ariza muvaffaqiyatli yuborildi! Biz tez orada siz bilan bog'lanamiz."
+            : "Application sent successfully! We will contact you soon."
       );
       setFormData({ name: "", phone: "" });
     } catch (error) {
@@ -33,12 +39,29 @@ const CalculateForm = () => {
         lang === "ru"
           ? "Ошибка при отправке заявки. Попробуйте еще раз."
           : lang === "uz"
-          ? "Arizani yuborishda xatolik. Qayta urinib ko'ring."
-          : "Error sending application. Please try again."
+            ? "Arizani yuborishda xatolik. Qayta urinib ko'ring."
+            : "Error sending application. Please try again."
       );
     } finally {
       setLoading(false);
     }
+  };
+
+  // format phone to +998 XX XXX XX XX while typing
+  const formatPhoneForDisplay = (value) => {
+    const digits = value.replace(/\D/g, "");
+    let local = digits;
+    if (local.startsWith("998")) local = local.slice(3);
+    if (local.startsWith("0")) local = local.slice(1);
+    local = local.slice(0, 9); // max 9 local digits
+
+    const parts = [];
+    if (local.length > 0) parts.push(local.slice(0, Math.min(2, local.length)));
+    if (local.length > 2) parts.push(local.slice(2, Math.min(5, local.length)));
+    if (local.length > 5) parts.push(local.slice(5, Math.min(7, local.length)));
+    if (local.length > 7) parts.push(local.slice(7, 9));
+
+    return parts.length ? `+998 ${parts.join(" ")}` : "+998 ";
   };
 
   return (
@@ -52,8 +75,8 @@ const CalculateForm = () => {
             {lang === "ru"
               ? "Рассчитаем решение под ваш объект"
               : lang === "uz"
-              ? "Sizning ob'ektingiz uchun yechimni hisoblaymiz"
-              : "We'll calculate a solution for your facility"}
+                ? "Sizning ob'ektingiz uchun yechimni hisoblaymiz"
+                : "We'll calculate a solution for your facility"}
           </h2>
 
           <form
@@ -66,8 +89,8 @@ const CalculateForm = () => {
                 lang === "ru"
                   ? "Введите имя"
                   : lang === "uz"
-                  ? "Ismingizni kiriting"
-                  : "Enter your name"
+                    ? "Ismingizni kiriting"
+                    : "Enter your name"
               }
               value={formData.name}
               onChange={(e) =>
@@ -78,10 +101,13 @@ const CalculateForm = () => {
             />
             <input
               type="tel"
-              placeholder="+998 (00) 000-00-00"
+              placeholder="+998 XX XXX XX XX"
               value={formData.phone}
               onChange={(e) =>
-                setFormData({ ...formData, phone: e.target.value })
+                setFormData({
+                  ...formData,
+                  phone: formatPhoneForDisplay(e.target.value),
+                })
               }
               required
               className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] rounded-lg bg-white text-[#333333] px-4 text-left sm:text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-base sm:text-lg lg:text-[20px] touch-manipulation"
@@ -96,13 +122,13 @@ const CalculateForm = () => {
                 ? lang === "ru"
                   ? "Отправка..."
                   : lang === "uz"
-                  ? "Yuborilmoqda..."
-                  : "Sending..."
+                    ? "Yuborilmoqda..."
+                    : "Sending..."
                 : lang === "ru"
-                ? "Получить расчет"
-                : lang === "uz"
-                ? "Hisob-kitob olish"
-                : "Get calculation"}
+                  ? "Получить расчет"
+                  : lang === "uz"
+                    ? "Hisob-kitob olish"
+                    : "Get calculation"}
             </button>
           </form>
         </div>

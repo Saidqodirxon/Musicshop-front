@@ -29,7 +29,7 @@ const FAQ = () => {
   const rightFaqs = faqs.filter((_, i) => i % 2 === 1);
 
   const FAQItem = ({ faq, index, actualIndex }) => (
-    <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm">
+    <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow hover:bg-[#F9F7F4]">
       <button
         onClick={() =>
           setOpenIndex(openIndex === actualIndex ? null : actualIndex)

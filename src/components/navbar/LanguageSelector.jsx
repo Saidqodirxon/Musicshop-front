@@ -80,7 +80,7 @@ const LanguageSelector = ({ isMobile = false }) => {
               alt={lang.label}
               className="w-[20px] h-[14px] object-cover rounded-sm"
             />
-            <span className="text-[14px] font-medium">{lang.label}</span>
+            <span className="text-[14px] ">{lang.label}</span>
           </button>
         ))}
       </div>
@@ -96,25 +96,25 @@ const LanguageSelector = ({ isMobile = false }) => {
           e.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
-        className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-[#E2D5C8] hover:border-[#D4A574] transition-colors"
+        className="w-[100px] flex items-center gap-2 px-3 py-2 rounded-lg border border-[#E2D5C8] hover:border-[#D4A574] transition-colors"
       >
         <img
           src={currentLanguage.flag}
           alt={currentLanguage.label}
-          className="w-[20px] h-[14px] object-cover rounded-sm"
+          className="w-[20px] h-[20px] object-cover rounded-sm"
         />
-        <span className="text-[14px] text-[#2D3748] font-medium">
+        <span className="text-[14px] font-bold text-[#fff] ">
           {currentLanguage.label}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-[#718096] transition-transform duration-200 ${
+          className={`w-4 h-4 text-[#fff] transition-transform duration-200  ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-lg border border-[#E2D5C8] overflow-hidden w-[100px] z-[9999]">
+        <div className="absolute top-full mt-2 right-0 rounded-lg shadow-lg border border-[#E2D5C8] overflow-hidden w-[100px] z-[9999]">
           {languages.map((lang) => (
             <button
               key={lang.code}
@@ -123,16 +123,16 @@ const LanguageSelector = ({ isMobile = false }) => {
                 e.stopPropagation();
                 selectLanguage(lang.code);
               }}
-              className={`w-full px-4 py-2.5 text-left text-[14px] hover:bg-[#F5EDE4] transition-colors flex items-center gap-3 ${
+              className={`w-full px-4 py-2.5 text-left text-[14px] font-bold hover:bg-[#F5EDE4] transition-colors flex items-center gap-3 ${
                 currentLang === lang.code
-                  ? "text-[#D4A574] font-medium bg-[#F5EDE4]"
+                  ? "text-[#D4A574]  border-[#F5EDE4]"
                   : "text-[#4A5568]"
               }`}
             >
               <img
                 src={lang.flag}
                 alt={lang.label}
-                className="w-[20px] h-[14px] object-cover rounded-sm"
+                className="w-[20px] h-[20px] object-cover rounded-sm"
               />
               <span>{lang.label}</span>
             </button>

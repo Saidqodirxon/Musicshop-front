@@ -36,14 +36,39 @@ const ContactsPage = () => {
     }
   };
 
+  const formatPhoneForDisplay = (value) => {
+    const digits = value.replace(/\D/g, "");
+    let local = digits;
+    if (local.startsWith("998")) local = local.slice(3);
+    if (local.startsWith("0")) local = local.slice(1);
+    local = local.slice(0, 9);
+
+    const parts = [];
+    if (local.length > 0) parts.push(local.slice(0, Math.min(2, local.length)));
+    if (local.length > 2) parts.push(local.slice(2, Math.min(5, local.length)));
+    if (local.length > 5) parts.push(local.slice(5, Math.min(7, local.length)));
+    if (local.length > 7) parts.push(local.slice(7, 9));
+
+    return parts.length ? `+998 ${parts.join(" ")}` : "+998 ";
+  };
+
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "phone") {
+      setFormData({ ...formData, phone: formatPhoneForDisplay(value) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e, type = "feedback") => {
     if (e) e.preventDefault();
     try {
-      await submitApplication({ ...formData, type });
+      const digits = (formData.phone || "").replace(/\D/g, "");
+      const local = digits.startsWith("998") ? digits.slice(3) : digits;
+      const normalizedPhone = `+998${local}`;
+
+      await submitApplication({ ...formData, phone: normalizedPhone, type });
       alert(t("pages.contacts.success_message"));
       setFormData({ name: "", phone: "", message: "" });
     } catch (error) {
@@ -52,10 +77,9 @@ const ContactsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EDD9CD]">
+    <div className="min-h-screen bg-[#EDD9CD] mt-[64px] sm:mt-[100px]">
       <Navbar />
-
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20 mt-[64px] sm:mt-[80px]">
         {/* TOP CONTACT INFO GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-24">
           {/* Address */}
@@ -152,7 +176,7 @@ const ContactsPage = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder={t("pages.contacts.phone_placeholder")}
+                  placeholder="+998 XX XXX XX XX"
                   className="flex-1 bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base outline-none text-[#1A1A1A] placeholder:text-gray-400"
                 />
                 <button

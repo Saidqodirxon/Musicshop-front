@@ -1,72 +1,127 @@
-import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Services from "../../components/home/Services";
 import ConsultationForm from "../../components/home/ConsultationForm";
 import Footer from "../../components/home/Footer";
-import { getWhoWeWorkFor } from "../../services/api";
 import WhatWeDo from "../../components/home/WhatWeDo";
 
-const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
-
 function Main() {
-  const { t } = useTranslation();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getWhoWeWorkFor();
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const getImageSrc = (imageUrl) => {
-    if (!imageUrl) return "";
-    if (imageUrl.startsWith("http")) return imageUrl;
-    return `${API_URL}${imageUrl}`;
-  };
+  // Static services data with images from public folder
+  const data = [
+    {
+      id: 1,
+      image: "/1.png",
+      title: {
+        ru: "Оснащение официального зала для государственных выступлений",
+        uz: "Davlat chiqishlari uchun rasmiy zalning jihozlanishi",
+        en: "Equipping an official hall for government performances",
+      },
+      points: [
+        {
+          ru: "Разработан государственного мероприятия",
+          uz: "Davlat tadbirini ishlab chiqish",
+          en: "Development of a government event",
+        },
+        {
+          ru: "Обеспечила звуковую и видеопроекцию под любой при высокой загрузке зала",
+          uz: "Har qanday yuqori zal yuklanishi bilan ovoz va video proyeksiyasini ta'minladi",
+          en: "Provided sound and video projection for any high hall load",
+        },
+        {
+          ru: "Musicshop.uz поставили и настроили профессиональное аудиооборудование с учётом акустики помещения",
+          uz: "Musicshop.uz xona akustikasini hisobga olgan holda professional audio jihozlarini yetkazib berdi va sozladi",
+          en: "Musicshop.uz supplied and configured professional audio equipment taking into account room acoustics",
+        },
+      ],
+      result: {
+        ru: "Зал получил надёжную звуковую систему, полностью соответствующую требованиям официальных мероприятий",
+        uz: "Zal rasmiy tadbirlar talablariga to'liq javob beradigan ishonchli ovoz tizimini oldi",
+        en: "The hall received a reliable sound system that fully meets the requirements of official events",
+      },
+    },
+    {
+      id: 2,
+      image: "/2.png",
+      title: {
+        ru: "Техническое оснащение зала для межведомственных совещаний",
+        uz: "Idoralararo yig'ilishlar uchun zalni texnik jihozlash",
+        en: "Technical equipment of the hall for interdepartmental meetings",
+      },
+      points: [
+        {
+          ru: "Оснащенный зал для межведомственных встреч и рабочих совещаний",
+          uz: "Idoralararo uchrashuvlar va ish yig'ilishlari uchun jihozlangan zal",
+          en: "Equipped hall for interdepartmental meetings and working meetings",
+        },
+        {
+          ru: "Организована качественное звуковое сопровождение для больших количества спикеров",
+          uz: "Ko'p sonli ma'ruzachilar uchun sifatli ovozli hamrohlik tashkil etildi",
+          en: "Organized high-quality sound support for a large number of speakers",
+        },
+        {
+          ru: "Были подобраны и установлены профессиональные микрофоны и аудиосистемы, обеспечивающие стабильную работу",
+          uz: "Barqaror ishlashni ta'minlaydigan professional mikrofonlar va audio tizimlar tanlandi va o'rnatildi",
+          en: "Professional microphones and audio systems were selected and installed to ensure stable operation",
+        },
+      ],
+      result: {
+        ru: "Система успела используется для крупных совещаний и обеспечивает чистоту и разборчивость речи для всех участников",
+        uz: "Tizim katta yig'ilishlar uchun muvaffaqiyatli ishlatiladi va barcha ishtirokchilar uchun nutqning tozaligi va aniqligini ta'minlaydi",
+        en: "The system is successfully used for large meetings and ensures clarity and intelligibility of speech for all participants",
+      },
+    },
+    {
+      id: 3,
+      image: "/3.png",
+      title: {
+        ru: "Оснащение официального зала для государственных выступлений",
+        uz: "Davlat chiqishlari uchun rasmiy zalning jihozlanishi",
+        en: "Equipping an official hall for government performances",
+      },
+      points: [
+        {
+          ru: "Официальный зал для государственных совещаний и публичных выступлений",
+          uz: "Davlat yig'ilishlari va ommaviy chiqishlar uchun rasmiy zal",
+          en: "Official hall for government meetings and public speeches",
+        },
+        {
+          ru: "Обеспечить безупречное качество звука и высокую надёжность системы",
+          uz: "Benuqson ovoz sifatini va tizimning yuqori ishonchliligini ta'minlash",
+          en: "Ensure impeccable sound quality and high system reliability",
+        },
+        {
+          ru: "Было поставлено и настроено профессиональное аудиооборудование, проведено тестирование перед вводом в эксплуатацию",
+          uz: "Professional audio jihozlar yetkazib berildi va sozlandi, foydalanishga topshirishdan oldin sinov o'tkazildi",
+          en: "Professional audio equipment was supplied and configured, testing was carried out before commissioning",
+        },
+      ],
+      result: {
+        ru: "Зал успешно используется для официальных мероприятий, обеспечивая чёткую и разборчивую речь для всех участников",
+        uz: "Zal rasmiy tadbirlar uchun muvaffaqiyatli ishlatiladi va barcha ishtirokchilar uchun aniq va tushunarli nutqni ta'minlaydi",
+        en: "The hall is successfully used for official events, providing clear and intelligible speech for all participants",
+      },
+    },
+  ];
 
   return (
     <div className="bg-[#ECDFD2]">
       <Navbar />
+      <div className="mt-[64px] sm:mt-[100px]">
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
+          <h1
+            data-aos="fade-up"
+            className="text-[20px] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-8 sm:mb-12 lg:mb-16"
+          >
+            {t("pages.services.title")}
+          </h1>
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
-        <h1
-          data-aos="fade-up"
-          className="text-[26px] sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-8 sm:mb-12 lg:mb-16"
-        >
-          {t("pages.services.title")}
-        </h1>
-
-        {loading ? (
-          <div className="space-y-8 sm:space-y-12 animate-pulse">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10"
-              >
-                <div className="bg-gray-200 h-[240px] sm:h-[300px] rounded-xl sm:rounded-2xl"></div>
-                <div className="space-y-3 sm:space-y-4 py-2 sm:py-4">
-                  <div className="h-6 sm:h-8 bg-gray-200 w-3/4 rounded"></div>
-                  <div className="h-16 sm:h-20 bg-gray-200 w-full rounded"></div>
-                  <div className="h-16 sm:h-20 bg-gray-200 w-full rounded"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
           <div className="space-y-16 sm:space-y-24 lg:space-y-32">
             {data.map((item, index) => (
               <div
-                key={item._id}
+                key={item.id}
                 data-aos="fade-up"
                 data-aos-delay={index * 80}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-20 items-center"
@@ -75,8 +130,8 @@ function Main() {
                 <div className={`${index % 2 === 1 ? "lg:order-2" : ""}`}>
                   <div className="rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl aspect-[4/3] touch-manipulation active:scale-[0.99] transition-transform">
                     <img
-                      src={getImageSrc(item.image)}
-                      alt={item.title}
+                      src={item.image}
+                      alt={item.title?.[lang] || item.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -88,50 +143,44 @@ function Main() {
                     index % 2 === 1 ? "lg:order-1" : ""
                   }`}
                 >
-                  <h2 className="text-[20px] sm:text-2xl lg:text-3xl font-bold text-[#1A1A1A] leading-tight">
-                    {item.title}
+                  <h2 className="text-[16px] sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#1A1A1A] leading-tight">
+                    {item.title?.[lang] || item.title}
                   </h2>
-                  <div className="space-y-3 sm:space-y-4 text-[#333333] text-[14px] sm:text-sm lg:text-base leading-relaxed">
-                    <p className="whitespace-pre-wrap">{item.description}</p>
+                  <div className="space-y-3 sm:space-y-4 text-[#333333] text-[13px] sm:text-sm md:text-base lg:text-lg leading-relaxed">
+                    {/* Render points array if exists (static data format) */}
+                    {item.points && item.points.length > 0 ? (
+                      <>
+                        {item.points.map((point, idx) => (
+                          <p key={idx} className="whitespace-pre-wrap">
+                            {point?.[lang] || point}
+                          </p>
+                        ))}
+                      </>
+                    ) : (
+                      <>
+                        {/* Render API data format */}
+                        <p className="whitespace-pre-wrap">
+                          {item.description?.[lang] || item.description}
+                        </p>
 
-                    {item.solution && (
-                      <div>
-                        <p>{item.solution}</p>
-                      </div>
+                        {item.solution && (
+                          <div>
+                            <p className="text-[13px] sm:text-sm md:text-base lg:text-lg">
+                              {item.solution?.[lang] || item.solution}
+                            </p>
+                          </div>
+                        )}
+                      </>
                     )}
 
                     {item.result && (
                       <div>
-                        <h4 className="font-bold text-[#1A1A1A] mb-1 text-[14px] sm:text-base">
-                          Результат:
+                        <h4 className="font-bold text-[#1A1A1A] mb-1 text-[13px] sm:text-base md:text-lg">
+                          {lang === "ru" ? "Результат:" : lang === "uz" ? "Natija:" : "Result:"}
                         </h4>
-                        <p>{item.result}</p>
-                      </div>
-                    )}
-
-                    {item.document && (
-                      <div className="pt-2">
-                        <a
-                          href={getImageSrc(item.document)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-[#E09B6B] font-semibold hover:underline touch-manipulation active:scale-95 transition-transform"
-                        >
-                          <svg
-                            className="w-4 h-4 sm:w-5 sm:h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                            />
-                          </svg>
-                          Посмотреть документ
-                        </a>
+                        <p className="text-[13px] sm:text-sm md:text-base lg:text-lg">
+                          {item.result?.[lang] || item.result}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -139,12 +188,11 @@ function Main() {
               </div>
             ))}
           </div>
-        )}
-      </main>
-
-      <ConsultationForm />
-      <WhatWeDo />
-      <Footer />
+        </main>
+        <ConsultationForm />
+        <WhatWeDo />
+        <Footer />
+      </div>
     </div>
   );
 }

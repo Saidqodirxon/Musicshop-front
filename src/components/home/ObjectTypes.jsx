@@ -45,15 +45,15 @@ const ObjectTypes = () => {
           {lang === "ru"
             ? "ДЛЯ КОГО МЫ РАБОТАЕМ"
             : lang === "uz"
-            ? "BIZ KIM UCHUN ISHLAYMIZ"
-            : "WHO WE WORK FOR"}
+              ? "BIZ KIM UCHUN ISHLAYMIZ"
+              : "WHO WE WORK FOR"}
         </div>
         <h2 className="text-[22px] sm:text-[28px] md:text-3xl lg:text-4xl font-bold text-[#3D3D3D] mb-8 sm:mb-10 lg:mb-12">
           {lang === "ru"
             ? "Мы понимаем задачи каждого типа объектов и предлагаем готовые решения под ключ."
             : lang === "uz"
-            ? "Biz har bir ob'ekt turining vazifalarini tushunamiz va kalitga tayyor yechimlarni taklif qilamiz."
-            : "We understand the tasks of each type of facility and offer turnkey solutions."}
+              ? "Biz har bir ob'ekt turining vazifalarini tushunamiz va kalitga tayyor yechimlarni taklif qilamiz."
+              : "We understand the tasks of each type of facility and offer turnkey solutions."}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
@@ -66,10 +66,10 @@ const ObjectTypes = () => {
               >
                 <div className="flex flex-col md:flex-row h-full">
                   <div className="md:w-1/2 p-5 sm:p-6 lg:p-8 flex flex-col justify-between">
-                    <h3 className="text-[17px] sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 text-[#3D3D3D]">
+                    <h3 className="text-[18px] sm:text-lg lg:text-[24px] font-[600] mb-2 sm:mb-3 text-[#3D3D3D]">
                       {item.title?.[lang] || item.title?.ru || ""}
                     </h3>
-                    <p className="text-gray-600 text-[13px] sm:text-sm leading-relaxed">
+                    <p className="text-[#909090] text-[13px] sm:text-[18px] leading-relaxed">
                       {item.description?.[lang] || item.description?.ru || ""}
                     </p>
                   </div>

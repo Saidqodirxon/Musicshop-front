@@ -51,11 +51,11 @@ function Main() {
   };
 
   return (
-    <div className="bg-[#ECDFD2] min-h-screen">
+    <div className="bg-[#ECDFD2] min-h-screen mt-[64px] sm:mt-[100px] ">
       <Navbar />
 
       {/* Top Products Carousel */}
-      <section className="py-8 sm:py-12 lg:py-20 overflow-hidden">
+      <section className="py-8 sm:py-12 lg:py-20 overflow-hidden ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <h2
             data-aos="fade-up"
@@ -107,10 +107,10 @@ function Main() {
                   : products.map((product) => (
                       <div
                         key={product._id}
-                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px] h-auto lg:h-[554px] bg-white rounded-xl sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card relative"
+                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px] h-auto lg:h-[650px] bg-white rounded-xl sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card relative"
                       >
                         {/* Image */}
-                        <div className="h-[220px] sm:h-[250px] lg:h-[270px] overflow-hidden">
+                        <div className="h-[220px] lg:h-[400px] overflow-hidden">
                           <img
                             src={getImageSrc(product.images || product.image)}
                             alt={product.name}

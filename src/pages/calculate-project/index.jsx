@@ -64,9 +64,29 @@ function CalculateProjectPage() {
     }));
   };
 
+  const formatPhoneForDisplay = (value) => {
+    const digits = value.replace(/\D/g, "");
+    let local = digits;
+    if (local.startsWith("998")) local = local.slice(3);
+    if (local.startsWith("0")) local = local.slice(1);
+    local = local.slice(0, 9);
+
+    const parts = [];
+    if (local.length > 0) parts.push(local.slice(0, Math.min(2, local.length)));
+    if (local.length > 2) parts.push(local.slice(2, Math.min(5, local.length)));
+    if (local.length > 5) parts.push(local.slice(5, Math.min(7, local.length)));
+    if (local.length > 7) parts.push(local.slice(7, 9));
+
+    return parts.length ? `+998 ${parts.join(" ")}` : "+998 ";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const digits = (formData.phone || "").replace(/\D/g, "");
+      const local = digits.startsWith("998") ? digits.slice(3) : digits;
+      const normalizedPhone = `+998${local}`;
+
       const message = `
         Тип объекта: ${formData.objectType}
         Площадь: ${formData.area} м2
@@ -76,7 +96,7 @@ function CalculateProjectPage() {
       `;
       await submitApplication({
         name: formData.name,
-        phone: formData.phone,
+        phone: normalizedPhone,
         message: message,
         type: "calculate_project",
       });
@@ -96,7 +116,7 @@ function CalculateProjectPage() {
   };
 
   return (
-    <div className="bg-[#EDD9CD] min-h-screen">
+    <div className="bg-[#EDD9CD] min-h-screen mt-[64px] sm:mt-[100px]">
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 max-w-[1400px]">
@@ -210,10 +230,13 @@ function CalculateProjectPage() {
                 />
                 <input
                   type="tel"
-                  placeholder={t("pages.calculate.phone_placeholder")}
+                  placeholder="+998 XX XXX XX XX"
                   value={formData.phone}
                   onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
+                    setFormData({
+                      ...formData,
+                      phone: formatPhoneForDisplay(e.target.value),
+                    })
                   }
                   required
                   className="bg-white rounded-lg sm:rounded-xl px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-5 text-sm sm:text-base outline-none text-[#1A1A1A]"

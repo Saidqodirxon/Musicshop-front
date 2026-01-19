@@ -10,6 +10,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [contacts, setContacts] = useState(null);
   const location = useLocation();
+  const lastScrollY = useRef(0);
+  const [hideLinks, setHideLinks] = useState(false);
+  const [isShrunk, setIsShrunk] = useState(false);
 
   // Fetch contacts
   useEffect(() => {
@@ -49,6 +52,33 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  // Handle scroll: hide links on scroll down, show on scroll up; shrink navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY || 0;
+      const delta = currentY - lastScrollY.current;
+
+      if (currentY < 60) {
+        // near top -> full navbar
+        setHideLinks(false);
+        setIsShrunk(false);
+      } else if (delta > 5) {
+        // scrolling down -> hide links and shrink
+        setHideLinks(true);
+        setIsShrunk(true);
+      } else if (delta < -5) {
+        // scrolling up -> show links (and keep shrunk state optional)
+        setHideLinks(false);
+        setIsShrunk(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const isActive = (path) => location.pathname === path;
 
   const links = [
@@ -63,10 +93,12 @@ const Navbar = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden lg:block bg-[#E8DDD0] sticky top-0 z-50 shadow-sm">
+      <nav className="hidden lg:block fixed top-0 pt-4 left-0 right-0 w-full mx-auto z-50 shadow-sm bg-black/40 backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Bar */}
-          <div className="flex items-center justify-between h-20">
+          <div
+            className={`flex items-center justify-between transition-all duration-300 ${isShrunk ? "h-14" : "h-20"}`}
+          >
             {/* Logo */}
             <Link
               to="/"
@@ -77,7 +109,7 @@ const Navbar = () => {
                 alt="Music shop.uz"
                 className="w-16 h-16 rounded-full object-cover transition-transform duration-300 group-hover:scale-105 shadow-md"
               />
-              <span className="text-xl font-bold text-[#2D3748] group-hover:text-[#D4A574] transition-colors">
+              <span className="text-xl font-bold text-[#ffff] group-hover:text-[#D4A574] transition-colors">
                 Music shop.uz
               </span>
             </Link>
@@ -87,7 +119,7 @@ const Navbar = () => {
               {contacts?.phones && contacts.phones.length > 0 ? (
                 <a
                   href={`tel:${contacts.phones[0].replace(/[\s()\-]/g, "")}`}
-                  className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+                  className="flex items-center gap-2 text-[#ffff] hover:text-[#D4A574] transition-colors group"
                 >
                   <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold">
@@ -97,7 +129,7 @@ const Navbar = () => {
               ) : (
                 <a
                   href="tel:+998909982800"
-                  className="flex items-center gap-2 text-[#2D3748] hover:text-[#D4A574] transition-colors group"
+                  className="flex items-center gap-2 text-[#ffff] hover:text-[#D4A574] transition-colors group"
                 >
                   <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold">
@@ -111,16 +143,18 @@ const Navbar = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="pb-5 border-t border-[#D4C4B5]/30">
+          <div
+            className={`pb-5 border-[#D4C4B5]/30 transition-all duration-300 overflow-hidden ${hideLinks ? "max-h-0 opacity-0" : "max-h-56 opacity-100"}`}
+          >
             <div className="flex items-center justify-center gap-3 pt-4">
               {links.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all hover:shadow-md ${
+                  className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all  hover:text-white ${
                     isActive(link.path)
-                      ? "bg-white text-[#2D3748] shadow-sm"
-                      : "bg-gradient-to-br from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                      ? " text-[#ffff]"
+                      : " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
                   }`}
                 >
                   {link.name}
@@ -130,10 +164,10 @@ const Navbar = () => {
               {/* Calculate Project Link */}
               <Link
                 to="/calculate-project"
-                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all hover:shadow-md ${
+                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all  hover:text-white ${
                   isActive("/calculate-project")
-                    ? "bg-white text-[#2D3748] shadow-sm"
-                    : "bg-gradient-to-br from-[#FFC79E] to-[#E89B64] text-[#2E2E2E] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                    ? "text-[#ffff]"
+                    : " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
                 }`}
               >
                 {t("links.calculate")}
@@ -144,7 +178,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile: Top Bar with Logo and Menu Button */}
-      <div className="lg:hidden bg-[#E8DDD0] sticky top-0 z-50 shadow-sm">
+      <div className="lg:hidden bg-black/40 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
         <div className="flex items-center justify-between px-4 h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
@@ -153,7 +187,7 @@ const Navbar = () => {
               alt="Music shop.uz"
               className="w-12 h-12 rounded-full object-cover shadow-md"
             />
-            <span className="text-lg font-bold text-[#2D3748]">
+            <span className="text-lg font-bold text-[#ffff]">
               Music shop.uz
             </span>
           </Link>
@@ -166,17 +200,17 @@ const Navbar = () => {
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <span
-                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                className={`w-full h-0.5 bg-[#ffff] transition-all duration-300 ${
                   isMenuOpen ? "rotate-45 translate-y-2" : ""
                 }`}
               />
               <span
-                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                className={`w-full h-0.5 bg-[#ffff] transition-all duration-300 ${
                   isMenuOpen ? "opacity-0" : ""
                 }`}
               />
               <span
-                className={`w-full h-0.5 bg-[#2D3748] transition-all duration-300 ${
+                className={`w-full h-0.5 bg-[#ffff] transition-all duration-300 ${
                   isMenuOpen ? "-rotate-45 -translate-y-2" : ""
                 }`}
               />
@@ -187,7 +221,7 @@ const Navbar = () => {
 
       {/* Mobile: Full Screen Menu */}
       <div
-        className={`lg:hidden fixed inset-0 bg-white z-50 transition-transform duration-500 ease-in-out ${
+        className={`lg:hidden fixed inset-0 bg-black/40 backdrop-blur-md z-50 transition-transform duration-500 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -195,10 +229,10 @@ const Navbar = () => {
           {/* Close Button */}
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors z-10"
+            className="absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10"
             aria-label="Close menu"
           >
-            <X className="w-6 h-6 text-[#2D3748]" />
+            <X className="w-6 h-6 text-[#ffff]" />
           </button>
 
           {/* Logo */}
@@ -213,7 +247,7 @@ const Navbar = () => {
                 alt="Music shop.uz"
                 className="w-20 h-20 mx-auto rounded-full object-cover"
               />
-              <p className="mt-3 text-xl font-bold text-[#2D3748]">
+              <p className="mt-3 text-xl font-bold text-[#ffff]">
                 Music shop.uz
               </p>
             </Link>
@@ -229,7 +263,7 @@ const Navbar = () => {
                 className={`text-xl font-medium py-4 px-8 transition-colors ${
                   isActive(link.path)
                     ? "text-[#D4A574] font-bold"
-                    : "text-[#2D3748] hover:text-[#D4A574]"
+                    : "text-[#ffff] hover:text-[#D4A574]"
                 }`}
               >
                 {link.name}
@@ -243,7 +277,7 @@ const Navbar = () => {
               className={`text-xl font-medium py-4 px-8 transition-colors ${
                 isActive("/calculate-project")
                   ? "text-[#D4A574] font-bold"
-                  : "text-[#2D3748] hover:text-[#D4A574]"
+                  : "text-[#ffff] hover:text-[#D4A574]"
               }`}
             >
               {t("links.calculate")}
@@ -255,7 +289,7 @@ const Navbar = () => {
             {contacts?.phones && contacts.phones.length > 0 ? (
               <a
                 href={`tel:${contacts.phones[0].replace(/[\s()\-]/g, "")}`}
-                className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+                className="flex items-center justify-center gap-3 text-[#ffff] hover:text-[#D4A574] transition-colors"
               >
                 <Phone className="w-5 h-5" />
                 <span className="text-lg font-semibold">
@@ -265,7 +299,7 @@ const Navbar = () => {
             ) : (
               <a
                 href="tel:+998909982800"
-                className="flex items-center justify-center gap-3 text-[#2D3748] hover:text-[#D4A574] transition-colors"
+                className="flex items-center justify-center gap-3 text-[#ffff] hover:text-[#D4A574] transition-colors"
               >
                 <Phone className="w-5 h-5" />
                 <span className="text-lg font-semibold">+998 90 998 28 00</span>

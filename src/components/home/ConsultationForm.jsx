@@ -14,8 +14,14 @@ const ConsultationForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      // normalize phone before sending
+      const digits = (formData.phone || "").replace(/\D/g, "");
+      const local = digits.startsWith("998") ? digits.slice(3) : digits;
+      const normalizedPhone = `+998${local}`;
+
       await submitApplication({
         ...formData,
+        phone: normalizedPhone,
         type: "consultation",
       });
       alert(t("consultationForm.successMessage"));
@@ -26,6 +32,22 @@ const ConsultationForm = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatPhoneForDisplay = (value) => {
+    const digits = value.replace(/\D/g, "");
+    let local = digits;
+    if (local.startsWith("998")) local = local.slice(3);
+    if (local.startsWith("0")) local = local.slice(1);
+    local = local.slice(0, 9);
+
+    const parts = [];
+    if (local.length > 0) parts.push(local.slice(0, Math.min(2, local.length)));
+    if (local.length > 2) parts.push(local.slice(2, Math.min(5, local.length)));
+    if (local.length > 5) parts.push(local.slice(5, Math.min(7, local.length)));
+    if (local.length > 7) parts.push(local.slice(7, 9));
+
+    return parts.length ? `+998 ${parts.join(" ")}` : "+998 ";
   };
 
   return (
@@ -61,10 +83,15 @@ const ConsultationForm = () => {
               />
               <input
                 type="tel"
-                placeholder={t("consultationForm.phonePlaceholder")}
+                placeholder={
+                  t("consultationForm.phonePlaceholder") || "+998 XX XXX XX XX"
+                }
                 value={formData.phone}
                 onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
+                  setFormData({
+                    ...formData,
+                    phone: formatPhoneForDisplay(e.target.value),
+                  })
                 }
                 required
                 className="w-full sm:w-[33%] h-12 sm:h-16 lg:h-[85px] rounded-lg bg-white text-[#333333] px-4 text-left sm:text-center placeholder:text-[#999999] focus:outline-none focus:ring-2 focus:ring-[#B8936D] transition-all text-base sm:text-lg lg:text-[20px] touch-manipulation"

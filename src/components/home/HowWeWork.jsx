@@ -49,19 +49,19 @@ const HowWeWork = () => {
       <div className="container mx-auto px-4 max-w-[1400px]">
         {/* Section Header */}
         <div data-aos="fade-up" className="mb-12">
-          <p className="text-xs text-[#B8936D] uppercase tracking-wider mb-3 font-semibold">
+          <p className="text-[15px] sm:text-[16px] md:text-[18px] font-[700] text-[#B8936D] uppercase tracking-wider mb-3">
             {lang === "ru"
               ? "КАК МЫ РАБОТАЕМ"
               : lang === "uz"
-              ? "BIZ QANDAY ISHLAYMIZ"
-              : "HOW WE WORK"}
+                ? "BIZ QANDAY ISHLAYMIZ"
+                : "HOW WE WORK"}
           </p>
-          <h2 className="text-3xl font-bold text-[#3D3D3D]">
+          <h2 className="text-[22px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-bold text-[#3D3D3D]">
             {lang === "ru"
               ? "Берем проект полностью на себя- от идеи до стабильной работы системы"
               : lang === "uz"
-              ? "Loyihani to'liq o'zimizga olamiz - g'oyadan tizimning barqaror ishlashigacha"
-              : "We take the project completely on ourselves - from idea to stable system operation"}
+                ? "Loyihani to'liq o'zimizga olamiz - g'oyadan tizimning barqaror ishlashigacha"
+                : "We take the project completely on ourselves - from idea to stable system operation"}
           </h2>
         </div>
       </div>
@@ -103,19 +103,19 @@ const HowWeWork = () => {
 
               {/* Content Side */}
               <div className="w-full md:w-1/2">
-                <h3 className="text-xl font-bold text-[#3D3D3D] mb-4">
+                <h3 className="text-[20px] sm:text-[26px] md:text-[32px] lg:text-[36px] font-bold text-[#3D3D3D] mb-4">
                   {step.title?.[lang] || step.title?.ru || ""}
                 </h3>
                 <div className="space-y-2">
                   {step.description?.[lang]?.split("\n").map((line, i) => (
                     <p
                       key={i}
-                      className="text-sm text-[#666666] leading-relaxed"
+                      className="text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#666666] leading-relaxed"
                     >
                       {line}
                     </p>
                   )) || (
-                    <p className="text-sm text-[#666666] leading-relaxed">
+                    <p className="text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#666666] leading-relaxed">
                       {step.description?.ru || ""}
                     </p>
                   )}
