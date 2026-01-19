@@ -51,7 +51,7 @@ function Main() {
   };
 
   return (
-    <div className="bg-[#ECDFD2] min-h-screen mt-[64px] sm:mt-[100px] ">
+    <div className="bg-[#ECDFD2] min-h-screen pt-[64px] sm:pt-[100px] ">
       <Navbar />
 
       {/* Top Products Carousel */}

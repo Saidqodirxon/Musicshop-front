@@ -75,9 +75,9 @@ function ProductsPage() {
   };
 
   return (
-    <div className="bg-[#ECDFD2] min-h-screen font-sans mt-[64px] sm:mt-[100px]">
+    <div className="bg-[#ECDFD2] min-h-screen font-sans pt-[64px] sm:pt-[100px]">
       <Navbar />
-      <div className="mt-[64px] sm:mt-[80px]">
+      <div>
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12 lg:py-20">
           {/* Top Products Carousel Section */}
           <section className="mb-24 lg:mb-32">

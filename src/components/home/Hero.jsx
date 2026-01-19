@@ -47,7 +47,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative min-h-[500px] sm:min-h-[600px] lg:h-[800px] overflow-hidden bg-[#B8A89C]">
+    <section className="relative min-h-[500px] sm:min-h-[600px] lg:h-[800px] overflow-hidden bg-[#B8A89C] pt-[80px] sm:pt-[100px]">
       {/* Background with banners */}
       {banners.length > 0 ? (
         banners.map((banner, index) => (

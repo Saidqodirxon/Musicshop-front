@@ -77,9 +77,9 @@ const ContactsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EDD9CD] mt-[64px] sm:mt-[100px]">
+    <div className="min-h-screen bg-[#EDD9CD] pt-[64px] sm:pt-[100px]">
       <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20 mt-[64px] sm:mt-[80px]">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
         {/* TOP CONTACT INFO GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-24">
           {/* Address */}

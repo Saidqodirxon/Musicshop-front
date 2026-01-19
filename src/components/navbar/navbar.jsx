@@ -93,7 +93,7 @@ const Navbar = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden lg:block fixed top-0 pt-4 left-0 right-0 w-full mx-auto z-50 shadow-sm bg-black/40 backdrop-blur-md">
+      <nav className="hidden lg:block fixed top-0 pt-4 left-0 right-0 w-full mx-auto z-50 shadow-sm bg-black/20 backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Bar */}
           <div
@@ -178,7 +178,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile: Top Bar with Logo and Menu Button */}
-      <div className="lg:hidden bg-black/40 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+      <div className="lg:hidden bg-black/20 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
         <div className="flex items-center justify-between px-4 h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
@@ -221,7 +221,7 @@ const Navbar = () => {
 
       {/* Mobile: Full Screen Menu */}
       <div
-        className={`lg:hidden fixed inset-0 bg-black/40 backdrop-blur-md z-50 transition-transform duration-500 ease-in-out ${
+        className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-lg z-50 transition-transform duration-500 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

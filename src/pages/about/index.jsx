@@ -61,9 +61,9 @@ const AboutPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#ECDFD2] mt-[64px] sm:mt-[100px]">
+    <div className="min-h-screen bg-[#ECDFD2] pt-[64px] sm:pt-[100px]">
       <Navbar />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20 mt-[64px] sm:mt-[80px]">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
         {/* SIDE-BY-SIDE HERO IMAGES */}
         <div className="grid grid-cols-1 md:grid-cols-1 gap-4 sm:gap-6 lg:gap-8 mb-10 sm:mb-16 lg:mb-24">
           <div

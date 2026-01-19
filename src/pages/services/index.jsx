@@ -109,7 +109,7 @@ function Main() {
   return (
     <div className="bg-[#ECDFD2]">
       <Navbar />
-      <div className="mt-[64px] sm:mt-[100px]">
+      <div className="pt-[64px] sm:pt-[100px]">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
           <h1
             data-aos="fade-up"
@@ -176,7 +176,11 @@ function Main() {
                     {item.result && (
                       <div>
                         <h4 className="font-bold text-[#1A1A1A] mb-1 text-[13px] sm:text-base md:text-lg">
-                          {lang === "ru" ? "Результат:" : lang === "uz" ? "Natija:" : "Result:"}
+                          {lang === "ru"
+                            ? "Результат:"
+                            : lang === "uz"
+                              ? "Natija:"
+                              : "Result:"}
                         </h4>
                         <p className="text-[13px] sm:text-sm md:text-base lg:text-lg">
                           {item.result?.[lang] || item.result}
