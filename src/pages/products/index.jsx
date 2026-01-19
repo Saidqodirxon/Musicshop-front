@@ -202,20 +202,21 @@ function ProductsPage() {
                   key={product._id}
                   data-aos="fade-up"
                   data-aos-delay={index * 50}
-                  className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all flex flex-col group/rec border border-[#EDD9CD]"
+                  className="h-auto lg:h-[650px] bg-white rounded-[2.5rem] sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/rec"
                 >
-                  <div className="aspect-[4/3] bg-[#F4F4F4] overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-8">
+                  {/* Grey image container matching top products */}
+                  <div className="h-[220px] lg:h-[400px] overflow-hidden">
                     <img
                       src={getImageSrc(product.images || product.image)}
                       alt={product.name}
-                      className="w-full h-full object-contain transition-transform duration-500 group-hover/rec:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/rec:scale-110"
                     />
                   </div>
                   <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col flex-grow">
                     <h3 className="text-lg sm:text-xl font-bold text-[#1A1A1A] mb-3 sm:mb-4 leading-tight line-clamp-2">
                       {product.name}
                     </h3>
-                    <p className="text-[#5C5C5C] text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 md:mb-8 line-clamp-3 sm:line-clamp-4 flex-grow">
+                    <p className="text-[#5C5C5C] text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 md:mb-8 flex-grow line-clamp-3 sm:line-clamp-4">
                       {product.description}
                     </p>
                     <div className="mt-auto space-y-3 sm:space-y-4 md:space-y-6">
@@ -230,7 +231,7 @@ function ProductsPage() {
                       </p>
                       <a
                         href="/contacts"
-                        className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all touch-manipulation active:scale-95 text-center"
+                        className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation text-center"
                       >
                         {t("pages.products.contact")}
                       </a>
