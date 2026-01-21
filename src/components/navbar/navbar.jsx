@@ -151,10 +151,10 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all  hover:text-white ${
+                  className={`px-6 py-2.5 rounded-lg text-[20px] font-medium transition-all  hover:text-white ${
                     isActive(link.path)
-                      ? " text-[#ffff]"
-                      : " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                      ? " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                      : "text-[#ffff]"
                   }`}
                 >
                   {link.name}
@@ -164,10 +164,10 @@ const Navbar = () => {
               {/* Calculate Project Link */}
               <Link
                 to="/calculate-project"
-                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all  hover:text-white ${
+                className={`px-6 py-2.5 rounded-lg text-[20px] font-medium transition-all  hover:text-white ${
                   isActive("/calculate-project")
-                    ? "text-[#ffff]"
-                    : " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                    ? " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
+                    : "text-[#ffff]"
                 }`}
               >
                 {t("links.calculate")}
