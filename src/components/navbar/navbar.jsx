@@ -85,8 +85,9 @@ const Navbar = () => {
     { name: t("links.home"), path: "/" },
     { name: t("links.services"), path: "/services" },
     { name: t("links.cases"), path: "/cases" },
-    { name: t("links.about_us"), path: "/about" },
     { name: t("links.products"), path: "/products" },
+    { name: t("links.calculate"), path: "/calculate-project" },
+    { name: t("links.about_us"), path: "/about" },
     { name: t("links.contacts"), path: "/contacts" },
   ];
 
@@ -107,7 +108,7 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="Music shop.uz"
-                className="w-16 h-16 rounded-full object-cover transition-transform duration-300 group-hover:scale-105 shadow-md"
+                className="w-[72px] h-[72px] rounded-full object-cover transition-transform duration-300 group-hover:scale-105 "
               />
               <span className="text-xl font-bold text-[#ffff] group-hover:text-[#D4A574] transition-colors">
                 Music shop.uz
@@ -160,18 +161,6 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-
-              {/* Calculate Project Link */}
-              <Link
-                to="/calculate-project"
-                className={`px-6 py-2.5 rounded-lg text-[20px] font-medium transition-all  hover:text-white ${
-                  isActive("/calculate-project")
-                    ? " text-[#E89B64] hover:from-[#FFD1AE] hover:to-[#F0A76D]"
-                    : "text-[#ffff]"
-                }`}
-              >
-                {t("links.calculate")}
-              </Link>
             </div>
           </div>
         </div>
@@ -269,19 +258,6 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-
-            {/* Calculate Project Link */}
-            <Link
-              to="/calculate-project"
-              onClick={() => setIsMenuOpen(false)}
-              className={`text-xl font-medium py-4 px-8 transition-colors ${
-                isActive("/calculate-project")
-                  ? "text-[#D4A574] font-bold"
-                  : "text-[#ffff] hover:text-[#D4A574]"
-              }`}
-            >
-              {t("links.calculate")}
-            </Link>
           </nav>
 
           {/* Contact Info */}

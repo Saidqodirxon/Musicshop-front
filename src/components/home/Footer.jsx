@@ -36,7 +36,7 @@ const Footer = () => {
               <img
                 src="/logo.png"
                 alt="Music Shop"
-                className="w-10 h-10 sm:w-[60px] sm:h-[60px] rounded-full object-cover"
+                className="w-10 h-10 sm:w-[60px] sm:h-[72px] rounded-full object-cover"
               />
               <span className="text-[16px] sm:text-[20px] font-semibold text-[#2E2E2E]">
                 Music shop.uz
