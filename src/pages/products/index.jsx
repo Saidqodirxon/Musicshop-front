@@ -6,6 +6,8 @@ import Solutions from "../../components/home/Solutions";
 import HowWeWork from "../../components/home/HowWeWork";
 import ConsultationForm from "../../components/home/ConsultationForm";
 import FAQ from "../../components/home/FAQ";
+import ProductCard from "../../components/ProductCard";
+import ProductModal from "../../components/ProductModal";
 import { getProducts } from "../../services/api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -18,6 +20,18 @@ function ProductsPage() {
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProduct(null), 300);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,13 +79,6 @@ function ProductsPage() {
     setCurrentIdx((prev) =>
       prev <= 0 ? topProducts.length - itemsPerView : prev - 1
     );
-  };
-
-  const getImageSrc = (images) => {
-    const img = Array.isArray(images) ? images[0] : images;
-    if (!img) return "";
-    if (img.startsWith("http")) return img;
-    return `${API_URL}${img}`;
   };
 
   return (
@@ -131,48 +138,12 @@ function ProductsPage() {
                     ))
                   ) : topProducts.length > 0 ? (
                     topProducts.map((product) => (
-                      <div
+                      <ProductCard
                         key={product._id}
-                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px] h-auto lg:h-[650px] bg-white rounded-[2.5rem] sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card relative"
-                      >
-                        {/* Grey image container matching Figma */}
-                        <div className="h-[220px] lg:h-[400px] overflow-hidden">
-                          <img
-                            src={getImageSrc(product.images || product.image)}
-                            alt={product.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110"
-                          />
-                        </div>
-
-                        {/* Content Area */}
-                        <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col flex-grow">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#1A1A1A] mb-3 sm:mb-4 leading-tight line-clamp-2">
-                            {product.name}
-                          </h3>
-                          <p className="text-[#5C5C5C] text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 md:mb-8 flex-grow line-clamp-3 sm:line-clamp-4">
-                            {product.description}
-                          </p>
-                          <div className="mt-auto space-y-3 sm:space-y-4 md:space-y-6">
-                            <p
-                              className={`font-semibold text-xs sm:text-sm ${
-                                product.inStock
-                                  ? "text-green-600"
-                                  : "text-[#8F491A]"
-                              }`}
-                            >
-                              {product.inStock
-                                ? t("pages.products.in_stock")
-                                : t("pages.products.out_of_stock")}
-                            </p>
-                            <a
-                              href="/contacts"
-                              className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation text-center"
-                            >
-                              {t("pages.products.contact")}
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                        product={product}
+                        onOpenModal={handleOpenModal}
+                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px]"
+                      />
                     ))
                   ) : (
                     <div className="w-full text-center py-20 text-[#5C5C5C] italic">
@@ -198,46 +169,13 @@ function ProductsPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
               {allProducts.map((product, index) => (
-                <div
+                <ProductCard
                   key={product._id}
-                  data-aos="fade-up"
+                  product={product}
+                  onOpenModal={handleOpenModal}
+                  className="data-aos='fade-up'"
                   data-aos-delay={index * 50}
-                  className="h-auto lg:h-[650px] bg-white rounded-[2.5rem] sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/rec"
-                >
-                  {/* Grey image container matching top products */}
-                  <div className="h-[220px] lg:h-[400px] overflow-hidden">
-                    <img
-                      src={getImageSrc(product.images || product.image)}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover/rec:scale-110"
-                    />
-                  </div>
-                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col flex-grow">
-                    <h3 className="text-lg sm:text-xl font-bold text-[#1A1A1A] mb-3 sm:mb-4 leading-tight line-clamp-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-[#5C5C5C] text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 md:mb-8 flex-grow line-clamp-3 sm:line-clamp-4">
-                      {product.description}
-                    </p>
-                    <div className="mt-auto space-y-3 sm:space-y-4 md:space-y-6">
-                      <p
-                        className={`font-semibold text-xs sm:text-sm ${
-                          product.inStock ? "text-green-600" : "text-[#8F491A]"
-                        }`}
-                      >
-                        {product.inStock
-                          ? t("pages.products.in_stock")
-                          : t("pages.products.out_of_stock")}
-                      </p>
-                      <a
-                        href="/contacts"
-                        className="block w-full py-3 sm:py-4 bg-[#814F25] text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:bg-[#6D421E] transition-all hover:scale-[1.02] active:scale-95 shadow-md touch-manipulation text-center"
-                      >
-                        {t("pages.products.contact")}
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                />
               ))}
             </div>
           </section>
@@ -250,6 +188,13 @@ function ProductsPage() {
         </main>
         <Footer />
       </div>
+      
+      {/* Product Modal */}
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

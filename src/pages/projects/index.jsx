@@ -4,6 +4,8 @@ import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
 import HowWeWork from "../../components/home/HowWeWork";
 import Cases from "../../components/home/Cases";
+import ProductCard from "../../components/ProductCard";
+import ProductModal from "../../components/ProductModal";
 import { getProducts } from "../../services/api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,6 +16,18 @@ function Main() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProduct(null), 300);
+  };
 
   useEffect(() => {
     const fetchTopProducts = async () => {
@@ -41,13 +55,6 @@ function Main() {
   const prevSlide = () => {
     if (products.length === 0) return;
     setCurrentIdx((prev) => (prev - 1 + products.length) % products.length);
-  };
-
-  const getImageSrc = (images) => {
-    const image = Array.isArray(images) ? images[0] : images;
-    if (!image) return "";
-    if (image.startsWith("http")) return image;
-    return `${API_URL}${image}`;
   };
 
   return (
@@ -105,46 +112,12 @@ function Main() {
                       ></div>
                     ))
                   : products.map((product) => (
-                      <div
+                      <ProductCard
                         key={product._id}
-                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px] h-auto lg:h-[650px] bg-white rounded-xl sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card relative"
-                      >
-                        {/* Image */}
-                        <div className="h-[220px] lg:h-[400px] overflow-hidden">
-                          <img
-                            src={getImageSrc(product.images || product.image)}
-                            alt={product.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110"
-                          />
-                        </div>
-
-                        {/* Content */}
-                        <div className="p-4 sm:p-5 lg:p-7 flex flex-col flex-grow">
-                          <h3 className="text-[17px] sm:text-lg lg:text-xl font-bold text-[#1A1A1A] mb-2 sm:mb-3 line-clamp-2 leading-snug">
-                            {product.name}
-                          </h3>
-                          <p className="text-[#5C5C5C] text-[13px] sm:text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 lg:line-clamp-4 flex-grow">
-                            {product.description}
-                          </p>
-
-                          <div className="space-y-3 sm:space-y-4 pt-2">
-                            <p
-                              className={`font-semibold text-[13px] sm:text-sm ${
-                                product.inStock
-                                  ? "text-green-600"
-                                  : "text-[#8F491A]"
-                              }`}
-                            >
-                              {product.inStock
-                                ? t("pages.products.in_stock")
-                                : t("pages.products.out_of_stock")}
-                            </p>
-                            <button className="w-full py-3 sm:py-4 bg-[#8F491A] text-white rounded-xl sm:rounded-[12px] font-bold text-[15px] sm:text-base hover:bg-[#723A15] transition-all hover:scale-[1.02] active:scale-95 shadow-lg touch-manipulation">
-                              {t("pages.products.contact")}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                        product={product}
+                        onOpenModal={handleOpenModal}
+                        className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px]"
+                      />
                     ))}
               </div>
             </div>
@@ -155,6 +128,13 @@ function Main() {
       <Cases />
       <HowWeWork />
       <Footer />
+      
+      {/* Product Modal */}
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }
