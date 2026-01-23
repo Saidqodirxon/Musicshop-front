@@ -58,7 +58,7 @@ function Main() {
   };
 
   return (
-    <div className="bg-[#ECDFD2] min-h-screen pt-[64px] sm:pt-[100px] ">
+    <div className="bg-[#ECDFD2] min-h-screen pt-[64px] sm:pt-[120px] ">
       <Navbar />
       <Cases />
 

@@ -198,28 +198,32 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-[#D4C4B5] pt-6 sm:pt-8">
-          <p className="text-[13px] sm:text-[14px] text-[#2E2E2E] text-center sm:text-right">
-            Music_shop @ 2025.{" "}
-            {lang === "ru"
-              ? "Все права защищены."
-              : lang === "uz"
-                ? "Barcha huquqlar himoyalangan."
-                : "All rights reserved."}{" "}
-            |{" "}
-            {lang === "ru"
-              ? "Разработано в"
-              : lang === "uz"
-                ? "Ishlab chiqildi"
-                : "Developed by"}{" "}
-            <a
-              href="https://supersite.uz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#616060] hover:underline"
-            >
-              SuperSiteUz
-            </a>
+        <div className="border-t border-[#D4C4B5] pt-6 sm:pt-8 ">
+          <p className="text-[13px] sm:text-[14px] text-[#2E2E2E] text-center sm:text-right  lg:flex justify-between">
+            <span>
+              {" "}
+              Music_shop @ 2025.{" "}
+              {lang === "ru"
+                ? "Все права защищены."
+                : lang === "uz"
+                  ? "Barcha huquqlar himoyalangan."
+                  : "All rights reserved."}{" "}
+            </span>
+            <span>
+              {lang === "ru"
+                ? "Разработано в"
+                : lang === "uz"
+                  ? "Ishlab chiqildi"
+                  : "Developed by"}{" "}
+              <a
+                href="https://supersite.uz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#616060] hover:underline"
+              >
+                SuperSiteUz
+              </a>
+            </span>
           </p>
         </div>
       </div>

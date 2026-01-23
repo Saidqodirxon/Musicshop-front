@@ -109,7 +109,7 @@ function Main() {
   return (
     <div className="bg-[#ECDFD2]">
       <Navbar />
-      <div className="pt-[64px] sm:pt-[100px]">
+      <div className="pt-[64px] sm:pt-[120px]">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
           <h1
             data-aos="fade-up"

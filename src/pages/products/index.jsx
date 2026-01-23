@@ -19,7 +19,9 @@ function ProductsPage() {
   const [topProducts, setTopProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [topSelectedCategory, setTopSelectedCategory] = useState(null);
+  const [recommendedSelectedCategory, setRecommendedSelectedCategory] =
+    useState(null);
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
@@ -60,12 +62,20 @@ function ProductsPage() {
   }, [currentLang]);
 
   // Filter products by category
-  const handleCategoryFilter = (categoryId) => {
-    setSelectedCategory(categoryId);
+  const handleTopCategoryFilter = (categoryId) => {
+    setTopSelectedCategory(categoryId);
   };
 
-  const clearFilter = () => {
-    setSelectedCategory(null);
+  const clearTopFilter = () => {
+    setTopSelectedCategory(null);
+  };
+
+  const handleRecommendedCategoryFilter = (categoryId) => {
+    setRecommendedSelectedCategory(categoryId);
+  };
+
+  const clearRecommendedFilter = () => {
+    setRecommendedSelectedCategory(null);
   };
 
   // Get category name helper
@@ -85,12 +95,21 @@ function ProductsPage() {
     return "";
   };
 
-  // Filtered products
-  const filteredProducts = selectedCategory
+  // Filtered products for top section
+  const filteredTopProducts = topSelectedCategory
+    ? topProducts.filter((p) => {
+        const catId =
+          typeof p.category === "object" ? p.category?._id : p.category;
+        return catId === topSelectedCategory;
+      })
+    : topProducts;
+
+  // Filtered products for recommended section
+  const filteredRecommendedProducts = recommendedSelectedCategory
     ? allProducts.filter((p) => {
         const catId =
           typeof p.category === "object" ? p.category?._id : p.category;
-        return catId === selectedCategory;
+        return catId === recommendedSelectedCategory;
       })
     : allProducts;
 
@@ -111,21 +130,21 @@ function ProductsPage() {
   }, []);
 
   const nextSlide = () => {
-    if (topProducts.length <= itemsPerView) return;
+    if (filteredTopProducts.length <= itemsPerView) return;
     setCurrentIdx((prev) =>
-      prev >= topProducts.length - itemsPerView ? 0 : prev + 1
+      prev >= filteredTopProducts.length - itemsPerView ? 0 : prev + 1
     );
   };
 
   const prevSlide = () => {
-    if (topProducts.length <= itemsPerView) return;
+    if (filteredTopProducts.length <= itemsPerView) return;
     setCurrentIdx((prev) =>
-      prev <= 0 ? topProducts.length - itemsPerView : prev - 1
+      prev <= 0 ? filteredTopProducts.length - itemsPerView : prev - 1
     );
   };
 
   return (
-    <div className="bg-[#ECDFD2] min-h-screen font-sans pt-[64px] sm:pt-[100px]">
+    <div className="bg-[#ECDFD2] min-h-screen font-sans pt-[64px] sm:pt-[120px]">
       <Navbar />
       <div>
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12 lg:py-20">
@@ -133,14 +152,68 @@ function ProductsPage() {
           <section className="mb-24 lg:mb-32">
             <h2
               data-aos="fade-up"
-              className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-12"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-6 lg:mb-8"
             >
               {t("pages.products.top_products")}
             </h2>
 
+            {/* Category Filter for Top Products */}
+            <div
+              data-aos="fade-up"
+              className="w-full overflow-x-auto scrollbar-hide mb-6 lg:mb-8"
+            >
+              <div className="flex gap-2 lg:gap-3 pb-2 lg:pb-0 min-w-max lg:min-w-0 lg:flex-wrap">
+                <button
+                  onClick={clearTopFilter}
+                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
+                    !topSelectedCategory
+                      ? "bg-[#814F25] text-white shadow-md"
+                      : "bg-white text-[#814F25] border border-[#814F25]/20 hover:bg-[#814F25] hover:text-white"
+                  }`}
+                >
+                  {t("pages.products.all")}
+                </button>
+                {categories.map((cat) => (
+                  <button
+                    key={cat._id}
+                    onClick={() => handleTopCategoryFilter(cat._id)}
+                    className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
+                      topSelectedCategory === cat._id
+                        ? "bg-[#814F25] text-white shadow-md"
+                        : "bg-white text-[#814F25] border border-[#814F25]/20 hover:bg-[#814F25] hover:text-white"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Active Filter Badge for Top Products */}
+            {topSelectedCategory && (
+              <div
+                data-aos="fade-up"
+                className="mb-6 flex flex-wrap items-center gap-2"
+              >
+                <span className="text-[#5C5C5C] text-sm">
+                  {t("pages.products.filtered_by")}:
+                </span>
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#814F25] text-white rounded-full text-xs sm:text-sm font-medium shadow-md">
+                  {categories.find((c) => c._id === topSelectedCategory)?.name}
+                  <button
+                    onClick={clearTopFilter}
+                    className="hover:bg-white/20 rounded-full p-0.5 transition-colors"
+                    aria-label="Clear filter"
+                  >
+                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </button>
+                </span>
+              </div>
+            )}
+
             <div data-aos="fade-up" data-aos-delay="100" className="relative">
               {/* Navigation Arrows */}
-              {topProducts.length > itemsPerView && (
+              {filteredTopProducts.length > itemsPerView && (
                 <>
                   <button
                     onClick={prevSlide}
@@ -179,13 +252,13 @@ function ProductsPage() {
                         }}
                       ></div>
                     ))
-                  ) : topProducts.length > 0 ? (
-                    topProducts.map((product) => (
+                  ) : filteredTopProducts.length > 0 ? (
+                    filteredTopProducts.map((product) => (
                       <ProductCard
                         key={product._id}
                         product={product}
                         onOpenModal={handleOpenModal}
-                        onCategoryClick={handleCategoryFilter}
+                        onCategoryClick={handleTopCategoryFilter}
                         className="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[413px] lg:w-[413px]"
                       />
                     ))
@@ -205,49 +278,47 @@ function ProductsPage() {
           </section>
 
           <section className="mb-24 lg:mb-32">
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6 mb-8 lg:mb-12">
-              <h2
-                data-aos="fade-up"
-                className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A]"
-              >
-                {t("pages.products.recommended")}
-              </h2>
+            <h2
+              data-aos="fade-up"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-6 lg:mb-8"
+            >
+              {t("pages.products.recommended")}
+            </h2>
 
-              {/* Category Filter - horizontal scroll on mobile */}
-              <div
-                data-aos="fade-up"
-                className="w-full lg:w-auto overflow-x-auto scrollbar-hide"
-              >
-                <div className="flex gap-2 lg:gap-3 pb-2 lg:pb-0 min-w-max lg:min-w-0 lg:flex-wrap">
+            {/* Category Filter - horizontal scroll on mobile */}
+            <div
+              data-aos="fade-up"
+              className="w-full overflow-x-auto scrollbar-hide mb-8 lg:mb-12"
+            >
+              <div className="flex gap-2 lg:gap-3 pb-2 lg:pb-0 min-w-max lg:min-w-0 lg:flex-wrap">
+                <button
+                  onClick={clearRecommendedFilter}
+                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
+                    !recommendedSelectedCategory
+                      ? "bg-[#814F25] text-white shadow-md"
+                      : "bg-white text-[#814F25] border border-[#814F25]/20 hover:bg-[#814F25] hover:text-white"
+                  }`}
+                >
+                  {t("pages.products.all")}
+                </button>
+                {categories.map((cat) => (
                   <button
-                    onClick={clearFilter}
+                    key={cat._id}
+                    onClick={() => handleRecommendedCategoryFilter(cat._id)}
                     className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
-                      !selectedCategory
+                      recommendedSelectedCategory === cat._id
                         ? "bg-[#814F25] text-white shadow-md"
                         : "bg-white text-[#814F25] border border-[#814F25]/20 hover:bg-[#814F25] hover:text-white"
                     }`}
                   >
-                    {t("pages.products.all")}
+                    {cat.name}
                   </button>
-                  {categories.map((cat) => (
-                    <button
-                      key={cat._id}
-                      onClick={() => handleCategoryFilter(cat._id)}
-                      className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
-                        selectedCategory === cat._id
-                          ? "bg-[#814F25] text-white shadow-md"
-                          : "bg-white text-[#814F25] border border-[#814F25]/20 hover:bg-[#814F25] hover:text-white"
-                      }`}
-                    >
-                      {cat.name}
-                    </button>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Active Filter Badge */}
-            {selectedCategory && (
+            {recommendedSelectedCategory && (
               <div
                 data-aos="fade-up"
                 className="mb-6 flex flex-wrap items-center gap-2"
@@ -256,9 +327,13 @@ function ProductsPage() {
                   {t("pages.products.filtered_by")}:
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#814F25] text-white rounded-full text-xs sm:text-sm font-medium shadow-md">
-                  {categories.find((c) => c._id === selectedCategory)?.name}
+                  {
+                    categories.find(
+                      (c) => c._id === recommendedSelectedCategory
+                    )?.name
+                  }
                   <button
-                    onClick={clearFilter}
+                    onClick={clearRecommendedFilter}
                     className="hover:bg-white/20 rounded-full p-0.5 transition-colors"
                     aria-label="Clear filter"
                   >
@@ -269,13 +344,13 @@ function ProductsPage() {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product, index) => (
+              {filteredRecommendedProducts.length > 0 ? (
+                filteredRecommendedProducts.map((product, index) => (
                   <ProductCard
                     key={product._id}
                     product={product}
                     onOpenModal={handleOpenModal}
-                    onCategoryClick={handleCategoryFilter}
+                    onCategoryClick={handleRecommendedCategoryFilter}
                     className="data-aos='fade-up'"
                     data-aos-delay={index * 50}
                   />

@@ -116,7 +116,7 @@ function CalculateProjectPage() {
   };
 
   return (
-    <div className="bg-[#EDD9CD] min-h-screen pt-[64px] sm:pt-[100px]">
+    <div className="bg-[#EDD9CD] min-h-screen pt-[64px] sm:pt-[120px]">
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 max-w-[1400px]">

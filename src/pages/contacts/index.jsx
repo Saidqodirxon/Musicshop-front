@@ -77,7 +77,7 @@ const ContactsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#EDD9CD] pt-[64px] sm:pt-[100px]">
+    <div className="min-h-screen bg-[#EDD9CD] pt-[64px] sm:pt-[120px]">
       <Navbar />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
         {/* TOP CONTACT INFO GRID */}
@@ -243,15 +243,45 @@ const ContactsPage = () => {
           {/* Right: Map */}
           <div className="lg:w-1/2 h-[400px] sm:h-[450px] md:h-[500px] lg:min-h-full">
             <div className="w-full h-full rounded-xl sm:rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-inner bg-gray-200">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.8504774068387!2d69.24893431541844!3d41.31147697927024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b534feaa0fb%3A0x4e21d2d30c15e428!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1640000000000!5m2!1sen!2s"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+              <div
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <a
+                  href="https://yandex.uz/maps/org/220628754996/?utm_medium=mapframe&utm_source=maps"
+                  style={{
+                    color: "#eee",
+                    fontSize: "12px",
+                    position: "absolute",
+                    top: "0px",
+                  }}
+                >
+                  Musicshop.Uz
+                </a>
+                <a
+                  href="https://yandex.uz/maps/10335/tashkent/category/music_store/184105910/?utm_medium=mapframe&utm_source=maps"
+                  style={{
+                    color: "#eee",
+                    fontSize: "12px",
+                    position: "absolute",
+                    top: "14px",
+                  }}
+                >
+                  Musiqa do‘koni Toshkentda
+                </a>
+                <iframe
+                  src="https://yandex.uz/map-widget/v1/org/220628754996/?ll=69.203826%2C41.273450&z=18"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  style={{ position: "relative", border: 0 }}
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
