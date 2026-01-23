@@ -128,7 +128,7 @@ function Main() {
       <Cases />
       <HowWeWork />
       <Footer />
-      
+
       {/* Product Modal */}
       <ProductModal
         product={selectedProduct}

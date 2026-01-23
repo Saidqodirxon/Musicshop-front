@@ -188,7 +188,7 @@ function ProductsPage() {
         </main>
         <Footer />
       </div>
-      
+
       {/* Product Modal */}
       <ProductModal
         product={selectedProduct}

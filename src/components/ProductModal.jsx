@@ -69,7 +69,8 @@ function ProductModal({ product, isOpen, onClose }) {
           {product.price && (
             <div className="mb-6">
               <p className="text-3xl font-bold text-[#814F25]">
-                {product.price.toLocaleString()} {t("pages.products.currency") || "UZS"}
+                {product.price.toLocaleString()}{" "}
+                {t("pages.products.currency") || "UZS"}
               </p>
             </div>
           )}
