@@ -242,6 +242,9 @@ i18n.use(initReactI18next).init({
             description: "Tavsif",
             gallery: "Rasmlar",
             close: "Yopish",
+            all: "Hammasi",
+            filtered_by: "Filtr",
+            no_products_in_category: "Bu kategoriyada mahsulotlar topilmadi",
           },
           contacts: {
             address: "Manzil",
@@ -519,6 +522,9 @@ i18n.use(initReactI18next).init({
             description: "Описание",
             gallery: "Фотогалерея",
             close: "Закрыть",
+            all: "Все товары",
+            filtered_by: "Фильтр",
+            no_products_in_category: "В этой категории товары не найдены",
           },
           contacts: {
             address: "Адрес",
@@ -797,6 +803,9 @@ i18n.use(initReactI18next).init({
             description: "Description",
             gallery: "Gallery",
             close: "Close",
+            all: "All products",
+            filtered_by: "Filter",
+            no_products_in_category: "No products found in this category",
           },
           contacts: {
             address: "Address",

@@ -60,6 +60,7 @@ function Main() {
   return (
     <div className="bg-[#ECDFD2] min-h-screen pt-[64px] sm:pt-[100px] ">
       <Navbar />
+      <Cases />
 
       {/* Top Products Carousel */}
       <section className="py-8 sm:py-12 lg:py-20 overflow-hidden ">
@@ -125,7 +126,6 @@ function Main() {
         </div>
       </section>
 
-      <Cases />
       <HowWeWork />
       <Footer />
 

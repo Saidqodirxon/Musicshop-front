@@ -12,7 +12,17 @@ const api = axios.create({
 
 // Language helper
 const getCurrentLanguage = () => {
-  return localStorage.getItem("language") || "ru";
+  // Check i18next key first, fallback to old "language" key for backwards compatibility
+  let lang = localStorage.getItem("i18nextLng");
+  if (!lang) {
+    lang = localStorage.getItem("language");
+    // Migrate old key to new key
+    if (lang) {
+      localStorage.setItem("i18nextLng", lang);
+      localStorage.removeItem("language");
+    }
+  }
+  return lang || "ru";
 };
 
 // ==================== HOME PAGE ====================
@@ -104,13 +114,12 @@ export const getFAQ = async () => {
 
 // Categories for filter
 export const getCategories = async () => {
-  // Response: [{ _id, name: {uz, ru, en}, description: {uz, ru, en}, image }]
+  // Response: [{ _id, name: {uz, ru, en} }]
   const response = await api.get("/categories");
   const lang = getCurrentLanguage();
   return response.data.map((item) => ({
     ...item,
-    name: item.name[lang],
-    description: item.description[lang],
+    name: item.name?.[lang] || item.name?.ru || item.name?.uz || "",
   }));
 };
 
@@ -122,8 +131,20 @@ export const getProducts = async (categoryId = null) => {
   const lang = getCurrentLanguage();
   return response.data.map((item) => ({
     ...item,
-    name: item.name[lang],
-    description: item.description[lang],
+    name: item.name?.[lang] || item.name?.ru || item.name?.uz || "",
+    description:
+      item.description?.[lang] ||
+      item.description?.ru ||
+      item.description?.uz ||
+      "",
+    // Keep original multilang data for populated category
+    category:
+      item.category && typeof item.category === "object"
+        ? {
+            ...item.category,
+            // Keep original name object for dynamic language switching in components
+          }
+        : item.category,
   }));
 };
 

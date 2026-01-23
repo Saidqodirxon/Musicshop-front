@@ -41,11 +41,11 @@ function ProductModal({ product, isOpen, onClose }) {
         </button>
 
         {/* Product Images */}
-        <div className="relative h-64 sm:h-80 lg:h-96 overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-gray-100">
+        <div className="relative h-64 sm:h-80 lg:h-96 overflow-hidden rounded-t-2xl sm:rounded-t-3xl bg-white">
           <img
             src={getImageSrc(product.images || product.image)}
             alt={getLocalizedText(product.name)}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </div>
 
@@ -110,12 +110,12 @@ function ProductModal({ product, isOpen, onClose }) {
                 {product.images.slice(1).map((img, idx) => (
                   <div
                     key={idx}
-                    className="aspect-square rounded-xl overflow-hidden bg-gray-100"
+                    className="aspect-square rounded-xl overflow-hidden bg-white border border-[#EDD9CD]"
                   >
                     <img
                       src={img.startsWith("http") ? img : `${API_URL}${img}`}
                       alt={`${getLocalizedText(product.name)} ${idx + 2}`}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 ))}

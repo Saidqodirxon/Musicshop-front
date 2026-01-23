@@ -2,7 +2,12 @@ import { useTranslation } from "react-i18next";
 
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
-function ProductCard({ product, onOpenModal, className = "" }) {
+function ProductCard({
+  product,
+  onOpenModal,
+  onCategoryClick,
+  className = "",
+}) {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || "ru";
 
@@ -20,22 +25,74 @@ function ProductCard({ product, onOpenModal, className = "" }) {
     return text || "";
   };
 
+  // Get category name from populated category object
+  const getCategoryName = () => {
+    if (!product.category) return null;
+    if (typeof product.category === "object" && product.category.name) {
+      if (typeof product.category.name === "object") {
+        return (
+          product.category.name[currentLang] ||
+          product.category.name.ru ||
+          product.category.name.uz ||
+          ""
+        );
+      }
+      return product.category.name;
+    }
+    return null;
+  };
+
+  const getCategoryId = () => {
+    if (!product.category) return null;
+    return typeof product.category === "object"
+      ? product.category._id
+      : product.category;
+  };
+
+  const handleCategoryClick = (e) => {
+    e.stopPropagation();
+    const categoryId = getCategoryId();
+    if (categoryId && onCategoryClick) {
+      onCategoryClick(categoryId);
+    }
+  };
+
+  const categoryName = getCategoryName();
+
   return (
     <div
       onClick={() => onOpenModal(product)}
-      className={`h-auto lg:h-[650px] bg-white rounded-[2.5rem] sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card cursor-pointer transition-all hover:shadow-xl hover:-translate-y-1 ${className}`}
+      className={`h-auto lg:h-[700px] bg-white rounded-[2.5rem] sm:rounded-[12px] border border-[#EDD9CD] overflow-hidden flex flex-col group/card cursor-pointer transition-all hover:shadow-xl hover:-translate-y-1 ${className}`}
     >
       {/* Image */}
-      <div className="h-[220px] lg:h-[400px] overflow-hidden">
+      <div className="relative h-[220px] lg:h-[400px] overflow-hidden bg-white">
         <img
           src={getImageSrc(product.images || product.image)}
           alt={getLocalizedText(product.name)}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110"
+          className="w-full h-full object-contain transition-transform duration-500 group-hover/card:scale-105"
         />
+        {/* Category Badge */}
+        {categoryName && (
+          <button
+            onClick={handleCategoryClick}
+            className="absolute top-4 left-4 px-3 py-1.5 bg-[#814F25]/90 backdrop-blur-sm text-white text-xs sm:text-sm font-medium rounded-full hover:bg-[#6D421E] transition-colors shadow-md"
+          >
+            {categoryName}
+          </button>
+        )}
       </div>
 
       {/* Content */}
       <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col flex-grow">
+        {/* Category link in content (optional, for mobile visibility) */}
+        {categoryName && (
+          <button
+            onClick={handleCategoryClick}
+            className="self-start mb-2 text-xs text-[#814F25] font-medium hover:underline"
+          >
+            {categoryName}
+          </button>
+        )}
         <h3 className="text-lg sm:text-xl font-bold text-[#1A1A1A] mb-3 sm:mb-4 leading-tight line-clamp-2">
           {getLocalizedText(product.name)}
         </h3>
