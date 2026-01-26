@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://music-shop.uz/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- Products Page -->
+  <url>
+    <loc>https://music-shop.uz/products</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- About Page -->
+  <url>
+    <loc>https://music-shop.uz/about</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- Services Page -->
+  <url>
+    <loc>https://music-shop.uz/services</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- Cases/Projects Page -->
+  <url>
+    <loc>https://music-shop.uz/cases</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- Contacts Page -->
+  <url>
+    <loc>https://music-shop.uz/contacts</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+  <!-- Calculate Project Page -->
+  <url>
+    <loc>https://music-shop.uz/calculate-project</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  
+</urlset>

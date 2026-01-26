@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/home/Footer";
+import SEO from "../../components/SEO";
 import { getContacts, submitApplication } from "../../services/api";
 import {
   FaPhoneAlt,
@@ -15,7 +16,8 @@ import {
 } from "react-icons/fa";
 
 const ContactsPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || "uz";
   const [contacts, setContacts] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -76,8 +78,24 @@ const ContactsPage = () => {
     }
   };
 
+  const seoTitle =
+    t("pages.contacts.title") ||
+    (currentLang === "uz"
+      ? "Bog'lanish - MusicShopUz"
+      : currentLang === "ru"
+        ? "Контакты - MusicShopUz"
+        : "Contacts - MusicShopUz");
+
+  const seoDescription =
+    currentLang === "uz"
+      ? `MusicShopUz bilan bog'laning. Telefon: ${contacts?.phone || "+998909982800"}, Email: ${contacts?.email || "Supersite.uz@gmail.com"}. Toshkent, O'zbekiston`
+      : currentLang === "ru"
+        ? `Свяжитесь с MusicShopUz. Телефон: ${contacts?.phone || "+998909982800"}, Email: ${contacts?.email || "Supersite.uz@gmail.com"}. Ташкент, Узбекистан`
+        : `Contact MusicShopUz. Phone: ${contacts?.phone || "+998909982800"}, Email: ${contacts?.email || "Supersite.uz@gmail.com"}. Tashkent, Uzbekistan`;
+
   return (
     <div className="min-h-screen bg-[#EDD9CD] pt-[64px] sm:pt-[120px]">
+      <SEO title={seoTitle} description={seoDescription} url="/contacts" />
       <Navbar />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-8 sm:py-12 lg:py-20">
         {/* TOP CONTACT INFO GRID */}

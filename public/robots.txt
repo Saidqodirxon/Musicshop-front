@@ -1,0 +1,28 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://music-shop.uz/sitemap.xml
+
+# Block admin and backend
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /api/
+
+# Block duplicate content
+Disallow: /*?*
+Disallow: /*#*
+
+# Allow important resources
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Crawl-delay for better server performance
+Crawl-delay: 1

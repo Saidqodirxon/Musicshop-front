@@ -1,11 +1,21 @@
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import SEO from "./SEO";
 
 const API_URL = import.meta.env.VITE_API_URL?.replace("/api", "") || "";
 
 function ProductModal({ product, isOpen, onClose }) {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || "ru";
+
+  // Update page title when modal opens
+  useEffect(() => {
+    if (isOpen && product) {
+      const productName = getLocalizedText(product.name);
+      document.title = `${productName} | MusicShopUz`;
+    }
+  }, [isOpen, product, currentLang]);
 
   if (!isOpen || !product) return null;
 
@@ -23,11 +33,44 @@ function ProductModal({ product, isOpen, onClose }) {
     return text || "";
   };
 
+  // Generate product schema for SEO
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: getLocalizedText(product.name),
+    description: getLocalizedText(product.description),
+    image: getImageSrc(product.images || product.image),
+    brand: {
+      "@type": "Brand",
+      name: "MusicShopUz",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://music-shop.uz/products`,
+      priceCurrency: "UZS",
+      price: product.price || 0,
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: "MusicShopUz",
+      },
+    },
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
       onClick={onClose}
     >
+      <SEO
+        title={getLocalizedText(product.name)}
+        description={getLocalizedText(product.description)}
+        image={getImageSrc(product.images || product.image)}
+        url="/products"
+        productSchema={productSchema}
+      />
       <div
         className="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp"
         onClick={(e) => e.stopPropagation()}

@@ -8,6 +8,7 @@ import ConsultationForm from "../../components/home/ConsultationForm";
 import FAQ from "../../components/home/FAQ";
 import ProductCard from "../../components/ProductCard";
 import ProductModal from "../../components/ProductModal";
+import SEO from "../../components/SEO";
 import { getProducts, getCategories } from "../../services/api";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -143,8 +144,107 @@ function ProductsPage() {
     );
   };
 
+  // Generate product keywords for SEO
+  const generateProductKeywords = () => {
+    const productNames = allProducts
+      .map((p) => {
+        if (typeof p.name === "object") {
+          return p.name[currentLang] || p.name.ru || p.name.uz || "";
+        }
+        return p.name || "";
+      })
+      .filter(Boolean)
+      .slice(0, 10)
+      .join(", ");
+
+    const categoryNames = categories
+      .map((c) => {
+        if (typeof c.name === "object") {
+          return c.name[currentLang] || c.name.ru || c.name.uz || "";
+        }
+        return c.name || "";
+      })
+      .filter(Boolean)
+      .join(", ");
+
+    const baseKeywords =
+      currentLang === "uz"
+        ? "musiqa asboblari, gitara, klaviatura, zarb asboblari, audio jihozlar"
+        : currentLang === "ru"
+          ? "музыкальные инструменты, гитара, синтезатор, ударные инструменты, аудиооборудование"
+          : "musical instruments, guitar, keyboard, percussion, audio equipment";
+
+    return `${baseKeywords}, ${categoryNames}, ${productNames}`;
+  };
+
+  // Generate structured data for products
+  const generateProductsSchema = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name:
+        currentLang === "uz"
+          ? "MusicShopUz Mahsulotlari"
+          : currentLang === "ru"
+            ? "Продукция MusicShopUz"
+            : "MusicShopUz Products",
+      description:
+        currentLang === "uz"
+          ? "Musiqa asboblari va jihozlarining to'liq katalogi"
+          : currentLang === "ru"
+            ? "Полный каталог музыкальных инструментов и оборудования"
+            : "Complete catalog of musical instruments and equipment",
+      itemListElement: topProducts.slice(0, 10).map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Product",
+          name:
+            typeof product.name === "object"
+              ? product.name[currentLang] || product.name.ru || product.name.uz
+              : product.name,
+          description:
+            typeof product.description === "object"
+              ? product.description[currentLang] ||
+                product.description.ru ||
+                product.description.uz
+              : product.description,
+          image: product.images?.[0]
+            ? `${API_URL}${product.images[0]}`
+            : `${API_URL}/logo.png`,
+          offers: {
+            "@type": "Offer",
+            availability: "https://schema.org/InStock",
+            priceCurrency: "UZS",
+          },
+        },
+      })),
+    };
+  };
+
+  const seoTitle =
+    currentLang === "uz"
+      ? "Mahsulotlar - Musiqa Asboblari va Jihozlari"
+      : currentLang === "ru"
+        ? "Продукция - Музыкальные инструменты и оборудование"
+        : "Products - Musical Instruments and Equipment";
+
+  const seoDescription =
+    currentLang === "uz"
+      ? `Musiqa asboblari va jihozlarining keng tanlovi. ${allProducts.length}+ mahsulot. Gitara, klaviatura, zarb asboblari, audio jihozlar. Professional xizmat va sifatli mahsulotlar.`
+      : currentLang === "ru"
+        ? `Широкий выбор музыкальных инструментов и оборудования. ${allProducts.length}+ товаров. Гитары, клавишные, ударные инструменты, аудиооборудование. Профессиональное обслуживание и качественные товары.`
+        : `Wide selection of musical instruments and equipment. ${allProducts.length}+ products. Guitars, keyboards, percussion, audio equipment. Professional service and quality products.`;
+
   return (
     <div className="bg-[#ECDFD2] min-h-screen font-sans pt-[64px] sm:pt-[120px]">
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        keywords={generateProductKeywords()}
+        url="/products"
+        productSchema={generateProductsSchema()}
+      />
       <Navbar />
       <div>
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12 lg:py-20">
